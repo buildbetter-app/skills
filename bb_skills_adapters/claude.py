@@ -1,6 +1,7 @@
 """Claude Code adapter — SKILL.md passthrough with multi-file support."""
 
 import json
+import sys
 from pathlib import Path
 
 from bb_skills_adapters.base import BaseAdapter
@@ -41,7 +42,23 @@ class ClaudeAdapter(BaseAdapter):
         path = self.settings_path()
         if not path.exists():
             return {}
-        return json.loads(path.read_text(encoding="utf-8"))
+        try:
+            settings = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            print(
+                f"Warning: Could not parse {path}: {error}. "
+                "Treating Claude settings as empty for MCP detection.",
+                file=sys.stderr,
+            )
+            return {}
+        if not isinstance(settings, dict):
+            print(
+                f"Warning: {path} does not contain a JSON object. "
+                "Treating Claude settings as empty for MCP detection.",
+                file=sys.stderr,
+            )
+            return {}
+        return settings
 
     def _save_settings(self, settings: dict) -> None:
         path = self.settings_path()

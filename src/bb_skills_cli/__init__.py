@@ -30,6 +30,24 @@ GITHUB_REPO = "buildbetter-app/BB-Skills"
 RELEASES_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 
 
+def _stdin_is_interactive() -> bool:
+    stdin = getattr(sys, "stdin", None)
+    return bool(stdin and stdin.isatty())
+
+
+def _confirm_mcp_server_configuration(adapter, missing: dict[str, dict]) -> bool:
+    if not _stdin_is_interactive():
+        console.print(
+            f"  [dim]Skipped MCP auto-configuration for {adapter.display_name}: "
+            "stdin is non-interactive. Configure MCP servers manually.[/dim]"
+        )
+        return False
+    return typer.confirm(
+        f"Add {len(missing)} MCP server(s) to {adapter.display_name} settings?",
+        default=True,
+    )
+
+
 def _find_skills_dir() -> Path:
     """Find the skills/ directory — local clone, pip-installed, or downloaded."""
     # 1. Local clone / dev checkout
@@ -233,10 +251,7 @@ def create_app(skills_dir: Optional[Path] = None) -> typer.Typer:
                         args_str = " ".join(sconf.get("args", []))
                         console.print(f"  [dim]{sname}:[/dim] {cmd} {args_str}")
 
-                    if typer.confirm(
-                        f"Add {len(missing)} MCP server(s) to {adapter.display_name} settings?",
-                        default=True,
-                    ):
+                    if _confirm_mcp_server_configuration(adapter, missing):
                         adapter.add_mcp_servers(missing)
                         console.print(f"  [green]Configured MCP server(s) for {adapter.display_name}.[/green]")
                     else:

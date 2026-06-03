@@ -97,6 +97,26 @@ description: A test
         required = {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
         assert adapter.get_missing_mcp_servers(required) == {}
 
+    def test_get_missing_mcp_servers_invalid_settings_warns(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text("{not json")
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        required = {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "Could not parse" in capsys.readouterr().err
+
+    def test_get_missing_mcp_servers_non_object_settings_warns(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text("[]")
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        required = {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "does not contain a JSON object" in capsys.readouterr().err
+
     def test_add_mcp_servers_creates_settings(self, tmp_path):
         settings_file = tmp_path / "settings.json"
         adapter = ClaudeAdapter()
