@@ -1,0 +1,48 @@
+{
+  "name": "bb-skills",
+  "version": "1.1.1",
+  "description": "BuildBetter's spec workflow and browser verification skills packaged for Codex.",
+  "author": {
+    "name": "BuildBetter",
+    "email": "eng@buildbetter.app",
+    "url": "https://github.com/buildbetter-app"
+  },
+  "homepage": "https://github.com/buildbetter-app/BB-Skills",
+  "repository": "https://github.com/buildbetter-app/BB-Skills",
+  "license": "MIT",
+  "keywords": [
+    "buildbetter",
+    "bb-skills",
+    "codex",
+    "planning",
+    "playwright",
+    "testing",
+    "spec-driven"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "BB-Skills",
+    "shortDescription": "Spec-driven planning and browser verification skills for Codex",
+    "longDescription": "Bring BuildBetter's BB-Skills workflow into Codex with spec generation, planning, review, task generation, app mapping, browser verification, and Playwright test scaffolding. This plugin packages the upstream BB-Skills prompts as Codex-local skills and includes Playwright MCP wiring for the testing pack.",
+    "developerName": "BuildBetter",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://buildbetter.ai/",
+    "privacyPolicyURL": "https://docs.buildbetter.ai/pages/Legal/privacy-policy",
+    "termsOfServiceURL": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
+    "defaultPrompt": [
+      "Turn this feature idea into a spec, plan, and tasks",
+      "Map this app and verify the UI in a browser",
+      "Generate Playwright tests from the current app flow"
+    ],
+    "brandColor": "#111827",
+    "composerIcon": "./assets/bb-skills-small.svg",
+    "logo": "./assets/app-icon.svg",
+    "screenshots": []
+  }
+}

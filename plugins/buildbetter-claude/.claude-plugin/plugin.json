@@ -1,0 +1,24 @@
+{
+  "name": "buildbetter",
+  "displayName": "BuildBetter",
+  "version": "0.1.0",
+  "description": "Use BuildBetter's MCP server and bb CLI from Claude Code.",
+  "author": {
+    "name": "BuildBetter",
+    "email": "eng@buildbetter.app",
+    "url": "https://github.com/buildbetter-app"
+  },
+  "homepage": "https://github.com/buildbetter-app/BB-Skills",
+  "repository": "https://github.com/buildbetter-app/BB-Skills",
+  "license": "MIT",
+  "keywords": [
+    "buildbetter",
+    "mcp",
+    "cli",
+    "product-ops",
+    "customer-signals"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "defaultEnabled": false
+}

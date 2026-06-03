@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "buildbetter": {
+      "type": "http",
+      "url": "https://mcp.buildbetter.app"
+    }
+  }
+}
