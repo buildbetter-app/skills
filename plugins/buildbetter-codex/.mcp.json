@@ -1,5 +1,5 @@
 {
-  "mcpServers": {
+  "mcp_servers": {
     "buildbetter": {
       "title": "BuildBetter",
       "description": "BuildBetter product-ops MCP server with OAuth for organization-scoped product data, calls, documents, signals, and chat tools.",
