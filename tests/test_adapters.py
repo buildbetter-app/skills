@@ -79,6 +79,9 @@ description: A test
         path = self.adapter.install_path("trust-but-verify")
         assert path == Path.home() / ".claude" / "skills" / "trust-but-verify"
 
+    def test_settings_path_uses_claude_mcp_config(self):
+        assert self.adapter.settings_path() == Path.home() / ".claude.json"
+
     def test_is_available(self):
         result = self.adapter.is_available()
         assert isinstance(result, bool)
@@ -119,6 +122,16 @@ description: A test
         assert adapter.get_missing_mcp_servers(required) == required
         assert "does not contain a JSON object" in capsys.readouterr().err
 
+    def test_get_missing_mcp_servers_non_object_mcp_servers_warns(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text(json.dumps({"mcpServers": []}))
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "MCP server config is not a JSON object" in capsys.readouterr().err
+
     def test_add_mcp_servers_creates_settings(self, tmp_path):
         settings_file = tmp_path / "settings.json"
         adapter = ClaudeAdapter()
@@ -145,6 +158,19 @@ description: A test
         assert data["mcpServers"]["playwright"]["command"] == "custom"
         assert "new-server" in data["mcpServers"]
         assert data["otherKey"] is True
+
+    def test_add_mcp_servers_replaces_non_object_mcp_servers(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text(json.dumps({"mcpServers": None, "otherKey": True}))
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+
+        data = json.loads(settings_file.read_text())
+        assert data["mcpServers"]["playwright"]["command"] == "npx"
+        assert data["otherKey"] is True
+        assert "MCP server config is not a JSON object" in capsys.readouterr().err
 
 
 # ---------------------------------------------------------------------------

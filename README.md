@@ -42,7 +42,7 @@ This repo includes separate BuildBetter MCP/CLI plugins for Codex and Claude Cod
 Codex:
 
 ```bash
-codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/buildbetter-codex
+codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
 codex plugin add buildbetter@buildbetter
 ```
 

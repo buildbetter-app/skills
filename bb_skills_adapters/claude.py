@@ -36,7 +36,7 @@ class ClaudeAdapter(BaseAdapter):
         return True
 
     def settings_path(self) -> Path:
-        return Path.home() / ".claude" / "settings.json"
+        return Path.home() / ".claude.json"
 
     def _load_settings(self) -> dict:
         path = self.settings_path()
@@ -68,14 +68,26 @@ class ClaudeAdapter(BaseAdapter):
         if not existed:
             path.chmod(0o600)
 
+    def _mcp_servers(self, settings: dict) -> dict:
+        existing = settings.get("mcpServers", {})
+        if isinstance(existing, dict):
+            return existing
+        print(
+            "Warning: Claude MCP server config is not a JSON object. "
+            "Treating it as empty for MCP detection.",
+            file=sys.stderr,
+        )
+        return {}
+
     def get_missing_mcp_servers(self, required: dict[str, dict]) -> dict[str, dict]:
         settings = self._load_settings()
-        existing = settings.get("mcpServers", {})
+        existing = self._mcp_servers(settings)
         return {name: config for name, config in required.items() if name not in existing}
 
     def add_mcp_servers(self, servers: dict[str, dict]) -> None:
         settings = self._load_settings()
-        mcp = settings.setdefault("mcpServers", {})
+        mcp = self._mcp_servers(settings)
+        settings["mcpServers"] = mcp
         for name, config in servers.items():
             if name not in mcp:
                 mcp[name] = config
