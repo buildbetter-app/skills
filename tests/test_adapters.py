@@ -1,7 +1,9 @@
 """Tests for platform adapters."""
 
 import json
+import os
 import pytest
+import stat
 from pathlib import Path
 from bb_skills_adapters.base import BaseAdapter, parse_skill_frontmatter
 
@@ -84,17 +86,17 @@ description: A test
     def test_get_missing_mcp_servers_no_settings(self, tmp_path):
         adapter = ClaudeAdapter()
         adapter.settings_path = lambda: tmp_path / "settings.json"
-        required = {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
         assert adapter.get_missing_mcp_servers(required) == required
 
     def test_get_missing_mcp_servers_already_configured(self, tmp_path):
         settings_file = tmp_path / "settings.json"
         settings_file.write_text(json.dumps({
-            "mcpServers": {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
+            "mcpServers": {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
         }))
         adapter = ClaudeAdapter()
         adapter.settings_path = lambda: settings_file
-        required = {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
         assert adapter.get_missing_mcp_servers(required) == {}
 
     def test_get_missing_mcp_servers_invalid_settings_warns(self, tmp_path, capsys):
@@ -102,7 +104,7 @@ description: A test
         settings_file.write_text("{not json")
         adapter = ClaudeAdapter()
         adapter.settings_path = lambda: settings_file
-        required = {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
 
         assert adapter.get_missing_mcp_servers(required) == required
         assert "Could not parse" in capsys.readouterr().err
@@ -112,7 +114,7 @@ description: A test
         settings_file.write_text("[]")
         adapter = ClaudeAdapter()
         adapter.settings_path = lambda: settings_file
-        required = {"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}}
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
 
         assert adapter.get_missing_mcp_servers(required) == required
         assert "does not contain a JSON object" in capsys.readouterr().err
@@ -121,9 +123,11 @@ description: A test
         settings_file = tmp_path / "settings.json"
         adapter = ClaudeAdapter()
         adapter.settings_path = lambda: settings_file
-        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]}})
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
         data = json.loads(settings_file.read_text())
         assert "playwright" in data["mcpServers"]
+        if os.name != "nt":
+            assert stat.S_IMODE(settings_file.stat().st_mode) == 0o600
 
     def test_add_mcp_servers_preserves_existing(self, tmp_path):
         settings_file = tmp_path / "settings.json"
@@ -134,7 +138,7 @@ description: A test
         adapter = ClaudeAdapter()
         adapter.settings_path = lambda: settings_file
         adapter.add_mcp_servers({
-            "playwright": {"command": "npx", "args": ["@anthropic-ai/mcp-server-playwright"]},
+            "playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]},
             "new-server": {"command": "npx", "args": ["new-server"]},
         })
         data = json.loads(settings_file.read_text())

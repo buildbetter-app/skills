@@ -11,4 +11,4 @@ dependencies:
 mcp_servers:
   playwright:
     command: npx
-    args: ["@anthropic-ai/mcp-server-playwright"]
+    args: ["@playwright/mcp@0.0.75"]

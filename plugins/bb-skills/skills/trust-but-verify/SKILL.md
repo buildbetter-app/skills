@@ -97,11 +97,11 @@ mkdir -p docs/verification
 **Initial Load & Authentication:**
 1. Navigate to the App URL with `mcp__playwright__browser_navigate`
 2. `mcp__playwright__browser_snapshot` to see what's on screen
-3. **If there's a login form:** ask the user for credentials (email/password), fill the form, submit, wait for redirect. Save credentials to `reference_local_auth.md` for future runs.
+3. **If there's a login form:** ask the user for local/test-only credentials (email/password), fill the form, submit, wait for redirect. Do not use production or personal credentials. Save credentials to `reference_local_auth.md` for future runs with owner-only permissions (`chmod 600`).
 4. **If there's a workspace/org selector or first-run setup:** handle it (select first option or ask user which to pick)
 5. **If the app loads directly:** proceed — no auth needed
 6. If login fails or redirects back to login: ask user to verify credentials
-7. On future runs, if `reference_local_auth.md` has saved credentials, use them automatically. Only ask the user again if they fail.
+7. On future runs, if `reference_local_auth.md` has saved credentials and the saved App URL matches the current local/test target, use them automatically. Only ask the user again if they fail.
 
 **For each checklist item:**
 
@@ -213,6 +213,7 @@ The full report follows this structure:
 
 - **Never skip the preflight check.** Always verify the server is reachable before browser work.
 - **Never hardcode credentials.** Read from memory or ask the user.
+- **Never use production credentials.** Verification may save reusable credentials and browser sessions locally.
 - **Never modify code.** This skill only verifies -- it does not fix issues it finds.
 - **Never run services without asking.** Check reachability first, ask permission.
 - **Don't test pages unrelated to the plan.** Stay scoped to what changed.

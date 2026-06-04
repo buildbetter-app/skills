@@ -83,7 +83,11 @@ export default defineConfig({
 });
 ```
 
-4. **Directories:** Create `tests/e2e/` and `tests/e2e/.auth/` if they don't exist
+4. **Directories:** Create `tests/e2e/` and `tests/e2e/.auth/` if they don't exist, then restrict auth artifacts:
+   ```bash
+   mkdir -p tests/e2e/.auth
+   chmod 700 tests/e2e/.auth
+   ```
 
 5. **Gitignore:** Add `tests/e2e/.auth/` and `.env.test.local` to `.gitignore` if not present
 
@@ -100,6 +104,12 @@ BB_TEST_PASSWORD=<password from memory>
 BB_TEST_BASE_URL=<app URL from memory, default http://localhost:5173>
 ```
 
+Use only local/test credentials. After writing `.env.test.local`, restrict it to the current user:
+
+```bash
+chmod 600 .env.test.local
+```
+
 **Generate `tests/e2e/auth.setup.ts`:**
 - Read `BB_TEST_EMAIL` and `BB_TEST_PASSWORD` from `process.env`
 - Navigate to the login URL (e.g., `http://localhost:5173/login`)
@@ -108,9 +118,9 @@ BB_TEST_BASE_URL=<app URL from memory, default http://localhost:5173>
 - Click the submit/login button
 - Wait for redirect through the OAuth callback path (e.g., `/auth/callback`) back to the app domain
 - If an org selector appears: select the first org or one matching `BB_TEST_ORG` env var
-- Save `storageState` to `tests/e2e/.auth/user.json`
+- Save `storageState` to `tests/e2e/.auth/user.json`, then run `chmod 600 tests/e2e/.auth/user.json`
 
-The auth setup captures cookies from all domains visited (app + auth), which preserves the auth session across tests.
+The auth setup captures cookies from all domains visited (app + auth), which preserves the auth session across tests. Treat `tests/e2e/.auth/user.json` as a local secret because it can contain bearer-equivalent session cookies.
 
 **Important:** The exact login flow (field names, redirect chain, org selector) comes from `playbooks/auth.md`. Read it carefully — don't assume a generic login form.
 
@@ -192,7 +202,9 @@ Running `/generate-tests` again overwrites all files with the `AUTO-GENERATED` h
 ## Red Flags
 
 - **Never hardcode credentials** in test files. Always use env vars.
+- **Never use production credentials.** Generated tests persist local secrets and session cookies.
 - **Never commit `.env.test.local`** — it contains real credentials.
+- **Never commit `tests/e2e/.auth/`** — it contains authenticated browser state.
 - **Never auto-commit** generated tests. Let the user review and commit.
 - **Don't generate tests without an app-map.** The map is the source of truth.
 - **Don't invent selectors.** Every element name and assertion comes from the app-map.

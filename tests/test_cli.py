@@ -127,7 +127,7 @@ class TestCLIMcpConfiguration:
             "mcp_servers:\n"
             "  playwright:\n"
             "    command: npx\n"
-            "    args: ['@anthropic-ai/mcp-server-playwright']\n"
+            "    args: ['@playwright/mcp@0.0.75']\n"
         )
         skill_dir = testing_dir / "app-navigator"
         skill_dir.mkdir()

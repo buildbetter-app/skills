@@ -81,9 +81,16 @@ If it does NOT exist, ask the user:
 > 3. App URL (default: http://localhost:5173)
 > 4. Login path (default: /login)
 >
-> These will be saved to your project memory for future use."
+> Use a local or test-only account with minimum permissions. Do not provide production or personal credentials.
+>
+> These will be saved to your project memory for future use with owner-only file permissions."
 
 Save their response to `~/.claude/projects/<project>/memory/reference_local_auth.md`:
+
+```bash
+mkdir -p ~/.claude/projects/<project>/memory
+chmod 700 ~/.claude/projects/<project>/memory
+```
 
 ```
 ---
@@ -98,7 +105,13 @@ type: reference
 - Login path: <user-provided, default /login>
 ```
 
-Update `MEMORY.md` with a pointer to this file.
+After writing the file, restrict it to the current user:
+
+```bash
+chmod 600 ~/.claude/projects/<project>/memory/reference_local_auth.md
+```
+
+Update `MEMORY.md` with a pointer to this file. Only reuse saved credentials when the saved App URL matches the current local or test target.
 
 ### Step 2: Preflight -- Dev Server Check
 
@@ -205,6 +218,7 @@ After all mapping is complete, close the browser with `mcp__playwright__browser_
 ## Red Flags
 
 - **Never hardcode credentials** in SKILL.md or playbooks. Always read from memory.
+- **Never use production credentials.** Browser mapping stores reusable local secrets; use local/test-only accounts with minimum permissions.
 - **Never run services without asking.** Check first, ask permission, then start.
 - **Don't map parametric sub-pages** (like /users/:id). Stick to top-level nav routes.
 - **Don't screenshot behind auth walls you can't pass.** If a page requires special permissions, note it and skip.

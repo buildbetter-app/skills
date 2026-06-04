@@ -24,7 +24,7 @@ This plugin bundles the BuildBetter BB-Skills prompts as Codex-local skills and 
 
 - Skills are flattened under `./skills/` for straightforward Codex plugin discovery.
 - Shared templates are bundled under `./templates/`.
-- The testing pack uses `./.mcp.json` to register the Playwright MCP server via `npx @playwright/mcp@latest`.
+- The testing pack uses `./.mcp.json` to register the Playwright MCP server via pinned `npx @playwright/mcp@0.0.75`; update the pin through normal dependency review.
 - The Codex-adapted testing skills write app maps and playbooks to `docs/verification/app-navigator/`.
 - The Codex-adapted testing skills store local auth memory in `~/.codex/memories/<project-slug>/reference_local_auth.md`.
 - `bb-skills-update` remains a CLI-oriented updater for users who also install the optional `bb-skills` Python package.

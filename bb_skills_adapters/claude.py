@@ -63,7 +63,10 @@ class ClaudeAdapter(BaseAdapter):
     def _save_settings(self, settings: dict) -> None:
         path = self.settings_path()
         path.parent.mkdir(parents=True, exist_ok=True)
+        existed = path.exists()
         path.write_text(json.dumps(settings, indent=2) + "\n", encoding="utf-8")
+        if not existed:
+            path.chmod(0o600)
 
     def get_missing_mcp_servers(self, required: dict[str, dict]) -> dict[str, dict]:
         settings = self._load_settings()
