@@ -68,7 +68,7 @@ Use `--dry-run --json` before sending when the user wants to inspect the payload
 Codex install flow:
 
 ```bash
-codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/buildbetter-codex
+codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
 codex plugin add buildbetter@buildbetter
 ```
 

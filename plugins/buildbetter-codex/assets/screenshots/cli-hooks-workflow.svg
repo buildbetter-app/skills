@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#F8FAFC"/>
+  <rect x="64" y="64" width="1152" height="592" rx="24" fill="#0F172A"/>
+  <text x="104" y="128" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">BuildBetter bb CLI workflow</text>
+  <text x="104" y="174" font-family="Arial, sans-serif" font-size="20" fill="#CBD5E1">Codex checks local CLI health, installs hooks, and sends inspected feedback payloads.</text>
+  <rect x="104" y="230" width="484" height="292" rx="12" fill="#111827" stroke="#334155"/>
+  <text x="136" y="282" font-family="Arial, sans-serif" font-size="22" fill="#93C5FD">$ bb doctor</text>
+  <text x="136" y="330" font-family="Arial, sans-serif" font-size="22" fill="#86EFAC">$ bb hooks doctor --agent codex</text>
+  <text x="136" y="378" font-family="Arial, sans-serif" font-size="22" fill="#FDE68A">$ bb feedback --dry-run --json</text>
+  <rect x="660" y="230" width="456" height="292" rx="12" fill="#ECFDF5" stroke="#86EFAC"/>
+  <text x="692" y="284" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#166534">Safety behavior</text>
+  <text x="692" y="334" font-family="Arial, sans-serif" font-size="22" fill="#166534">Inspect before sending feedback</text>
+  <text x="692" y="382" font-family="Arial, sans-serif" font-size="22" fill="#166534">Repair hooks only when requested</text>
+  <text x="692" y="430" font-family="Arial, sans-serif" font-size="22" fill="#166534">Never print secrets from auth stores</text>
+</svg>

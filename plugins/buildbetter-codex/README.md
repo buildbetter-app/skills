@@ -5,7 +5,7 @@ This Codex plugin bundles BuildBetter MCP configuration plus guidance for the lo
 Install from the BB-Skills marketplace:
 
 ```bash
-codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/buildbetter-codex
+codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
 codex plugin add buildbetter@buildbetter
 ```
 

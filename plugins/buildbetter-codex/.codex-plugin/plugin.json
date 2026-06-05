@@ -39,6 +39,11 @@
       "Prepare this BuildBetter plugin for sharing."
     ],
     "brandColor": "#155EEF",
-    "screenshots": []
+    "composerIcon": "./assets/buildbetter-small.svg",
+    "logo": "./assets/buildbetter-app-icon.svg",
+    "screenshots": [
+      "./assets/screenshots/product-signal-workflow.svg",
+      "./assets/screenshots/cli-hooks-workflow.svg"
+    ]
   }
 }

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#F8FAFC"/>
+  <rect x="72" y="70" width="1136" height="580" rx="20" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <rect x="72" y="70" width="1136" height="64" rx="20" fill="#111827"/>
+  <circle cx="112" cy="102" r="8" fill="#F87171"/>
+  <circle cx="140" cy="102" r="8" fill="#FBBF24"/>
+  <circle cx="168" cy="102" r="8" fill="#34D399"/>
+  <text x="104" y="190" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">Browser verification skills</text>
+  <text x="104" y="234" font-family="Arial, sans-serif" font-size="20" fill="#475569">App Navigator maps routes, Trust But Verify checks behavior, Generate Tests creates Playwright coverage.</text>
+  <rect x="104" y="292" width="304" height="236" rx="12" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="136" y="346" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1E3A8A">Map app</text>
+  <text x="136" y="394" font-family="Arial, sans-serif" font-size="20" fill="#1E40AF">Routes, auth, playbooks</text>
+  <rect x="488" y="292" width="304" height="236" rx="12" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="520" y="346" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#166534">Verify UI</text>
+  <text x="520" y="394" font-family="Arial, sans-serif" font-size="20" fill="#166534">Screenshots and findings</text>
+  <rect x="872" y="292" width="240" height="236" rx="12" fill="#FEFCE8" stroke="#FDE68A"/>
+  <text x="904" y="346" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#854D0E">Generate</text>
+  <text x="904" y="394" font-family="Arial, sans-serif" font-size="20" fill="#854D0E">E2E tests</text>
+</svg>

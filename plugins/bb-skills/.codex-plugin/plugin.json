@@ -43,6 +43,9 @@
     "brandColor": "#111827",
     "composerIcon": "./assets/bb-skills-small.svg",
     "logo": "./assets/app-icon.svg",
-    "screenshots": []
+    "screenshots": [
+      "./assets/screenshots/spec-workflow.svg",
+      "./assets/screenshots/browser-verification.svg"
+    ]
   }
 }
