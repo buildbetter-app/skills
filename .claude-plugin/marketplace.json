@@ -1,0 +1,23 @@
+{
+  "name": "buildbetter",
+  "owner": {
+    "name": "BuildBetter",
+    "email": "eng@buildbetter.app"
+  },
+  "description": "BuildBetter plugins for product-ops context, MCP, and local CLI workflows.",
+  "plugins": [
+    {
+      "name": "buildbetter",
+      "source": "./plugins/buildbetter-claude",
+      "displayName": "BuildBetter",
+      "description": "Use BuildBetter's MCP server and bb CLI from Claude Code.",
+      "category": "Developer Tools",
+      "tags": [
+        "buildbetter",
+        "mcp",
+        "cli",
+        "product-ops"
+      ]
+    }
+  ]
+}

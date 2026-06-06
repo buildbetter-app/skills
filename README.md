@@ -31,6 +31,28 @@ bb-skills install testing          # browser testing skills
 bb-skills install all              # everything
 ```
 
+### Option C: Codex plugin package
+
+This repo also includes a Codex plugin package at `plugins/bb-skills/` plus a repo-local marketplace entry at `.agents/plugins/marketplace.json`. The plugin bundles the same BB-Skills prompts for Codex and includes Playwright MCP wiring for the browser-testing skills.
+
+### Option D: BuildBetter MCP/CLI plugins
+
+This repo includes separate BuildBetter MCP/CLI plugins for Codex and Claude Code under `plugins/buildbetter-codex/` and `plugins/buildbetter-claude/`. They are separate packages because Codex and Claude Code use different plugin manifest directories and remote MCP config schemas.
+
+Codex:
+
+```bash
+codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
+codex plugin add buildbetter@buildbetter
+```
+
+Claude Code:
+
+```bash
+claude plugin marketplace add buildbetter-app/BB-Skills --sparse .claude-plugin plugins/buildbetter-claude
+claude plugin install buildbetter@buildbetter
+```
+
 ### 3. Use them
 
 Skills are installed into your AI coding agent. On platforms with slash commands (Claude Code, Codex, Gemini):

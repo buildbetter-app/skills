@@ -70,7 +70,7 @@ digraph setup {
 
 ### Step 1: Credential Check
 
-Read the memory file at `~/.claude/projects/<project>/memory/reference_local_auth.md`.
+Derive a project slug from the current workspace basename (lowercase, replace non-alphanumeric characters with `-`) and read the memory file at `~/.codex/memories/<project-slug>/reference_local_auth.md`.
 
 If it exists, extract: Email, Password, App URL, Login path.
 
@@ -85,11 +85,11 @@ If it does NOT exist, ask the user:
 >
 > These will be saved to your project memory for future use with owner-only file permissions."
 
-Save their response to `~/.claude/projects/<project>/memory/reference_local_auth.md`:
+Save their response to `~/.codex/memories/<project-slug>/reference_local_auth.md`:
 
 ```bash
-mkdir -p ~/.claude/projects/<project>/memory
-chmod 700 ~/.claude/projects/<project>/memory
+mkdir -p ~/.codex/memories/<project-slug>
+chmod 700 ~/.codex/memories/<project-slug>
 ```
 
 ```
@@ -108,10 +108,10 @@ type: reference
 After writing the file, restrict it to the current user:
 
 ```bash
-chmod 600 ~/.claude/projects/<project>/memory/reference_local_auth.md
+chmod 600 ~/.codex/memories/<project-slug>/reference_local_auth.md
 ```
 
-Update `MEMORY.md` with a pointer to this file. Only reuse saved credentials when the saved App URL matches the current local or test target.
+No separate memory index file is required. Only reuse saved credentials when the saved App URL matches the current local or test target.
 
 ### Step 2: Preflight -- Dev Server Check
 
@@ -151,14 +151,14 @@ For each top-level navigation route (sidebar items, nav bar links):
 1. `mcp__playwright__browser_click` on the nav item
 2. `mcp__playwright__browser_wait_for` with `text` set to a key element on the target page
 3. `mcp__playwright__browser_snapshot` to capture the page structure
-4. `mcp__playwright__browser_take_screenshot` with `filename` set to an absolute path (resolve `~` via `echo $HOME` first), e.g., `/Users/<user>/.claude/skills/app-navigator/screenshots/<page-slug>.png`
+4. `mcp__playwright__browser_take_screenshot` with `filename` set to an absolute path, e.g., `<repo>/docs/verification/app-navigator/screenshots/<page-slug>.png`
 5. Record: URL, page title, key elements visible, available interactions
 
-To map to source components, dispatch a subagent with the `setup-prompt.md` template, providing the list of discovered routes. The subagent uses `Grep` and `Glob` to search `src/` for route definitions and component files.
+To map discovered routes back to source components, dispatch a subagent with a concise prompt containing the route list. The subagent should use `Grep` and `Glob` to search `src/` for route definitions and component files.
 
 ### Step 5: Write Playbooks
 
-Write three markdown playbooks based on what was discovered:
+Write three markdown playbooks under `docs/verification/app-navigator/playbooks/` based on what was discovered:
 
 **`playbooks/auth.md`** -- Document the exact MCP tool call sequence to log in:
 - Which URL to navigate to
@@ -182,7 +182,7 @@ Write three markdown playbooks based on what was discovered:
 
 ### Step 6: Save Documentation
 
-Write `app-map.md` with this structure:
+Write `docs/verification/app-navigator/app-map.md` with this structure:
 
 ```
 # App Map
@@ -201,7 +201,7 @@ Write `app-map.md` with this structure:
 - **Source Component:** src/path/to/Component.tsx
 ```
 
-Write `component-map.md`:
+Write `docs/verification/app-navigator/component-map.md`:
 
 ```
 # Component Map
@@ -240,5 +240,5 @@ If the user says yes, invoke the trust-but-verify skill.
 
 ## Integration
 
-- **Used by:** trust-but-verify (reads app-map.md and playbooks)
-- **Credentials shared with:** Any skill that reads `reference_local_auth.md` from memory
+- **Used by:** trust-but-verify and generate-tests (read `docs/verification/app-navigator/`)
+- **Credentials shared with:** Any skill that reads `~/.codex/memories/<project-slug>/reference_local_auth.md`

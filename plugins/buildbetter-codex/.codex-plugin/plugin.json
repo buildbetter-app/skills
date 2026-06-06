@@ -1,0 +1,49 @@
+{
+  "name": "buildbetter",
+  "version": "0.1.0",
+  "description": "Use BuildBetter's MCP server and bb CLI from Codex.",
+  "author": {
+    "name": "BuildBetter",
+    "email": "eng@buildbetter.app",
+    "url": "https://github.com/buildbetter-app"
+  },
+  "homepage": "https://github.com/buildbetter-app/BB-Skills",
+  "repository": "https://github.com/buildbetter-app/BB-Skills",
+  "license": "MIT",
+  "keywords": [
+    "buildbetter",
+    "mcp",
+    "cli",
+    "product-ops",
+    "customer-signals"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "BuildBetter",
+    "shortDescription": "Use BuildBetter MCP and bb CLI",
+    "longDescription": "Connect Codex to BuildBetter's MCP server for product-ops context, customer-signal lookup, and organization-aware workflows. The bundled skill also documents local bb CLI setup, health checks, feedback hooks, and plugin sharing/submission steps.",
+    "developerName": "BuildBetter",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Interactive"
+    ],
+    "websiteURL": "https://buildbetter.ai/",
+    "privacyPolicyURL": "https://docs.buildbetter.ai/pages/Legal/privacy-policy",
+    "termsOfServiceURL": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
+    "defaultPrompt": [
+      "Use BuildBetter to find product signals for this work.",
+      "Check bb CLI health and install hooks for this repo.",
+      "Prepare this BuildBetter plugin for sharing."
+    ],
+    "brandColor": "#155EEF",
+    "composerIcon": "./assets/buildbetter-small.svg",
+    "logo": "./assets/buildbetter-app-icon.svg",
+    "screenshots": [
+      "./assets/screenshots/product-signal-workflow.svg",
+      "./assets/screenshots/cli-hooks-workflow.svg"
+    ]
+  }
+}

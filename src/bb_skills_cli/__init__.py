@@ -30,6 +30,24 @@ GITHUB_REPO = "buildbetter-app/BB-Skills"
 RELEASES_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 
 
+def _stdin_is_interactive() -> bool:
+    stdin = getattr(sys, "stdin", None)
+    return bool(stdin and stdin.isatty())
+
+
+def _confirm_mcp_server_configuration(adapter, missing: dict[str, dict]) -> bool:
+    if not _stdin_is_interactive():
+        console.print(
+            f"  [dim]Skipped MCP auto-configuration for {adapter.display_name}: "
+            "stdin is non-interactive. Configure MCP servers manually.[/dim]"
+        )
+        return False
+    return typer.confirm(
+        f"Add {len(missing)} MCP server(s) to {adapter.display_name} settings?",
+        default=True,
+    )
+
+
 def _find_skills_dir() -> Path:
     """Find the skills/ directory — local clone, pip-installed, or downloaded."""
     # 1. Local clone / dev checkout
@@ -210,6 +228,34 @@ def create_app(skills_dir: Optional[Path] = None) -> typer.Typer:
         for pack_name, skill_list in installed_packs.items():
             manifest.add_pack(pack_name, skill_list)
         manifest.save()
+
+        # Configure MCP servers if required by installed packs
+        all_mcp_servers: dict[str, dict] = {}
+        for pack_name in installed_packs:
+            pack_data = packs.get(pack_name, {})
+            for server_name, server_config in pack_data.get("mcp_servers", {}).items():
+                if server_name not in all_mcp_servers:
+                    all_mcp_servers[server_name] = server_config
+
+        if all_mcp_servers:
+            for adapter in adapters:
+                missing = adapter.get_missing_mcp_servers(all_mcp_servers)
+                if missing:
+                    server_list = ", ".join(missing.keys())
+                    console.print(
+                        f"\n[bold]{adapter.display_name}:[/bold] "
+                        f"Required MCP server(s) not configured: {server_list}"
+                    )
+                    for sname, sconf in missing.items():
+                        cmd = sconf.get("command", "")
+                        args_str = " ".join(sconf.get("args", []))
+                        console.print(f"  [dim]{sname}:[/dim] {cmd} {args_str}")
+
+                    if _confirm_mcp_server_configuration(adapter, missing):
+                        adapter.add_mcp_servers(missing)
+                        console.print(f"  [green]Configured MCP server(s) for {adapter.display_name}.[/green]")
+                    else:
+                        console.print("  [dim]Skipped. You can configure MCP servers manually.[/dim]")
 
         # Prompt for API key if spec-workflow was installed and not configured
         has_spec_workflow = any(p == "spec-workflow" for p, _, _ in targets)

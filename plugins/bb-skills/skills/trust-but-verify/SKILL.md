@@ -16,7 +16,7 @@ Verify that a feature implementation actually matches its plan by testing it in 
 - When a plan exists in `docs/plans/` for the current work
 - When the diff touches frontend source files (UI changes)
 - When you want confidence that the UI matches the spec
-- When recommended by `superpowers:finishing-a-development-branch`
+- When recommended by your branch-finishing workflow
 
 **Not for:** Backend-only changes, API-only work, or branches without a plan.
 
@@ -39,7 +39,7 @@ digraph trust_but_verify {
 
 ### Phase 0: Check for App Navigator
 
-Before starting, check if `~/.claude/skills/app-navigator/app-map.md` exists.
+Before starting, check if `docs/verification/app-navigator/app-map.md` exists.
 
 **If it does NOT exist:**
 > "I notice the app hasn't been mapped yet. Running `/app-navigator setup` first will map all your routes, build login playbooks, and document UI patterns — which makes verification much faster and more accurate.
@@ -59,8 +59,8 @@ The subagent reads:
 - The ExecPlan from `docs/plans/` (find the most recent plan matching the branch name or topic)
 - `git diff main...HEAD` to see what files changed
 - `gh pr view` to get PR description (if a PR exists)
-- `~/.claude/skills/app-navigator/app-map.md` (if it exists)
-- `~/.claude/skills/app-navigator/playbooks/` (if they exist)
+- `docs/verification/app-navigator/app-map.md` (if it exists)
+- `docs/verification/app-navigator/playbooks/` (if they exist)
 
 The subagent returns a **verification checklist** — a structured markdown document listing:
 - Pages/routes to visit
@@ -72,7 +72,7 @@ The subagent returns a **verification checklist** — a structured markdown docu
 
 ### Phase 2: Preflight Check
 
-**App URL:** Read `~/.claude/projects/<project>/memory/reference_local_auth.md`.
+**App URL:** Read `~/.codex/memories/<project-slug>/reference_local_auth.md`.
 - If found: extract the App URL
 - If not found: ask the user for the local app URL (e.g. `http://localhost:5173`), save it
 
@@ -222,6 +222,6 @@ The full report follows this structure:
 ## Integration
 
 - **Depends on:** app-navigator (optional but recommended -- provides playbooks and app map)
-- **Credential source:** Detected automatically from the browser. Saved to `reference_local_auth.md` in project memory after first successful login.
-- **Recommended by:** superpowers:finishing-a-development-branch
-- **Can be invoked after:** superpowers:executing-plans, superpowers:subagent-driven-development
+- **Credential source:** Detected automatically from the browser. Saved to `~/.codex/memories/<project-slug>/reference_local_auth.md` after first successful login.
+- **Recommended by:** app-navigator or a repo's normal branch-finishing workflow
+- **Can be invoked after:** implementation or review work when a plan and runnable UI are available

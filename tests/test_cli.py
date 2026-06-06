@@ -89,3 +89,55 @@ class TestCLIPlatforms:
         result = runner.invoke(app, ["platforms"])
         assert result.exit_code == 0
         assert "Platform" in result.output or "Claude" in result.output
+
+
+class TestCLIMcpConfiguration:
+    def test_install_skips_mcp_prompt_when_stdin_non_interactive(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(Manifest, "DEFAULT_PATH", tmp_path / ".bb-skills" / "manifest.json")
+        skills_dir = tmp_path / "skills"
+
+        core_dir = skills_dir / "core"
+        core_dir.mkdir(parents=True)
+        (core_dir / "pack.yml").write_text(
+            "name: core\n"
+            "display_name: Core\n"
+            "description: Core skills\n"
+            "version: 1.0.0\n"
+            "skills:\n"
+            "  - bb-skills-update\n"
+            "dependencies: []\n"
+        )
+        core_skill_dir = core_dir / "bb-skills-update"
+        core_skill_dir.mkdir()
+        (core_skill_dir / "SKILL.md").write_text(
+            "---\nname: bb-skills-update\ndescription: Update skills\n---\n\n# Update"
+        )
+
+        testing_dir = skills_dir / "testing"
+        testing_dir.mkdir()
+        (testing_dir / "pack.yml").write_text(
+            "name: testing\n"
+            "display_name: Browser Testing\n"
+            "description: Test skills\n"
+            "version: 1.0.0\n"
+            "skills:\n"
+            "  - app-navigator\n"
+            "dependencies:\n"
+            "  - core\n"
+            "mcp_servers:\n"
+            "  playwright:\n"
+            "    command: npx\n"
+            "    args: ['@playwright/mcp@0.0.75']\n"
+        )
+        skill_dir = testing_dir / "app-navigator"
+        skill_dir.mkdir()
+        (skill_dir / "SKILL.md").write_text(
+            "---\nname: app-navigator\ndescription: Map app\n---\n\n# Nav"
+        )
+
+        app = create_app(skills_dir=skills_dir)
+        result = runner.invoke(app, ["install", "testing", "--platform", "claude"], env={"HOME": str(tmp_path)})
+
+        assert result.exit_code == 0
+        assert "stdin is non-interactive" in result.output
+        assert not (tmp_path / ".claude" / "settings.json").exists()

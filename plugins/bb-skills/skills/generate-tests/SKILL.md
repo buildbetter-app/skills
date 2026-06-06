@@ -44,7 +44,7 @@ digraph generate_tests {
 
 ### Phase 1: Prerequisites
 
-1. **App map:** Check `~/.claude/skills/app-navigator/app-map.md` exists
+1. **App map:** Check `docs/verification/app-navigator/app-map.md` exists
    - If no: "Run `/app-navigator setup` first — I need the app map to generate tests." Offer to invoke it.
 
 2. **Playwright installed:** Check if `@playwright/test` is in root `package.json` devDependencies
@@ -94,8 +94,8 @@ export default defineConfig({
 ### Phase 2: Generate Auth Setup
 
 Read:
-- `~/.claude/skills/app-navigator/playbooks/auth.md` for the login flow
-- `~/.claude/projects/<project>/memory/reference_local_auth.md` for credentials
+- `docs/verification/app-navigator/playbooks/auth.md` for the login flow
+- `~/.codex/memories/<project-slug>/reference_local_auth.md` for credentials
 
 **Create `.env.test.local`** (gitignored) from memory credentials:
 ```
@@ -127,9 +127,9 @@ The auth setup captures cookies from all domains visited (app + auth), which pre
 ### Phase 3: Generate Page Tests
 
 Read:
-- `~/.claude/skills/app-navigator/app-map.md` — routes, key elements, interactions
-- `~/.claude/skills/app-navigator/playbooks/navigation.md` — how to navigate
-- `~/.claude/skills/app-navigator/playbooks/interactions.md` — common UI patterns
+- `docs/verification/app-navigator/app-map.md` — routes, key elements, interactions
+- `docs/verification/app-navigator/playbooks/navigation.md` — how to navigate
+- `docs/verification/app-navigator/playbooks/interactions.md` — common UI patterns
 
 For each route in the app map, generate `tests/e2e/<page-slug>.spec.ts`.
 
@@ -220,6 +220,6 @@ If the user says yes, invoke the trust-but-verify skill.
 ## Integration
 
 - **Depends on:** app-navigator (reads app-map.md and playbooks)
-- **Credential source:** `reference_local_auth.md` in project memory → `.env.test.local`
+- **Credential source:** `~/.codex/memories/<project-slug>/reference_local_auth.md` → `.env.test.local`
 - **Recommended by:** app-navigator (after setup), trust-but-verify (if no tests exist)
 - **Recommends:** trust-but-verify (after generation)

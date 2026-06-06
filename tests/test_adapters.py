@@ -1,6 +1,9 @@
 """Tests for platform adapters."""
 
+import json
+import os
 import pytest
+import stat
 from pathlib import Path
 from bb_skills_adapters.base import BaseAdapter, parse_skill_frontmatter
 
@@ -76,9 +79,98 @@ description: A test
         path = self.adapter.install_path("trust-but-verify")
         assert path == Path.home() / ".claude" / "skills" / "trust-but-verify"
 
+    def test_settings_path_uses_claude_mcp_config(self):
+        assert self.adapter.settings_path() == Path.home() / ".claude.json"
+
     def test_is_available(self):
         result = self.adapter.is_available()
         assert isinstance(result, bool)
+
+    def test_get_missing_mcp_servers_no_settings(self, tmp_path):
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: tmp_path / "settings.json"
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+        assert adapter.get_missing_mcp_servers(required) == required
+
+    def test_get_missing_mcp_servers_already_configured(self, tmp_path):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text(json.dumps({
+            "mcpServers": {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+        }))
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+        assert adapter.get_missing_mcp_servers(required) == {}
+
+    def test_get_missing_mcp_servers_invalid_settings_warns(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text("{not json")
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "Could not parse" in capsys.readouterr().err
+
+    def test_get_missing_mcp_servers_non_object_settings_warns(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text("[]")
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "does not contain a JSON object" in capsys.readouterr().err
+
+    def test_get_missing_mcp_servers_non_object_mcp_servers_warns(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text(json.dumps({"mcpServers": []}))
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "MCP server config is not a JSON object" in capsys.readouterr().err
+
+    def test_add_mcp_servers_creates_settings(self, tmp_path):
+        settings_file = tmp_path / "settings.json"
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+        data = json.loads(settings_file.read_text())
+        assert "playwright" in data["mcpServers"]
+        if os.name != "nt":
+            assert stat.S_IMODE(settings_file.stat().st_mode) == 0o600
+
+    def test_add_mcp_servers_preserves_existing(self, tmp_path):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text(json.dumps({
+            "mcpServers": {"playwright": {"command": "custom", "args": ["--custom"]}},
+            "otherKey": True,
+        }))
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+        adapter.add_mcp_servers({
+            "playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]},
+            "new-server": {"command": "npx", "args": ["new-server"]},
+        })
+        data = json.loads(settings_file.read_text())
+        assert data["mcpServers"]["playwright"]["command"] == "custom"
+        assert "new-server" in data["mcpServers"]
+        assert data["otherKey"] is True
+
+    def test_add_mcp_servers_replaces_non_object_mcp_servers(self, tmp_path, capsys):
+        settings_file = tmp_path / "settings.json"
+        settings_file.write_text(json.dumps({"mcpServers": None, "otherKey": True}))
+        adapter = ClaudeAdapter()
+        adapter.settings_path = lambda: settings_file
+
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+
+        data = json.loads(settings_file.read_text())
+        assert data["mcpServers"]["playwright"]["command"] == "npx"
+        assert data["otherKey"] is True
+        assert "MCP server config is not a JSON object" in capsys.readouterr().err
 
 
 # ---------------------------------------------------------------------------

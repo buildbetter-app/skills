@@ -1,0 +1,12 @@
+{
+  "mcp_servers": {
+    "buildbetter": {
+      "title": "BuildBetter",
+      "description": "BuildBetter product-ops MCP server with OAuth for organization-scoped product data, calls, documents, signals, and chat tools.",
+      "url": "https://mcp.buildbetter.app",
+      "oauth_resource": "https://mcp.buildbetter.app",
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 60
+    }
+  }
+}

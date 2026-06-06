@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#F8FAFC"/>
+  <rect x="56" y="56" width="1168" height="608" rx="24" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="96" y="124" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#0F172A">BuildBetter product-signal workflow</text>
+  <text x="96" y="168" font-family="Arial, sans-serif" font-size="20" fill="#475569">Codex uses BuildBetter MCP to find customer evidence, cite stable IDs, and shape product work.</text>
+  <rect x="96" y="222" width="496" height="332" rx="14" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="128" y="276" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1E3A8A">Prompt</text>
+  <text x="128" y="326" font-family="Arial, sans-serif" font-size="22" fill="#1E40AF">Use BuildBetter to find SSO onboarding</text>
+  <text x="128" y="360" font-family="Arial, sans-serif" font-size="22" fill="#1E40AF">signals for this spec and cite evidence.</text>
+  <rect x="656" y="222" width="472" height="332" rx="14" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="688" y="276" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#166534">Tool path</text>
+  <text x="688" y="326" font-family="Arial, sans-serif" font-size="22" fill="#166534">search-signals -> get-call -> final answer</text>
+  <text x="688" y="376" font-family="Arial, sans-serif" font-size="22" fill="#166534">Evidence IDs: signal_*, call_*</text>
+  <text x="688" y="426" font-family="Arial, sans-serif" font-size="22" fill="#166534">No writes without user request</text>
+  <rect x="96" y="590" width="1032" height="36" rx="18" fill="#155EEF"/>
+  <text x="128" y="615" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Outcome: concise product context grounded in organization-scoped customer data.</text>
+</svg>
