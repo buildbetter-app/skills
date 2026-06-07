@@ -4,6 +4,7 @@ import json
 import os
 import pytest
 import stat
+import tomllib
 from pathlib import Path
 from bb_skills_adapters.base import BaseAdapter, parse_skill_frontmatter
 
@@ -211,9 +212,110 @@ description: A test
         path = self.adapter.install_path("trust-but-verify")
         assert path == Path.home() / ".codex" / "skills" / "trust-but-verify"
 
+    def test_config_path_uses_codex_config_toml(self):
+        assert self.adapter.config_path() == Path.home() / ".codex" / "config.toml"
+
     def test_is_available(self):
         result = self.adapter.is_available()
         assert isinstance(result, bool)
+
+    def test_get_missing_mcp_servers_no_config(self, tmp_path):
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: tmp_path / "config.toml"
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+        assert adapter.get_missing_mcp_servers(required) == required
+
+    def test_get_missing_mcp_servers_already_configured(self, tmp_path):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text(
+            '[mcp_servers.playwright]\ncommand = "npx"\nargs = ["@playwright/mcp@0.0.75"]\n'
+        )
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+        assert adapter.get_missing_mcp_servers(required) == {}
+
+    def test_get_missing_mcp_servers_invalid_config_warns(self, tmp_path, capsys):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text("[not valid")
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "Could not parse" in capsys.readouterr().err
+
+    def test_get_missing_mcp_servers_non_object_mcp_servers_warns(self, tmp_path, capsys):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text('mcp_servers = "broken"\n')
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "MCP server config is not a TOML table" in capsys.readouterr().err
+
+    def test_add_mcp_servers_creates_config(self, tmp_path):
+        config_file = tmp_path / "config.toml"
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+
+        data = tomllib.loads(config_file.read_text())
+        assert data["mcp_servers"]["playwright"]["command"] == "npx"
+        if os.name != "nt":
+            assert stat.S_IMODE(config_file.stat().st_mode) == 0o600
+
+    def test_add_mcp_servers_preserves_existing_config(self, tmp_path):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text(
+            'model = "gpt-5"\n\n'
+            "[mcp_servers.playwright]\n"
+            'command = "custom"\n'
+            'args = ["--custom"]\n'
+        )
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+
+        adapter.add_mcp_servers({
+            "playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]},
+            "new-server": {
+                "command": "npx",
+                "args": ["new-server"],
+                "env": {"TOKEN": "from-env"},
+            },
+        })
+
+        data = tomllib.loads(config_file.read_text())
+        assert data["model"] == "gpt-5"
+        assert data["mcp_servers"]["playwright"]["command"] == "custom"
+        assert data["mcp_servers"]["new-server"]["command"] == "npx"
+        assert data["mcp_servers"]["new-server"]["env"]["TOKEN"] == "from-env"
+
+    def test_add_mcp_servers_replaces_invalid_config(self, tmp_path, capsys):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text("[not valid")
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+
+        data = tomllib.loads(config_file.read_text())
+        assert data["mcp_servers"]["playwright"]["command"] == "npx"
+        assert "Replacing Codex config" in capsys.readouterr().err
+
+    def test_add_mcp_servers_replaces_non_object_mcp_servers(self, tmp_path, capsys):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text('mcp_servers = "broken"\n')
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+
+        data = tomllib.loads(config_file.read_text())
+        assert data["mcp_servers"]["playwright"]["command"] == "npx"
+        assert "Replacing Codex config" in capsys.readouterr().err
 
 
 # ---------------------------------------------------------------------------
