@@ -11,6 +11,8 @@ from bb_skills_adapters.base import BaseAdapter
 
 
 _BARE_TOML_KEY_RE = re.compile(r"^[A-Za-z0-9_-]+$")
+_TOML_TABLE_RE = re.compile(r"^\s*\[([^\]]+)\]\s*(?:#.*)?$")
+_TOML_ASSIGNMENT_RE = re.compile(r'^\s*("[^"]+"|[A-Za-z0-9_-]+)\s*=')
 
 
 def _toml_key(key: str) -> str:
@@ -29,6 +31,57 @@ def _toml_value(value) -> str:
     if isinstance(value, list):
         return "[" + ", ".join(_toml_value(item) for item in value) + "]"
     return json.dumps(str(value))
+
+
+def _toml_table_path(line: str) -> tuple[str, ...] | None:
+    match = _TOML_TABLE_RE.match(line)
+    if not match:
+        return None
+    return tuple(part.strip().strip('"') for part in match.group(1).split("."))
+
+
+def _toml_assignment_key(line: str) -> str | None:
+    match = _TOML_ASSIGNMENT_RE.match(line)
+    if not match:
+        return None
+    return match.group(1).strip('"')
+
+
+def _remove_malformed_mcp_config(
+    text: str,
+    malformed_server_names: set[str],
+    remove_top_level_mcp_servers: bool,
+) -> str:
+    lines: list[str] = []
+    current_table: tuple[str, ...] = ()
+    skipping_malformed_server_section = False
+
+    for line in text.splitlines(keepends=True):
+        table_path = _toml_table_path(line)
+        if table_path is not None:
+            current_table = table_path
+            skipping_malformed_server_section = (
+                len(table_path) >= 2
+                and table_path[0] == "mcp_servers"
+                and table_path[1] in malformed_server_names
+            )
+            if skipping_malformed_server_section:
+                continue
+            lines.append(line)
+            continue
+
+        if skipping_malformed_server_section:
+            continue
+
+        key = _toml_assignment_key(line)
+        if key == "mcp_servers" and current_table == () and remove_top_level_mcp_servers:
+            continue
+        if key in malformed_server_names and current_table == ("mcp_servers",):
+            continue
+
+        lines.append(line)
+
+    return "".join(lines)
 
 
 class CodexAdapter(BaseAdapter):
@@ -95,17 +148,44 @@ class CodexAdapter(BaseAdapter):
         )
         return {}
 
+    def _mcp_server_is_configured(self, name: str, server: object) -> bool:
+        if not isinstance(server, dict):
+            print(
+                f"Warning: Codex MCP server '{name}' config is not a TOML table. "
+                "Treating it as missing.",
+                file=sys.stderr,
+            )
+            return False
+        if not isinstance(server.get("command"), str) and not isinstance(server.get("url"), str):
+            print(
+                f"Warning: Codex MCP server '{name}' config does not define command or url. "
+                "Treating it as missing.",
+                file=sys.stderr,
+            )
+            return False
+        return True
+
     def get_missing_mcp_servers(self, required: dict[str, dict]) -> dict[str, dict]:
         config = self._load_config()
         existing = self._mcp_servers(config)
-        return {name: server for name, server in required.items() if name not in existing}
+        return {
+            name: server
+            for name, server in required.items()
+            if name not in existing or not self._mcp_server_is_configured(name, existing[name])
+        }
 
     def add_mcp_servers(self, servers: dict[str, dict]) -> None:
         config = self._load_config()
         existing = self._mcp_servers(config)
-        missing = {name: server for name, server in servers.items() if name not in existing}
+        missing = {
+            name: server
+            for name, server in servers.items()
+            if name not in existing or not self._mcp_server_is_configured(name, existing[name])
+        }
         if not missing:
             return
+        malformed_server_names = {name for name in missing if name in existing}
+        remove_top_level_mcp_servers = not isinstance(config.get("mcp_servers", {}), dict)
 
         path = self.config_path()
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -127,10 +207,15 @@ class CodexAdapter(BaseAdapter):
                 if not isinstance(parsed_mcp_servers, dict):
                     print(
                         "Warning: Codex MCP server config is not a TOML table. "
-                        "Replacing Codex config with MCP server config.",
+                        "Replacing only the malformed MCP server config.",
                         file=sys.stderr,
                     )
-                    text = ""
+                    remove_top_level_mcp_servers = True
+                text = _remove_malformed_mcp_config(
+                    text,
+                    malformed_server_names,
+                    remove_top_level_mcp_servers,
+                )
         if text and not text.endswith("\n"):
             text += "\n"
 
