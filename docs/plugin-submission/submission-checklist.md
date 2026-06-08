@@ -8,7 +8,7 @@
 - [x] Marketplace entry exists at `.agents/plugins/marketplace.json`.
 - [x] Logo, composer icon, and screenshots are present.
 - [x] Hosted and local install commands are documented.
-- [x] Companion BB-Skills Codex plugin is listed and included in sparse checkout commands.
+- [x] Companion BuildBetter Skills Codex plugin is listed and included in sparse checkout commands.
 
 ## Review Dossier
 

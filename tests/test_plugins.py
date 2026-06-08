@@ -7,7 +7,7 @@ import re
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CODEX_PLUGIN_DIRS = [
-    REPO_ROOT / "plugins" / "bb-skills",
+    REPO_ROOT / "plugins" / "skills",
     REPO_ROOT / "plugins" / "buildbetter-codex",
 ]
 SUBMISSION_DOCS = [
@@ -52,7 +52,7 @@ def test_codex_plugin_manifest_assets_exist():
 def test_hosted_codex_install_commands_include_all_sparse_paths():
     expected_sparse_paths = {
         "--sparse .agents/plugins",
-        "--sparse plugins/bb-skills",
+        "--sparse plugins/skills",
         "--sparse plugins/buildbetter-codex",
     }
     docs = [
@@ -66,7 +66,7 @@ def test_hosted_codex_install_commands_include_all_sparse_paths():
 
     for doc in docs:
         text = doc.read_text()
-        commands = re.findall(r"codex plugin marketplace add buildbetter-app/BB-Skills[^\n]+", text)
+        commands = re.findall(r"codex plugin marketplace add buildbetter-app/skills[^\n]+", text)
         assert commands, f"{doc} should document hosted Codex marketplace install"
         for command in commands:
             for sparse_path in expected_sparse_paths:

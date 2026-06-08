@@ -1,12 +1,12 @@
 ---
 name: bb-skills-update
-description: Check for and install BB-Skills updates. Use when the user asks to "update skills", "check for updates", or "upgrade bb-skills".
+description: Check for and install BuildBetter Skills updates. Use when the user asks to "update skills", "check for updates", or "upgrade bb-skills".
 argument-hint: "[--check]"
 ---
 
-# BB-Skills Update
+# BuildBetter Skills Update
 
-Check for available updates to the optional BB-Skills CLI installation.
+Check for available updates to the optional BuildBetter Skills CLI installation.
 
 ## Instructions
 
@@ -18,7 +18,7 @@ Check for available updates to the optional BB-Skills CLI installation.
 ## If bb-skills CLI is not installed
 
 Tell the user:
-> BB-Skills CLI is not installed. This skill updates the optional CLI distribution, not the Codex plugin package. If you want the CLI too, install it with:
+> BuildBetter Skills CLI is not installed. This skill updates the optional CLI distribution, not the Codex plugin package. If you want the CLI too, install it with:
 > ```
 > pip install bb-skills
 > ```

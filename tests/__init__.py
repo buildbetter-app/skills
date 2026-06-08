@@ -1,1 +1,1 @@
-"""Unit tests for BB-Skills."""
+"""Unit tests for BuildBetter Skills."""

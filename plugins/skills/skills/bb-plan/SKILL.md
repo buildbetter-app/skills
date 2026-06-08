@@ -4,7 +4,7 @@ description: Execute the implementation planning workflow using the plan templat
 argument-hint: <tech stack and context>
 ---
 
-> **Templates:** If you need the template files referenced below (spec-template.md, plan-template.md, etc.), use the plugin-local `templates/` directory that ships with BB-Skills for Codex. If the current repo already has its own `templates/` directory, prefer the repo copy.
+> **Templates:** If you need the template files referenced below (spec-template.md, plan-template.md, etc.), use the plugin-local `templates/` directory that ships with BuildBetter Skills for Codex. If the current repo already has its own `templates/` directory, prefer the repo copy.
 
 ## User Input
 

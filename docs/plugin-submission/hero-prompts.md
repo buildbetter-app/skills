@@ -11,7 +11,7 @@ These hero prompts are the review-facing workflows for the BuildBetter Codex plu
 | BB-HERO-003 | Retrieve transcript evidence for a known call. | Tests large-context retrieval and transcript precondition handling. |
 | BB-HERO-004 | Search docs and knowledge pages for product context. | Tests non-call evidence sources and concise synthesis. |
 | BB-HERO-005 | Find people/account context for a customer issue. | Tests people/property lookup and organization-scoped data. |
-| BB-HERO-006 | Prepare BuildBetter-enriched spec context. | Tests skill sequencing across BuildBetter evidence and BB-Skills planning. |
+| BB-HERO-006 | Prepare BuildBetter-enriched spec context. | Tests skill sequencing across BuildBetter evidence and BuildBetter Skills planning. |
 | BB-HERO-007 | Check local `bb` CLI health and Codex hook setup. | Tests non-MCP CLI guidance and safe command sequencing. |
 | BB-HERO-008 | Negative case: generic coding request. | Tests that Codex does not over-invoke BuildBetter. |
 

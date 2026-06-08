@@ -1,8 +1,8 @@
-# BB-Skills Codex Plugin
+# BuildBetter Skills Codex Plugin
 
-Codex plugin packaging for the BB-Skills workflow.
+Codex plugin packaging for the BuildBetter Skills workflow.
 
-This plugin bundles the BuildBetter BB-Skills prompts as Codex-local skills and adds Playwright MCP wiring for the browser-testing pack.
+This plugin bundles the BuildBetter Skills prompts as Codex-local skills and adds Playwright MCP wiring for the browser-testing pack.
 
 ## Included skills
 

@@ -1,7 +1,7 @@
 [project]
 name = "bb-skills"
 version = "1.1.1"
-description = "Install and manage BB-Skills — AI coding skills enriched with BuildBetter customer evidence."
+description = "Install and manage BuildBetter Skills — AI coding skills enriched with BuildBetter customer evidence."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
@@ -17,9 +17,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/buildbetter-app/BB-Skills"
-Repository = "https://github.com/buildbetter-app/BB-Skills"
-Issues = "https://github.com/buildbetter-app/BB-Skills/issues"
+Homepage = "https://github.com/buildbetter-app/skills"
+Repository = "https://github.com/buildbetter-app/skills"
+Issues = "https://github.com/buildbetter-app/skills/issues"
 
 [project.scripts]
 bb-skills = "bb_skills_cli:main"

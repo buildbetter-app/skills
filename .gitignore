@@ -22,7 +22,7 @@ venv/
 .DS_Store
 Thumbs.db
 
-# BB-Skills runtime
+# BuildBetter Skills runtime
 skills/testing/app-navigator/playbooks/
 skills/testing/app-navigator/app-map.md
 skills/testing/app-navigator/component-map.md
