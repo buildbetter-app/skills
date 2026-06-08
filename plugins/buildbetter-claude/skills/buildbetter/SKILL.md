@@ -68,7 +68,7 @@ Use `--dry-run --json` before sending when the user wants to inspect the payload
 Claude Code install flow:
 
 ```bash
-claude plugin marketplace add buildbetter-app/BB-Skills --sparse .claude-plugin plugins/buildbetter-claude
+claude plugin marketplace add buildbetter-app/skills --sparse .claude-plugin plugins/buildbetter-claude
 claude plugin install buildbetter@buildbetter
 ```
 

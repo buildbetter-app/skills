@@ -1,4 +1,4 @@
-"""BB-Skills CLI — install, update, and manage AI coding skills."""
+"""BuildBetter Skills CLI — install, update, and manage AI coding skills."""
 
 __version__ = "1.1.1"
 
@@ -26,7 +26,7 @@ from bb_skills_adapters.base import parse_skill_frontmatter
 
 console = Console()
 
-GITHUB_REPO = "buildbetter-app/BB-Skills"
+GITHUB_REPO = "buildbetter-app/skills"
 RELEASES_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 
 
@@ -177,7 +177,7 @@ def create_app(skills_dir: Optional[Path] = None) -> typer.Typer:
 
     app = typer.Typer(
         name="bb-skills",
-        help="Install and manage BB-Skills for your AI coding agent.",
+        help="Install and manage BuildBetter Skills for your AI coding agent.",
         no_args_is_help=True,
     )
 
@@ -191,7 +191,7 @@ def create_app(skills_dir: Optional[Path] = None) -> typer.Typer:
         """Install skill packs or individual skills."""
         packs = _discover_packs(resolved_skills_dir)
         if not packs:
-            console.print("[red]No skills found. Are you in the BB-Skills repo or has it been downloaded?[/red]")
+            console.print("[red]No skills found. Are you in the BuildBetter Skills repo or has it been downloaded?[/red]")
             raise typer.Exit(1)
 
         targets = _resolve_targets(names, resolved_skills_dir, packs)
@@ -277,11 +277,11 @@ def create_app(skills_dir: Optional[Path] = None) -> typer.Typer:
     def update(
         check: bool = typer.Option(False, "--check", help="Check only, don't install"),
     ):
-        """Check for and install BB-Skills updates."""
+        """Check for and install BuildBetter Skills updates."""
         manifest = Manifest()
 
         if manifest.version is None:
-            console.print("[yellow]No BB-Skills installed. Run: bb-skills install <pack>[/yellow]")
+            console.print("[yellow]No BuildBetter Skills installed. Run: bb-skills install <pack>[/yellow]")
             raise typer.Exit(1)
 
         console.print(f"Current version: {manifest.version}")

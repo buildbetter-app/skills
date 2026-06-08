@@ -1,5 +1,5 @@
 {
-  "name": "bb-skills",
+  "name": "skills",
   "version": "1.1.1",
   "description": "BuildBetter's spec workflow and browser verification skills packaged for Codex.",
   "author": {
@@ -7,12 +7,12 @@
     "email": "eng@buildbetter.app",
     "url": "https://github.com/buildbetter-app"
   },
-  "homepage": "https://github.com/buildbetter-app/BB-Skills",
-  "repository": "https://github.com/buildbetter-app/BB-Skills",
+  "homepage": "https://github.com/buildbetter-app/skills",
+  "repository": "https://github.com/buildbetter-app/skills",
   "license": "MIT",
   "keywords": [
     "buildbetter",
-    "bb-skills",
+    "skills",
     "codex",
     "planning",
     "playwright",
@@ -22,9 +22,9 @@
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "BB-Skills",
+    "displayName": "BuildBetter Skills",
     "shortDescription": "Spec-driven planning and browser verification skills for Codex",
-    "longDescription": "Bring BuildBetter's BB-Skills workflow into Codex with spec generation, planning, review, task generation, app mapping, browser verification, and Playwright test scaffolding. This plugin packages the upstream BB-Skills prompts as Codex-local skills and includes Playwright MCP wiring for the testing pack.",
+    "longDescription": "Bring BuildBetter Skills into Codex with spec generation, planning, review, task generation, app mapping, browser verification, and Playwright test scaffolding. This plugin packages the upstream BuildBetter Skills prompts as Codex-local skills and includes Playwright MCP wiring for the testing pack.",
     "developerName": "BuildBetter",
     "category": "Coding",
     "capabilities": [
@@ -41,7 +41,7 @@
       "Generate Playwright tests from the current app flow"
     ],
     "brandColor": "#111827",
-    "composerIcon": "./assets/bb-skills-small.svg",
+    "composerIcon": "./assets/skills-small.svg",
     "logo": "./assets/app-icon.svg",
     "screenshots": [
       "./assets/screenshots/spec-workflow.svg",

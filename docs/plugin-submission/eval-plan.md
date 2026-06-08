@@ -21,7 +21,7 @@ Each case includes:
 1. Install the hosted marketplace:
 
    ```bash
-   codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
+   codex plugin marketplace add buildbetter-app/skills --ref main --sparse .agents/plugins --sparse plugins/skills --sparse plugins/buildbetter-codex
    codex plugin add buildbetter@buildbetter
    ```
 

@@ -1,4 +1,4 @@
-# BB-Skills
+# BuildBetter Skills
 
 **AI coding skills enriched with BuildBetter customer evidence.**
 
@@ -6,20 +6,20 @@
 
 ## What is this?
 
-BB-Skills is a collection of AI coding skills you can install into your favorite AI coding agent. Pick the skills you need -- install only the packs that matter for your workflow. BB-Skills works with Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, Windsurf, and Amazon Q.
+BuildBetter Skills is a collection of AI coding skills you can install into your favorite AI coding agent. Pick the skills you need -- install only the packs that matter for your workflow. BuildBetter Skills works with Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, Windsurf, and Amazon Q.
 
 ## Quick start
 
 ### Option A: npx (fastest, no install)
 
 ```bash
-npx skills add buildbetter-app/BB-Skills
+npx skills add buildbetter-app/skills
 ```
 
 Or install a specific skill:
 
 ```bash
-npx skills add buildbetter-app/BB-Skills --skill trust-but-verify
+npx skills add buildbetter-app/skills --skill trust-but-verify
 ```
 
 ### Option B: bb-skills CLI (pack-based install)
@@ -33,7 +33,12 @@ bb-skills install all              # everything
 
 ### Option C: Codex plugin package
 
-This repo also includes a Codex plugin package at `plugins/bb-skills/` plus a repo-local marketplace entry at `.agents/plugins/marketplace.json`. The plugin bundles the same BB-Skills prompts for Codex and includes Playwright MCP wiring for the browser-testing skills.
+This repo also includes a Codex plugin package at `plugins/skills/` plus a repo-local marketplace entry at `.agents/plugins/marketplace.json`. The plugin bundles the same BuildBetter Skills prompts for Codex and includes Playwright MCP wiring for the browser-testing skills.
+
+```bash
+codex plugin marketplace add buildbetter-app/skills --ref main --sparse .agents/plugins --sparse plugins/skills --sparse plugins/buildbetter-codex
+codex plugin add skills@buildbetter
+```
 
 ### Option D: BuildBetter MCP/CLI plugins
 
@@ -42,14 +47,14 @@ This repo includes separate BuildBetter MCP/CLI plugins for Codex and Claude Cod
 Codex:
 
 ```bash
-codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
+codex plugin marketplace add buildbetter-app/skills --ref main --sparse .agents/plugins --sparse plugins/skills --sparse plugins/buildbetter-codex
 codex plugin add buildbetter@buildbetter
 ```
 
 Claude Code:
 
 ```bash
-claude plugin marketplace add buildbetter-app/BB-Skills --sparse .claude-plugin plugins/buildbetter-claude
+claude plugin marketplace add buildbetter-app/skills --sparse .claude-plugin plugins/buildbetter-claude
 claude plugin install buildbetter@buildbetter
 ```
 
@@ -113,7 +118,7 @@ bb-skills install trust-but-verify
 
 | Skill | Description |
 |-------|-------------|
-| [bb-skills-update](skills/core/bb-skills-update/) | Checks for available BB-Skills updates via GitHub releases |
+| [bb-skills-update](skills/core/bb-skills-update/) | Checks for available BuildBetter Skills updates via GitHub releases |
 
 ### spec-workflow
 
@@ -173,7 +178,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding skills, writing 
 
 ## Acknowledgments
 
-BB-Skills was inspired by and originally derived from [github/spec-kit](https://github.com/github/spec-kit) (MIT License). BuildBetter has significantly extended the original with customer evidence integration, browser testing skills, multi-platform support, and a skill management CLI.
+BuildBetter Skills was inspired by and originally derived from [github/spec-kit](https://github.com/github/spec-kit) (MIT License). BuildBetter has significantly extended the original with customer evidence integration, browser testing skills, multi-platform support, and a skill management CLI.
 
 ## License
 

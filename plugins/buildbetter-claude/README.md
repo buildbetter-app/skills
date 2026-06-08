@@ -2,10 +2,10 @@
 
 This Claude Code plugin bundles BuildBetter MCP configuration plus guidance for the local `bb` CLI.
 
-Install from the BB-Skills marketplace:
+Install from the BuildBetter Skills marketplace:
 
 ```bash
-claude plugin marketplace add buildbetter-app/BB-Skills --sparse .claude-plugin plugins/buildbetter-claude
+claude plugin marketplace add buildbetter-app/skills --sparse .claude-plugin plugins/buildbetter-claude
 claude plugin install buildbetter@buildbetter
 ```
 

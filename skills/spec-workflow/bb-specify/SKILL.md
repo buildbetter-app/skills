@@ -4,7 +4,7 @@ description: Create or update the feature specification from a natural language 
 argument-hint: <feature description>
 ---
 
-> **Templates:** If you need the template files referenced below (spec-template.md, plan-template.md, etc.), they are available in the BB-Skills repository at `templates/`. If installed locally, check `~/.bb-skills/templates/` or the project's `templates/` directory.
+> **Templates:** If you need the template files referenced below (spec-template.md, plan-template.md, etc.), they are available in the BuildBetter Skills repository at `templates/`. If installed locally, check `~/.bb-skills/templates/` or the project's `templates/` directory.
 
 ## User Input
 

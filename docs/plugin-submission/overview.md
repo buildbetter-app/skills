@@ -4,8 +4,8 @@ This dossier prepares the BuildBetter Codex plugin package for review against th
 
 ## Plugin Links
 
-- Plugin repository: https://github.com/buildbetter-app/BB-Skills
-- Plugin homepage: https://github.com/buildbetter-app/BB-Skills/tree/main/plugins/buildbetter-codex
+- Plugin repository: https://github.com/buildbetter-app/skills
+- Plugin homepage: https://github.com/buildbetter-app/skills/tree/main/plugins/buildbetter-codex
 - Public product homepage: https://buildbetter.ai/
 - Privacy policy: https://docs.buildbetter.ai/pages/Legal/privacy-policy
 - Terms of service: https://docs.buildbetter.ai/pages/Legal/terms-of-service
@@ -15,7 +15,7 @@ This dossier prepares the BuildBetter Codex plugin package for review against th
 | Package | Purpose | Submission role |
 | --- | --- | --- |
 | `plugins/buildbetter-codex` | Codex plugin for BuildBetter MCP and `bb` CLI workflows. | Primary Codex plugin submission candidate. |
-| `plugins/bb-skills` | Codex plugin for BB-Skills spec workflow and browser verification. | Supporting workflow plugin and optional companion listing. |
+| `plugins/skills` | Codex plugin for BuildBetter Skills spec workflow and browser verification. | Supporting workflow plugin and optional companion listing. |
 | `plugins/buildbetter-claude` | Claude Code plugin variant with Claude-specific manifest and MCP shape. | Not part of Codex submission; maintained separately for Claude distribution. |
 
 ## Directory Submission Fields
@@ -37,14 +37,14 @@ Example use cases:
 Hosted Git-backed marketplace:
 
 ```bash
-codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
+codex plugin marketplace add buildbetter-app/skills --ref main --sparse .agents/plugins --sparse plugins/skills --sparse plugins/buildbetter-codex
 codex plugin add buildbetter@buildbetter
 ```
 
 Local checkout:
 
 ```bash
-codex plugin marketplace add /path/to/BB-Skills
+codex plugin marketplace add /path/to/skills
 codex plugin add buildbetter@buildbetter
 ```
 
@@ -63,4 +63,3 @@ External prerequisites before public review:
 - Confirm the BuildBetter MCP app/connector approval state with OpenAI.
 - Provide reviewer credentials through a private channel, not in this repository.
 - Run and capture at least one successful Codex transcript against the review tenant.
-

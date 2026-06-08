@@ -1,4 +1,4 @@
-# Contributing to BB-Skills
+# Contributing to BuildBetter Skills
 
 Thanks for your interest in contributing. This guide covers the main ways to contribute: adding skills, adding platform adapters, testing, and submitting pull requests.
 
@@ -25,12 +25,12 @@ Look at existing skills in `skills/spec-workflow/` for examples.
 Adapters live in `bb_skills_adapters/` and convert `SKILL.md` files into platform-specific formats.
 
 1. Create a new file in `bb_skills_adapters/` (e.g., `my_platform.py`).
-2. Extend `BaseAdapter` from `bb_skills_bb_skills_adapters/base.py`.
+2. Extend `BaseAdapter` from `bb_skills_adapters/base.py`.
 3. Implement the required methods for transforming skill content into your platform's format.
 4. Register the adapter so the CLI can discover it.
 5. Add the platform to the support matrix in `README.md`.
 
-See `bb_skills_bb_skills_adapters/claude.py` or `bb_skills_bb_skills_adapters/cursor.py` for reference implementations.
+See `bb_skills_adapters/claude.py` or `bb_skills_adapters/cursor.py` for reference implementations.
 
 ## Testing
 

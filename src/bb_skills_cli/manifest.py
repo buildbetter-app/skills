@@ -1,4 +1,4 @@
-"""Manifest tracking for installed BB-Skills."""
+"""Manifest tracking for installed BuildBetter Skills."""
 
 import json
 from datetime import datetime, timezone

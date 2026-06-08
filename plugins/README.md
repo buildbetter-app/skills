@@ -4,21 +4,23 @@ This directory contains platform-specific plugin packages for BuildBetter.
 
 ## Codex
 
-The BB-Skills workflow plugin lives at `plugins/bb-skills/`.
+The BuildBetter Skills workflow plugin lives at `plugins/skills/`.
 
 The BuildBetter MCP and CLI plugin lives at `plugins/buildbetter-codex/` and is listed in `.agents/plugins/marketplace.json`.
 
 Install from the hosted marketplace:
 
 ```bash
-codex plugin marketplace add buildbetter-app/BB-Skills --ref main --sparse .agents/plugins --sparse plugins/bb-skills --sparse plugins/buildbetter-codex
+codex plugin marketplace add buildbetter-app/skills --ref main --sparse .agents/plugins --sparse plugins/skills --sparse plugins/buildbetter-codex
+codex plugin add skills@buildbetter
 codex plugin add buildbetter@buildbetter
 ```
 
 Install locally from this checkout:
 
 ```bash
-codex plugin marketplace add /path/to/BB-Skills
+codex plugin marketplace add /path/to/skills
+codex plugin add skills@buildbetter
 codex plugin add buildbetter@buildbetter
 ```
 
@@ -29,14 +31,14 @@ The Claude Code BuildBetter MCP and CLI plugin lives at `plugins/buildbetter-cla
 Install from the hosted marketplace:
 
 ```bash
-claude plugin marketplace add buildbetter-app/BB-Skills --sparse .claude-plugin plugins/buildbetter-claude
+claude plugin marketplace add buildbetter-app/skills --sparse .claude-plugin plugins/buildbetter-claude
 claude plugin install buildbetter@buildbetter
 ```
 
 Install locally from this checkout:
 
 ```bash
-claude plugin marketplace add /path/to/BB-Skills
+claude plugin marketplace add /path/to/skills
 claude plugin install buildbetter@buildbetter
 ```
 

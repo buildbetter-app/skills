@@ -4,7 +4,7 @@ description: Generate an actionable, dependency-ordered tasks.md for the feature
 argument-hint: <context for task generation>
 ---
 
-> **Templates:** If you need the template files referenced below (spec-template.md, plan-template.md, etc.), use the plugin-local `templates/` directory that ships with BB-Skills for Codex. If the current repo already has its own `templates/` directory, prefer the repo copy.
+> **Templates:** If you need the template files referenced below (spec-template.md, plan-template.md, etc.), use the plugin-local `templates/` directory that ships with BuildBetter Skills for Codex. If the current repo already has its own `templates/` directory, prefer the repo copy.
 
 ## User Input
 

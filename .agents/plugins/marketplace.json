@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "bb-skills",
+      "name": "skills",
       "source": {
         "source": "local",
-        "path": "./plugins/bb-skills"
+        "path": "./plugins/skills"
       },
       "policy": {
         "installation": "AVAILABLE",
