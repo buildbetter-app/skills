@@ -265,6 +265,16 @@ description: A test
         assert adapter.get_missing_mcp_servers(required) == required
         assert "playwright" in capsys.readouterr().err
 
+    def test_get_missing_mcp_servers_malformed_dotted_server_entry_warns(self, tmp_path, capsys):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text('mcp_servers.playwright = "broken"\n')
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+        required = {"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}}
+
+        assert adapter.get_missing_mcp_servers(required) == required
+        assert "playwright" in capsys.readouterr().err
+
     def test_add_mcp_servers_creates_config(self, tmp_path):
         config_file = tmp_path / "config.toml"
         adapter = CodexAdapter()
@@ -347,6 +357,43 @@ description: A test
         assert data["mcp_servers"]["figma"]["url"] == "https://mcp.figma.com/mcp"
         assert data["mcp_servers"]["playwright"]["command"] == "npx"
         assert "playwright" in capsys.readouterr().err
+
+    def test_add_mcp_servers_repairs_malformed_dotted_server_entry_preserving_config(self, tmp_path, capsys):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text(
+            'model = "gpt-5"\n'
+            'mcp_servers.playwright = "broken"\n'
+            'mcp_servers.figma.url = "https://mcp.figma.com/mcp"\n'
+        )
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+
+        data = tomllib.loads(config_file.read_text())
+        assert data["model"] == "gpt-5"
+        assert data["mcp_servers"]["figma"]["url"] == "https://mcp.figma.com/mcp"
+        assert data["mcp_servers"]["playwright"]["command"] == "npx"
+        assert "playwright" in capsys.readouterr().err
+
+    def test_add_mcp_servers_repairs_malformed_dotted_server_table_preserving_config(self, tmp_path, capsys):
+        config_file = tmp_path / "config.toml"
+        config_file.write_text(
+            'model = "gpt-5"\n'
+            'mcp_servers.playwright.args = ["@playwright/mcp@0.0.75"]\n'
+            '[projects.foo]\n'
+            'trust_level = "trusted"\n'
+        )
+        adapter = CodexAdapter()
+        adapter.config_path = lambda: config_file
+
+        adapter.add_mcp_servers({"playwright": {"command": "npx", "args": ["@playwright/mcp@0.0.75"]}})
+
+        data = tomllib.loads(config_file.read_text())
+        assert data["model"] == "gpt-5"
+        assert data["projects"]["foo"]["trust_level"] == "trusted"
+        assert data["mcp_servers"]["playwright"]["command"] == "npx"
+        assert "command or url" in capsys.readouterr().err
 
     def test_add_mcp_servers_repairs_malformed_server_table_preserving_config(self, tmp_path, capsys):
         config_file = tmp_path / "config.toml"

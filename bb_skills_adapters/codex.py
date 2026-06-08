@@ -12,7 +12,8 @@ from bb_skills_adapters.base import BaseAdapter
 
 _BARE_TOML_KEY_RE = re.compile(r"^[A-Za-z0-9_-]+$")
 _TOML_TABLE_RE = re.compile(r"^\s*\[([^\]]+)\]\s*(?:#.*)?$")
-_TOML_ASSIGNMENT_RE = re.compile(r'^\s*("[^"]+"|[A-Za-z0-9_-]+)\s*=')
+_TOML_KEY_PART = r'(?:"[^"]+"|[A-Za-z0-9_-]+)'
+_TOML_ASSIGNMENT_RE = re.compile(rf"^\s*({_TOML_KEY_PART}(?:\s*\.\s*{_TOML_KEY_PART})*)\s*=")
 
 
 def _toml_key(key: str) -> str:
@@ -33,18 +34,43 @@ def _toml_value(value) -> str:
     return json.dumps(str(value))
 
 
+def _split_toml_path(path: str) -> tuple[str, ...]:
+    parts = []
+    current = []
+    in_quote = False
+    escaped = False
+    for char in path:
+        if escaped:
+            current.append(char)
+            escaped = False
+            continue
+        if char == "\\" and in_quote:
+            escaped = True
+            continue
+        if char == '"':
+            in_quote = not in_quote
+            continue
+        if char == "." and not in_quote:
+            parts.append("".join(current).strip())
+            current = []
+            continue
+        current.append(char)
+    parts.append("".join(current).strip())
+    return tuple(part for part in parts if part)
+
+
 def _toml_table_path(line: str) -> tuple[str, ...] | None:
     match = _TOML_TABLE_RE.match(line)
     if not match:
         return None
-    return tuple(part.strip().strip('"') for part in match.group(1).split("."))
+    return _split_toml_path(match.group(1))
 
 
-def _toml_assignment_key(line: str) -> str | None:
+def _toml_assignment_path(line: str) -> tuple[str, ...] | None:
     match = _TOML_ASSIGNMENT_RE.match(line)
     if not match:
         return None
-    return match.group(1).strip('"')
+    return _split_toml_path(match.group(1))
 
 
 def _remove_malformed_mcp_config(
@@ -73,10 +99,21 @@ def _remove_malformed_mcp_config(
         if skipping_malformed_server_section:
             continue
 
-        key = _toml_assignment_key(line)
-        if key == "mcp_servers" and current_table == () and remove_top_level_mcp_servers:
+        assignment_path = _toml_assignment_path(line)
+        if assignment_path is None:
+            lines.append(line)
             continue
-        if key in malformed_server_names and current_table == ("mcp_servers",):
+
+        if assignment_path == ("mcp_servers",) and current_table == () and remove_top_level_mcp_servers:
+            continue
+        if assignment_path[0] in malformed_server_names and current_table == ("mcp_servers",):
+            continue
+        if (
+            len(assignment_path) >= 2
+            and assignment_path[0] == "mcp_servers"
+            and assignment_path[1] in malformed_server_names
+            and current_table == ()
+        ):
             continue
 
         lines.append(line)
