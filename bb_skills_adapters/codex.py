@@ -12,7 +12,7 @@ from bb_skills_adapters.base import BaseAdapter
 
 _BARE_TOML_KEY_RE = re.compile(r"^[A-Za-z0-9_-]+$")
 _TOML_TABLE_RE = re.compile(r"^\s*\[([^\]]+)\]\s*(?:#.*)?$")
-_TOML_KEY_PART = r'(?:"[^"]+"|[A-Za-z0-9_-]+)'
+_TOML_KEY_PART = r"""(?:"(?:[^"\\]|\\.)*"|'[^']*'|[A-Za-z0-9_-]+)"""
 _TOML_ASSIGNMENT_RE = re.compile(rf"^\s*({_TOML_KEY_PART}(?:\s*\.\s*{_TOML_KEY_PART})*)\s*=")
 
 
@@ -37,20 +37,24 @@ def _toml_value(value) -> str:
 def _split_toml_path(path: str) -> tuple[str, ...]:
     parts = []
     current = []
-    in_quote = False
+    quote_char = None
     escaped = False
     for char in path:
         if escaped:
             current.append(char)
             escaped = False
             continue
-        if char == "\\" and in_quote:
+        if char == "\\" and quote_char == '"':
             escaped = True
             continue
-        if char == '"':
-            in_quote = not in_quote
-            continue
-        if char == "." and not in_quote:
+        if char in ("'", '"'):
+            if quote_char is None:
+                quote_char = char
+                continue
+            if quote_char == char:
+                quote_char = None
+                continue
+        if char == "." and quote_char is None:
             parts.append("".join(current).strip())
             current = []
             continue
