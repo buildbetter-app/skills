@@ -1,0 +1,4 @@
+interface:
+  display_name: "BuildBetter Customer Voice"
+  short_description: "Retrieve defensible customer evidence"
+  default_prompt: "Use $buildbetter-customer-voice to answer this question with direct, scoped customer evidence."
