@@ -4,6 +4,7 @@
 
 ### New
 - Add `buildbetter-mcp-research` to the Codex and Claude BuildBetter plugins.
+- Add `buildbetter-customer-voice` for direct, traceable customer evidence.
 
 ## 1.0.0 (2026-04-XX)
 

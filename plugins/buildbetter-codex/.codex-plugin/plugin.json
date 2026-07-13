@@ -1,7 +1,7 @@
 {
   "name": "buildbetter",
-  "version": "0.2.0",
-  "description": "Use BuildBetter's MCP server, research skills, and bb CLI from Codex.",
+  "version": "0.3.0",
+  "description": "Use BuildBetter's MCP server, research and customer-evidence skills, and bb CLI from Codex.",
   "author": {
     "name": "BuildBetter",
     "email": "eng@buildbetter.app",
@@ -23,7 +23,7 @@
   "interface": {
     "displayName": "BuildBetter",
     "shortDescription": "Use BuildBetter MCP and bb CLI",
-    "longDescription": "Connect Codex to BuildBetter's MCP server for product-ops context, reliable multi-source research, customer-signal lookup, and organization-aware workflows. Bundled skills route questions through the correct domain tools and document local bb CLI setup, health checks, feedback hooks, and plugin sharing/submission steps.",
+    "longDescription": "Connect Codex to BuildBetter's MCP server for product-ops context, reliable multi-source research, defensible customer evidence, and organization-aware workflows. Bundled skills route questions through the correct domain tools and document local bb CLI setup, health checks, feedback hooks, and plugin sharing/submission steps.",
     "developerName": "BuildBetter",
     "category": "Developer Tools",
     "capabilities": [
@@ -36,6 +36,7 @@
     "termsOfServiceURL": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
     "defaultPrompt": [
       "Use BuildBetter to research the customer evidence for this work.",
+      "Use BuildBetter to retrieve direct customer voice for this question.",
       "Check bb CLI health and install hooks for this repo.",
       "Prepare this BuildBetter plugin for sharing."
     ],
