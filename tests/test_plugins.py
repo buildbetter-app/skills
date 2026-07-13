@@ -21,6 +21,37 @@ SUBMISSION_DOCS = [
     REPO_ROOT / "docs" / "plugin-submission" / "install-smoke-test.md",
     REPO_ROOT / "docs" / "plugin-submission" / "submission-checklist.md",
 ]
+PUBLIC_TEXT_SUFFIXES = {".json", ".md", ".yaml", ".yml"}
+PUBLIC_TEXT_EXCLUDED_DIRS = {".git", ".pytest_cache", ".venv", "node_modules"}
+ALLOWED_PUBLIC_EMAIL_DOMAINS = {"buildbetter.ai", "buildbetter.app", "example.com"}
+
+
+def assert_public_text_is_portable(text: str):
+    assert not re.search(
+        r"(?:/Users/|/home/|/private/|[A-Za-z]:\\Users\\)",
+        text,
+    )
+    emails = re.findall(
+        r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b",
+        text,
+        re.IGNORECASE,
+    )
+    assert all(
+        email.lower().rsplit("@", 1)[1] in ALLOWED_PUBLIC_EMAIL_DOMAINS
+        for email in emails
+    )
+    assert not re.search(
+        r"\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-"
+        r"[89ab][0-9a-f]{3}-[0-9a-f]{12}\b",
+        text,
+        re.IGNORECASE,
+    )
+    assert not re.search(
+        r"\b(?:api[_-]?key|access[_-]?token|client[_-]?secret|password)"
+        r"\b\s*[:=]\s*[\"']?[A-Za-z0-9]",
+        text,
+        re.IGNORECASE,
+    )
 
 
 def test_codex_plugin_mcp_files_use_codex_server_wrapper():
@@ -107,6 +138,17 @@ def test_submission_dossier_and_eval_cases_are_complete():
     assert any(case["plugin"] == "none" for case in cases)
 
 
+def test_public_material_uses_portable_non_customer_examples():
+    public_text = "\n".join(
+        path.read_text()
+        for path in REPO_ROOT.rglob("*")
+        if path.is_file()
+        and path.suffix in PUBLIC_TEXT_SUFFIXES
+        and not PUBLIC_TEXT_EXCLUDED_DIRS.intersection(path.parts)
+    )
+    assert_public_text_is_portable(public_text)
+
+
 def test_specialized_buildbetter_skills_are_portable_and_in_sync():
     codex_root = REPO_ROOT / "plugins" / "buildbetter-codex" / "skills"
     claude_root = REPO_ROOT / "plugins" / "buildbetter-claude" / "skills"
@@ -146,28 +188,7 @@ def test_specialized_buildbetter_skills_are_portable_and_in_sync():
             for relative_path in codex_files
             if relative_path.suffix in {".md", ".yaml", ".yml"}
         )
-        assert not re.search(
-            r"(?:/Users/|/home/|/private/|[A-Za-z]:\\Users\\)",
-            portable_text,
-        )
-        emails = re.findall(
-            r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b",
-            portable_text,
-            re.IGNORECASE,
-        )
-        assert all(email.lower().endswith("@example.com") for email in emails)
-        assert not re.search(
-            r"\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-"
-            r"[89ab][0-9a-f]{3}-[0-9a-f]{12}\b",
-            portable_text,
-            re.IGNORECASE,
-        )
-        assert not re.search(
-            r"\b(?:api[_-]?key|access[_-]?token|client[_-]?secret|password)"
-            r"\b\s*[:=]\s*[\"']?[A-Za-z0-9]",
-            portable_text,
-            re.IGNORECASE,
-        )
+        assert_public_text_is_portable(portable_text)
 
         feature_scoped_or_mutating_tools = {
             "apply-smart-tag-setup",
