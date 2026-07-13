@@ -1,6 +1,11 @@
 # BuildBetter for Claude Code
 
-This Claude Code plugin bundles BuildBetter MCP configuration plus guidance for the local `bb` CLI.
+This Claude Code plugin bundles BuildBetter MCP configuration, reliable multi-source research guidance, and local `bb` CLI workflows.
+
+Bundled skills:
+
+- `buildbetter`: connect MCP, operate the CLI, and manage hooks.
+- `buildbetter-mcp-research`: route open-ended research through domain tools and return traceable evidence.
 
 Install from the BuildBetter Skills marketplace:
 

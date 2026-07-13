@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### New
+- Add `buildbetter-mcp-research` to the Codex and Claude BuildBetter plugins.
+
 ## 1.0.0 (2026-04-XX)
 
 ### New
