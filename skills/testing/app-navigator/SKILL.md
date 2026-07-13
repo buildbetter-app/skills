@@ -151,7 +151,7 @@ For each top-level navigation route (sidebar items, nav bar links):
 1. `mcp__playwright__browser_click` on the nav item
 2. `mcp__playwright__browser_wait_for` with `text` set to a key element on the target page
 3. `mcp__playwright__browser_snapshot` to capture the page structure
-4. `mcp__playwright__browser_take_screenshot` with `filename` set to an absolute path (resolve `~` via `echo $HOME` first), e.g., `/Users/<user>/.claude/skills/app-navigator/screenshots/<page-slug>.png`
+4. `mcp__playwright__browser_take_screenshot` with `filename` set to an absolute path by resolving `$HOME` first, then appending `.claude/skills/app-navigator/screenshots/<page-slug>.png`
 5. Record: URL, page title, key elements visible, available interactions
 
 To map to source components, dispatch a subagent with the `setup-prompt.md` template, providing the list of discovered routes. The subagent uses `Grep` and `Glob` to search `src/` for route definitions and component files.

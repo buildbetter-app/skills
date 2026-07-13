@@ -1,8 +1,8 @@
 {
   "name": "buildbetter",
   "displayName": "BuildBetter",
-  "version": "0.1.0",
-  "description": "Use BuildBetter's MCP server and bb CLI from Claude Code.",
+  "version": "0.2.0",
+  "description": "Use BuildBetter's MCP server, research skills, and bb CLI from Claude Code.",
   "author": {
     "name": "BuildBetter",
     "email": "eng@buildbetter.app",
@@ -16,7 +16,8 @@
     "mcp",
     "cli",
     "product-ops",
-    "customer-signals"
+    "customer-signals",
+    "research"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",

@@ -1,10 +1,10 @@
 # BuildBetter MCP Tool Audit
 
-Source audited: `/Users/shooby/.codex/worktrees/5bd0/bbapp/packages/apps/mcp/src/mcp/handlers.ts` and `/Users/shooby/.codex/worktrees/5bd0/bbapp/docs/integrations/mcp-tooling-guide.md`.
+Source audited: `packages/apps/mcp/src/mcp/handlers.ts` and `packages/apps/mcp/src/__tests__/mcp.integration.spec.ts` on the BuildBetter MCP `main` branch.
 
 ## Summary
 
-The plugin-facing BuildBetter MCP server currently exposes read-only product-context tools plus a read-only GraphQL fallback. The surface is focused around customer evidence retrieval: calls, transcripts, signals, documents, knowledge pages, people, and property metadata.
+The plugin-facing BuildBetter MCP server exposes organization-scoped product-context tools plus a read-only GraphQL fallback. The universal read surface covers calls, transcripts, signals, documents, knowledge pages, people, property metadata, projects, and triage. Connected integrations, feature-gated tools, and mutating workflows are outside the portable research skills.
 
 The server already has:
 
@@ -12,15 +12,11 @@ The server already has:
 - Zod-validated inputs,
 - stable numeric entity IDs in result objects,
 - default and maximum result limits,
-- pagination or continuation for signal search,
+- page or continuation traversal for signal search,
+- stable continuation traversal for default-order structured extraction lists,
+- explicit aggregate tools for totals and grouped counts,
 - an auth hint when OAuth tokens lack organization context,
 - guidance to use domain tools before `run-query`.
-
-Companion app-code change:
-
-- Draft PR: `https://github.com/buildbetter-app/buildbetter-app/pull/4171`.
-- Branch `chore/mcp-tool-annotations` in `buildbetter-app/buildbetter-app` wraps the MCP handler `Tool` decorator so every plugin-facing BuildBetter MCP tool emits `readOnlyHint: true`, `destructiveHint: false`, `idempotentHint: true`, and `openWorldHint: true`. The wrapper uses `@rekog/mcp-nest`'s supported `annotations` field, which is passed through to MCP `tools/list`.
-- Local verification passed for `pnpm -F @buildbetter-app/mcp build` and the focused `tools/list exposes Zod-derived JSON Schemas` integration test. The full MCP integration spec was attempted after repairing local generated artifacts; startup succeeded, but existing REST fixture assertions returned empty result sets in this local checkout.
 
 ## Tool Inventory
 
@@ -29,9 +25,14 @@ Companion app-code change:
 | `search-calls` | Domain search | Read-only | Search calls/interviews by phrase and optional date window. | Returns call IDs, names, dates, and attendees. Limit is clamped. |
 | `get-call` | Domain get | Read-only | Retrieve one call with attendees and recent related signals. | Uses numeric call ID; `signalLimit` is clamped. |
 | `get-call-transcript` | Domain get | Read-only | Retrieve speaker-attributed transcript segments for one call. | Uses numeric call ID; returns a clear message when no transcript exists. |
-| `search-signals` | Domain search | Read-only | Search signals/extractions by phrase, type, call, persona, page, or continuation key. | Returns signal IDs and `nextContinuationKey` when another page exists. |
+| `search-signals` | Domain search | Read-only | Search signals/extractions by natural-language `query` or structured phrase, type, call, persona, page, or continuation key. | Returns signal IDs and `nextContinuationKey` when another page exists. Send the continuation key alone for later pages. |
 | `search-extractions` | Compatibility alias | Read-only | Backward-compatible alias for `search-signals`. | Prefer `search-signals` for new workflows. |
-| `list-extractions` | Structured list | Read-only | Advanced structured extraction filters/select/order. | Limit and page are bounded. |
+| `get-list-extractions-schema` | Schema helper | Read-only | Return the current structured input contract for `list-extractions`. | Use before constructing strict filters; this is the registered MCP tool name. |
+| `list-extractions` | Structured list | Read-only | Advanced structured extraction filters/select/order. | Numbered `page` remains available. With default ordering, omit `page` for stable keyset traversal and send only the returned `nextContinuationKey` as `continuationKey` on later requests. |
+| `aggregate-extractions` | Structured aggregate | Read-only | Count matching extractions and optionally group by tag, topic, keyword, or type. | Use for totals and grouped counts instead of paginating rows. |
+| `aggregate-signals` | Structured aggregate | Read-only | Return signal, call, person, and company totals plus common distributions for a structured filter. | `topLimit` bounds top people and companies. |
+| `aggregate-signals-by-tags` | Tag aggregate | Read-only | Roll up exact smart-tag metrics and optional time buckets. | `buckets` are explicit named filter windows. |
+| `list-extraction-tags` | Metadata list | Read-only | Discover the organization's reusable extraction tags. | Returns public UUIDs accepted by structured tag filters. |
 | `list-extraction-filter-fields` | Metadata list | Read-only | Discover fields for structured extraction filters. | Bounded by `MAX_LIMIT`. |
 | `list-signal-types` | Metadata list | Read-only | List configured signal taxonomy types. | Bounded list of type names/IDs. |
 | `list-signal-properties` | Metadata list | Read-only | List extraction custom-property definitions. | Returns count/total/items. |

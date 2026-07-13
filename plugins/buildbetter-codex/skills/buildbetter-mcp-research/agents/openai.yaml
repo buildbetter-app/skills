@@ -1,0 +1,4 @@
+interface:
+  display_name: "BuildBetter MCP Research"
+  short_description: "Research BuildBetter data reliably"
+  default_prompt: "Use $buildbetter-mcp-research to answer this BuildBetter research question with scoped, cited evidence."
