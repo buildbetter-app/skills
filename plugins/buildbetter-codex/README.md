@@ -1,6 +1,6 @@
 # BuildBetter for Codex
 
-This Codex plugin bundles BuildBetter MCP configuration plus guidance for the local `bb` CLI.
+This Codex plugin bundles BuildBetter MCP configuration, MCP research/customer-voice retrieval guidance, and local `bb` CLI guidance.
 
 Install from the BuildBetter Skills marketplace:
 

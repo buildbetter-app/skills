@@ -7,6 +7,8 @@ description: Use when working with BuildBetter's MCP server, bb CLI, Codex hooks
 
 Use this skill when the user asks Codex to use BuildBetter product context, verify the local `bb` CLI, install BuildBetter Codex hooks, or prepare/share the BuildBetter plugin.
 
+For open-ended product/customer questions, use `buildbetter-mcp-research` to choose the right MCP tools. For direct customer-voice synthesis, use `buildbetter-customer-voice`.
+
 ## MCP
 
 The plugin bundles the production BuildBetter MCP server:
