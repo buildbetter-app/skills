@@ -24,6 +24,13 @@ SUBMISSION_DOCS = [
 PUBLIC_TEXT_SUFFIXES = {".json", ".md", ".yaml", ".yml"}
 PUBLIC_TEXT_EXCLUDED_DIRS = {".git", ".pytest_cache", ".venv", "node_modules"}
 ALLOWED_PUBLIC_EMAIL_DOMAINS = {"buildbetter.ai", "buildbetter.app", "example.com"}
+BUILDBETTER_EXCLUSIVE_SKILLS = {
+    "buildbetter-knowledge-gaps",
+    "buildbetter-project-triage",
+    "buildbetter-smart-tags",
+    "buildbetter-survey-research",
+    "buildbetter-synthetic-research",
+}
 
 
 def assert_public_text_is_portable(text: str):
@@ -212,8 +219,9 @@ def test_specialized_buildbetter_skills_are_portable_and_in_sync():
             "recheck-knowledge-gap",
             "review-knowledge-gap",
         }
-        for tool_name in feature_scoped_or_mutating_tools:
-            assert f"`{tool_name}`" not in portable_text
+        if skill_name not in BUILDBETTER_EXCLUSIVE_SKILLS:
+            for tool_name in feature_scoped_or_mutating_tools:
+                assert f"`{tool_name}`" not in portable_text
         assert "search-signals.query" not in portable_text
         assert '"page":' not in portable_text
 
@@ -224,3 +232,37 @@ def test_specialized_buildbetter_skills_are_portable_and_in_sync():
         interface = openai_yaml["interface"]
         assert 25 <= len(interface["short_description"]) <= 64
         assert f"${skill_name}" in interface["default_prompt"]
+
+
+def test_buildbetter_exclusive_workflows_document_mutation_boundaries():
+    expected = {
+        "buildbetter-synthetic-research": [
+            "estimatedCredits",
+            "confirmationToken",
+            "does not prove real customer demand",
+        ],
+        "buildbetter-survey-research": [
+            "Never activate, schedule, send, resend, or attach an audience",
+            "A test email is a real external message",
+        ],
+        "buildbetter-smart-tags": [
+            "Publishing, historical backfills, access changes",
+            "idempotencyKey",
+            "exact credits",
+        ],
+        "buildbetter-project-triage": [
+            "require explicit approval",
+            "project_v2 IDs",
+        ],
+        "buildbetter-knowledge-gaps": [
+            "require approval",
+            "idempotency key",
+        ],
+    }
+
+    codex_root = REPO_ROOT / "plugins" / "buildbetter-codex" / "skills"
+    assert set(expected) == BUILDBETTER_EXCLUSIVE_SKILLS
+    for skill_name, phrases in expected.items():
+        text = (codex_root / skill_name / "SKILL.md").read_text()
+        for phrase in phrases:
+            assert phrase in text

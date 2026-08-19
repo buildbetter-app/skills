@@ -42,7 +42,7 @@ codex plugin add skills@buildbetter
 
 ### Option D: BuildBetter MCP/CLI plugins
 
-This repo includes separate BuildBetter MCP/CLI plugins for Codex and Claude Code under `plugins/buildbetter-codex/` and `plugins/buildbetter-claude/`. Both bundle `buildbetter-mcp-research` for reliable, traceable research across BuildBetter domain tools and `buildbetter-customer-voice` for defensible direct customer evidence. The packages remain separate because Codex and Claude Code use different plugin manifest directories and remote MCP config schemas.
+This repo includes separate BuildBetter MCP/CLI plugins for Codex and Claude Code under `plugins/buildbetter-codex/` and `plugins/buildbetter-claude/`. They include BuildBetter-specific skills for MCP routing, customer voice, synthetic research, native surveys, Smart Tags, project triage, and knowledge gaps. They are separate packages because Codex and Claude Code use different plugin manifest directories and remote MCP config schemas.
 
 Codex:
 

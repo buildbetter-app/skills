@@ -9,7 +9,7 @@ Use BuildBetter domain tools before GraphQL helpers. Use `run-query` only when d
 
 Read `references/mcp-tool-map.md` when exact tool names, arguments, pagination rules, or multi-source examples are needed.
 
-This skill adds reusable routing and evidence discipline over the MCP's general-purpose read tools. It does not replace MCP behavior, encode a tenant's taxonomy, or depend on feature-gated domains and mutation workflows.
+This skill adds reusable routing and evidence discipline over the MCP's general-purpose read tools. It does not replace MCP behavior or encode a tenant's taxonomy. Feature-scoped and mutating workflows route to dedicated skills when those skills and their tools are available.
 
 ## Research Workflow
 
@@ -27,10 +27,15 @@ This skill adds reusable routing and evidence discipline over the MCP's general-
 - Cross-call evidence: `search-signals` for fast discovery; `list-extractions` for exact filters.
 - Counts, trends, and distributions: `aggregate-signals`, `aggregate-extractions`, or `aggregate-signals-by-tags` before listing every row.
 - Direct customer evidence: use `buildbetter-customer-voice` when installed.
+- Synthetic persona profiles, panels, studies, and chats: use `buildbetter-synthetic-research` when installed.
+- Native survey authoring, delivery, intercepts, and responses: use `buildbetter-survey-research` when installed.
+- Smart Tag drafting, evaluation, publishing, and backfills: use `buildbetter-smart-tags` when installed.
 - People and accounts: `search-people`; use `search-people-properties` for CRM or integration attributes.
 - Documents and knowledge: `search-documents` -> `get-document`; `search-knowledge-pages` or `list-knowledge-pages` -> `get-knowledge-page`.
 - Exact folder contents: `get-folder`.
 - Projects and triage: `list-project-types`, `list-projects`, `get-project`, `triage-count`, `list-triage-items`, `get-triage-item`. When the user asks for active work context, search promoted projects and triage separately.
+- Project and Linear promotion workflows: use `buildbetter-project-triage` when installed.
+- Knowledge-gap review, attachments, rechecks, and release readiness: use `buildbetter-knowledge-gaps` when installed.
 
 ## Reliability Rules
 

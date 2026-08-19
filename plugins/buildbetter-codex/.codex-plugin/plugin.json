@@ -1,7 +1,7 @@
 {
   "name": "buildbetter",
-  "version": "0.3.0",
-  "description": "Use BuildBetter's MCP server, research and customer-evidence skills, and bb CLI from Codex.",
+  "version": "0.4.0",
+  "description": "Use BuildBetter's MCP server, bb CLI, and product-operations skills from Codex.",
   "author": {
     "name": "BuildBetter",
     "email": "eng@buildbetter.app",
@@ -23,7 +23,7 @@
   "interface": {
     "displayName": "BuildBetter",
     "shortDescription": "Use BuildBetter MCP and bb CLI",
-    "longDescription": "Connect Codex to BuildBetter's MCP server for product-ops context, reliable multi-source research, defensible customer evidence, and organization-aware workflows. Bundled skills route questions through the correct domain tools and document local bb CLI setup, health checks, feedback hooks, and plugin sharing/submission steps.",
+    "longDescription": "Connect Codex to BuildBetter's MCP server for product evidence, customer voice, synthetic research, native surveys, Smart Tags, project triage, knowledge gaps, and organization-aware workflows. The bundled skills also document local bb CLI setup, health checks, feedback hooks, and plugin sharing/submission steps.",
     "developerName": "BuildBetter",
     "category": "Developer Tools",
     "capabilities": [
@@ -37,6 +37,10 @@
     "defaultPrompt": [
       "Use BuildBetter to research the customer evidence for this work.",
       "Use BuildBetter to retrieve direct customer voice for this question.",
+      "Use BuildBetter to run a bounded synthetic persona study.",
+      "Use BuildBetter to draft a customer survey without activating an audience.",
+      "Use BuildBetter to create and evaluate a Smart Tag.",
+      "Use BuildBetter to inspect project triage and knowledge gaps.",
       "Check bb CLI health and install hooks for this repo.",
       "Prepare this BuildBetter plugin for sharing."
     ],

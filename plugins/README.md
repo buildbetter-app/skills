@@ -6,7 +6,7 @@ This directory contains platform-specific plugin packages for BuildBetter.
 
 The BuildBetter Skills workflow plugin lives at `plugins/skills/`.
 
-The BuildBetter MCP and CLI plugin lives at `plugins/buildbetter-codex/` and is listed in `.agents/plugins/marketplace.json`.
+The BuildBetter MCP and CLI plugin lives at `plugins/buildbetter-codex/` and is listed in `.agents/plugins/marketplace.json`. It includes BuildBetter-specific skills for MCP routing, customer voice, synthetic research, native surveys, Smart Tags, project triage, and knowledge gaps.
 
 Install from the hosted marketplace:
 
@@ -26,7 +26,7 @@ codex plugin add buildbetter@buildbetter
 
 ## Claude Code
 
-The Claude Code BuildBetter MCP and CLI plugin lives at `plugins/buildbetter-claude/` and is listed in `.claude-plugin/marketplace.json`.
+The Claude Code BuildBetter MCP and CLI plugin lives at `plugins/buildbetter-claude/` and is listed in `.claude-plugin/marketplace.json`. It includes BuildBetter-specific skills for MCP routing, customer voice, synthetic research, native surveys, Smart Tags, project triage, and knowledge gaps.
 
 Install from the hosted marketplace:
 
