@@ -1,0 +1,4 @@
+interface:
+  display_name: "BuildBetter Smart Tags"
+  short_description: "Create and evaluate evidence classification"
+  default_prompt: "Use $buildbetter-smart-tags to run this BuildBetter product workflow with explicit evidence and approval gates."
