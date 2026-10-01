@@ -1,6 +1,6 @@
 ---
 name: buildbetter-mcp-research
-description: Research BuildBetter data accurately through BuildBetter MCP. Use for open-ended questions about customer evidence, signals, calls, transcripts, people, companies, documents, knowledge pages, Projects Hub, or triage, and whenever an agent must choose reliable BuildBetter MCP read tools and return traceable evidence.
+description: Research BuildBetter data accurately through BuildBetter MCP. Use for open-ended questions about customer evidence, signals, support tickets, recordings, transcripts, survey responses, product analytics, people, companies, documents, knowledge pages, Projects Hub, or triage, and whenever an agent must choose reliable BuildBetter MCP read tools and return traceable evidence.
 ---
 
 # BuildBetter MCP Research
@@ -23,9 +23,12 @@ This skill adds reusable routing and evidence discipline over the MCP's general-
 
 ## Routing
 
-- Calls and meetings: `search-calls` -> `get-call` -> `get-call-transcript`.
-- Cross-call evidence: `search-signals` for fast discovery; `list-extractions` for exact filters.
+- Recordings, including calls and interviews: `search-calls` -> `get-call` -> `get-call-transcript`. These established tool names are compatibility names; a meeting and its recording remain distinct.
+- Evidence across imported support, feedback, survey, and recording sources: `search-signals` for fast discovery; `list-extractions` for exact filters.
 - Counts, trends, and distributions: `aggregate-signals`, `aggregate-extractions`, or `aggregate-signals-by-tags` before listing every row.
+- Connected product usage: `list-analytics-projects` -> `query-analytics-data`, or `get-analytics-insight` for an existing chart/insight. Use advertised schemas and actual event names; retain provider, connection, project, timezone, timeframe, and truncation.
+- Interactive inspection and selection: `open-evidence-browser` when advertised and supported by the client. Use ordinary read tools when rendering is unavailable.
+- User-requested monitoring: hand off to `buildbetter-start` and the client's discovered MCP Events workflow; keep this research retrieval read-only.
 - Direct customer evidence: use `buildbetter-customer-voice` when installed.
 - Synthetic persona profiles, panels, studies, and chats: use `buildbetter-synthetic-research` when installed.
 - Native survey authoring, delivery, intercepts, and responses: use `buildbetter-survey-research` when installed.

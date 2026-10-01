@@ -8,7 +8,7 @@ Create or designate one production-like tenant:
 
 - Organization name: BuildBetter Review Sandbox
 - Auth path: OAuth through `https://mcp.buildbetter.app`
-- Role: read access to calls, signals/extractions, documents, knowledge pages, people, personas, companies, and custom properties
+- Role: read access to recordings, signals, surveys/responses, connected analytics, documents, Knowledge, people, personas, companies, and custom properties; any draft-writing permission is scoped to sample data
 - Data: realistic dummy customer data only; no real customer PII
 - Availability: tenant remains stable for the review window
 
@@ -29,12 +29,12 @@ Seed enough data for the hero cases:
 
 ## Reviewer Instructions
 
-1. Install the plugin from the Git-backed marketplace.
-2. Start a new Codex thread.
-3. Connect BuildBetter when Codex prompts for MCP auth.
-4. Choose the BuildBetter Review Sandbox organization during OAuth.
-5. Run the hero prompts from `hero-prompts.md`.
-6. Compare the final answer and tool path against `eval-plan.md` and `hero-cases.json`.
+1. Install the selected review version through the ChatGPT review flow; Git-backed marketplace installation remains available for separate Codex checks.
+2. Start a new ChatGPT chat and complete BuildBetter OAuth.
+3. Choose the designated sample review organization.
+4. Run the manifest's positive and negative cases, including analytics, interactive selection, and an explicitly requested Events monitor.
+5. Compare the actual answer, selected sources, tool path, and refusal behavior with the manifest. Record unsupported client/workspace capabilities explicitly.
+6. Save sanitized ChatGPT transcripts and a real walkthrough. Keep the existing Codex hero cases as separate client evidence.
 
 ## Private review setup
 
@@ -43,4 +43,3 @@ Seed enough data for the hero cases:
 - Provide a dedicated account that works without MFA approval, one-time codes, magic links, or private-network access.
 - Run the five positive and three negative manifest cases using that account and capture an accessible walkthrough URL.
 - Upload the generated ZIP, complete the MCP scan, resolve required findings, and submit the selected draft for review. Auth details are entered separately in Review details, never in the ZIP.
-

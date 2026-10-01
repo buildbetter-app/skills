@@ -1,6 +1,6 @@
 # BuildBetter ChatGPT and Codex Plugin Submission Overview
 
-This dossier prepares the BuildBetter Codex plugin package for review against the Codex plugin quality bar: useful product capabilities, skill guidance, realistic evals, and a clear reviewer path.
+This dossier prepares the maintained BuildBetter package for ChatGPT and Codex review: useful product capabilities, portable public skills, realistic cases, and a clear reviewer path. The current candidate is 0.6.0; [its ledger](2026-10-01-release-candidate.md) separates shipped PRs and runtime proof from pending deployment and submission.
 
 ## Plugin Links
 
@@ -14,7 +14,7 @@ This dossier prepares the BuildBetter Codex plugin package for review against th
 
 | Package | Purpose | Submission role |
 | --- | --- | --- |
-| `plugins/buildbetter-codex` | Codex plugin for BuildBetter MCP and `bb` CLI workflows. | Primary Codex plugin submission candidate. |
+| `plugins/buildbetter-codex` | Shared ChatGPT/Codex package for BuildBetter MCP and portable workflows; local CLI guidance also works in Codex. | Primary public ZIP submission source. |
 | `plugins/skills` | Codex plugin for BuildBetter Skills spec workflow and browser verification. | Supporting workflow plugin and optional companion listing. |
 | `plugins/buildbetter-claude` | Claude Code plugin variant with Claude-specific manifest and MCP shape. | Not part of Codex submission; maintained separately for Claude distribution. |
 
@@ -22,12 +22,15 @@ This dossier prepares the BuildBetter Codex plugin package for review against th
 
 Plugin name: BuildBetter
 
-Plugin description: Research customer feedback, imported support conversations, survey responses, recordings, product signals, and Knowledge with cited evidence and focused workflows. The directory package serves ChatGPT and Codex; local CLI setup remains available in Codex.
+Plugin description: Research customer feedback, imported support conversations, survey responses, recordings, product signals, analytics, and Knowledge with cited evidence and focused workflows. Inspect selected signals interactively and monitor updates the user chooses when the client and workspace support Events. The directory package serves ChatGPT and Codex; local CLI setup remains available in Codex.
 
 Example use cases:
 
-- Find customer signals and call evidence for a planned feature.
-- Search calls, transcripts, documents, people, and knowledge pages for product context.
+- Find recurring pain points across imported support, survey, feedback, and recording evidence.
+- Compare qualitative evidence with connected PostHog or Amplitude usage and saved insights.
+- Inspect and select cited signals in the interactive evidence browser.
+- Monitor selected new signals, completed recordings, or submitted survey responses in an Events-capable client.
+- Search recordings, transcripts, documents, people, and Knowledge for product context.
 - Draft a product spec or implementation plan with cited BuildBetter evidence.
 - Check local `bb` CLI health, install BuildBetter Codex hooks, and inspect feedback payloads before sending.
 - Prepare a repository for BuildBetter-assisted agent workflows.
@@ -58,14 +61,10 @@ Done locally:
 - Review account requirements and manual testing flow.
 - MCP tool audit based on the BuildBetter app source.
 
-External prerequisites before public review:
-
-- Confirm the BuildBetter MCP app/connector approval state with OpenAI.
-- Provide reviewer credentials through a private channel, not in this repository.
-- Run and capture at least one successful Codex transcript against the review tenant.
+External prerequisites before public review include the owning publisher identity, a deployed verified backend, dedicated sample reviewer credentials, executed ChatGPT cases, an accessible walkthrough, completed scan findings, and a submission receipt. See the [checklist](submission-checklist.md).
 
 ## Public ZIP
 
-Run `python scripts/build_plugin_submission.py --output artifacts/buildbetter-0.5.0.zip`. The reproducible archive bundles the maintained public skills and normalizes only its MCP configuration. Do not upload the whole repository or include credentials, app references, or hooks.
+Run `python scripts/build_plugin_submission.py --output artifacts/buildbetter-0.6.0.zip`. The reproducible archive bundles the maintained public skills and normalizes only its MCP configuration. Do not upload the whole repository or include credentials, app references, or hooks.
 
 Metadata and skills updates require a new version/ZIP. Runtime organization skills remain private and are retrieved using permissioned MCP tools; submission-time skill imports are static snapshots. Review cases in the manifest are authored scenarios, not execution receipts. Supply a dedicated sample-data reviewer account and a real walkthrough URL in the dashboard before submitting.
