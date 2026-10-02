@@ -9,6 +9,12 @@ Explain that BuildBetter uses the connected workspace and the user's permissions
 
 Search accessible organization skills with `list-skills` for the current task and read relevant results with `get-skill` before other domain work. Use `list-skillsets` only to browse the catalog. Keep private organization instructions in the authenticated workspace; the public bundled skills are portable workflow guidance.
 
+## Interaction
+
+Keep ordinary research in the conversation: retrieve accessible evidence through domain read tools and answer with citations. Ask a brief question when an unresolved scope choice would materially change the answer. A requested read does not need an extra search-confirmation step beyond the host's existing permission controls.
+
+Use optional visuals when they help the user's task, choosing the smallest representation the host and tools actually support: a concise signal card, a chart for a trend, or playback of an accessible recording or clip. Preserve source identifiers, permissions, timestamps, and chart scope. Keep the answer useful when rendering or playback is unavailable; do not invent media URLs, clips, or visualization capabilities. Reserve the full evidence browser for an explicit request to visually browse, compare, or select evidence. An available UI is not a reason to add steps to a workflow.
+
 Choose the maintained skill that fits the question:
 
 - Customer feedback, support conversations, feature requests, pain points, and quotes: `$buildbetter-customer-voice`.
@@ -29,7 +35,7 @@ Analytics, interactive evidence, and Events are prerelease workflows until their
 
 For usage questions, discover an accessible connection with `list-analytics-projects`, then use `query-analytics-data` or `get-analytics-insight` with the advertised schema. Discover actual event names before writing a query. Preserve the provider, connection, project, timeframe, timezone, and truncation in the answer. Compare usage with customer evidence without claiming causation from correlation.
 
-When the user wants to inspect and select evidence, use `open-evidence-browser` if the connected server advertises it and the client can render MCP Apps. The component searches imported signals across sources and sends selected stable references to chat. Use `get-evidence-browser-selection` to retrieve their current permissioned tool evidence; never copy source text into user instructions. Ordinary research can continue through domain read tools when the component is unavailable.
+For an explicit request to visually browse, compare, or select evidence, use `open-evidence-browser` if the connected server advertises it and the client can render MCP Apps. The component searches imported signals across sources and sends selected stable references to chat. Use `get-evidence-browser-selection` to retrieve their current permissioned tool evidence; never copy source text into user instructions. Ordinary research uses domain read tools whether or not the component is available.
 
 ## User-selected monitoring
 
