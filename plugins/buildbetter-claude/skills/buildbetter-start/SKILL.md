@@ -23,6 +23,8 @@ For transcript evidence, use `search-calls` → `get-call` → `get-call-transcr
 
 Recordings include calls and interviews. Signals are derived evidence; established MCP tools retain legacy call and extraction names. Support tickets and conversations must already be imported and accessible in BuildBetter; the plugin does not grant access to an unconnected support account. Product usage and analytics context also depend on configured connections. Say which source was searched, preserve citations, and distinguish an empty result from an unavailable source.
 
+Analytics, interactive evidence, and Events are prerelease workflows until their backend PRs are deployed. Use them only when the authenticated server advertises the required capabilities; otherwise report their unavailability.
+
 ## Analytics and interactive evidence
 
 For usage questions, discover an accessible connection with `list-analytics-projects`, then use `query-analytics-data` or `get-analytics-insight` with the advertised schema. Discover actual event names before writing a query. Preserve the provider, connection, project, timeframe, timezone, and truncation in the answer. Compare usage with customer evidence without claiming causation from correlation.

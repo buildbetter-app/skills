@@ -69,3 +69,8 @@ UI and Events final-candidate verification remains pending. The additions audit
 is explicitly pending in the checklist. No new merge-readiness claim follows
 from the earlier evidence table. The reviewer runs all eight positive cases and
 three negatives, with a separate authorized operator producing a future event.
+
+Current local package: `artifacts/buildbetter-0.6.0.zip`, 25 entries. SHA256:
+`6a5f41d38a600360a886df835076928b10bed468376962c53e2cc787b74cbceb`.
+All 108 Python tests passed for this packaging correction. The artifact stays
+local and is not an OpenAI submission receipt.
