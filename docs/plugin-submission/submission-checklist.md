@@ -16,7 +16,7 @@
 - [x] Hero prompts are documented.
 - [x] Eval cases are structured in JSON.
 - [x] Review account requirements are documented.
-- [x] Tool audit is documented from current BuildBetter MCP source.
+- [ ] Audit analytics, evidence UI/selection, and Events on the final backend and deployed revision; the older research inventory is documented.
 - [x] Install smoke test is documented.
 
 ## Current Submission Candidate
@@ -33,7 +33,7 @@
 - [ ] Obtain separate authorization to merge and deploy the backend stack, complete applicable gates, and read back the deployed endpoint revision.
 - [ ] Provide a dedicated sample-data reviewer account privately. It must work without MFA approvals, one-time codes, magic links, or private-network access.
 - [ ] Grant Events to the review workspace only after the MCP and both workers are deployed with the migration.
-- [ ] Execute at least five positive and three negative cases in ChatGPT, plus analytics, interactive evidence, and Events acceptance for the advertised additions. Save sanitized transcripts under `docs/plugin-submission/transcripts/`.
+- [ ] Execute all eight positive and three negative manifest cases in ChatGPT, including analytics, interactive evidence, and the operator-triggered future Events fixture. Save sanitized transcripts under `docs/plugin-submission/transcripts/`.
 - [ ] Capture an accessible walkthrough URL and actual ChatGPT screenshots.
 - [ ] Rebuild and inspect the final ZIP from the selected source revision; upload it and complete the MCP scan against the deployed endpoint.
 - [ ] Resolve required metadata, skills, authentication, and MCP findings; complete applicable human attestations.

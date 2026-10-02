@@ -41,5 +41,32 @@ Seed enough data for the hero cases:
 - Reviewer username/password or SSO access must be supplied outside git.
 - Select the existing verified OpenAI organization, project, and developer identity before uploading the new version.
 - Provide a dedicated account that works without MFA approval, one-time codes, magic links, or private-network access.
-- Run the five positive and three negative manifest cases using that account and capture an accessible walkthrough URL.
+- Run all eight positive and three negative manifest cases using that account and capture an accessible walkthrough URL.
 - Upload the generated ZIP, complete the MCP scan, resolve required findings, and submit the selected draft for review. Auth details are entered separately in Review details, never in the ZIP.
+
+## Deterministic future-event fixture
+
+The reviewer stays read-only. A separately authorized sandbox operator supplies the
+event after the reviewer subscribes; pre-seeded historical records do not count.
+
+1. Prepare a short dummy recording with one unmistakable feature request and a
+   unique review-run marker. Keep it unimported until the monitor is active.
+2. The reviewer explicitly requests a `signal.created` monitor in the designated
+   review workspace. Record its subscription ID, activation time, filter, and
+   granted expiration from the Events response.
+3. After activation, the sandbox operator imports the dummy recording through
+   the normal authorized product flow and runs its normal signal extraction.
+   The operator must use their own account; never grant writes to the reviewer.
+4. Record the completed producer job and the new signal's public ID and immutable
+   occurrence time. Require an occurrence after activation and before expiration.
+5. Verify the host receives one notification for that ID. The reviewer retrieves
+   its current accessible evidence through `search-signals` and checks the marker.
+6. Save sanitized producer, delivery, and retrieval receipts. Retry with a fresh
+   marker only after diagnosing a missing producer or delivery; do not backdate
+   records or manually POST a webhook and call that producer acceptance.
+7. Unsubscribe and have the operator remove the owned sample data after review.
+
+Until the endpoint and operator are available, Events execution remains pending.
+The same approach can separately exercise `survey.response.submitted` by having
+an authorized test respondent submit one new response to the selected dummy
+survey after activation, and `recording.completed` by completing a fresh import.

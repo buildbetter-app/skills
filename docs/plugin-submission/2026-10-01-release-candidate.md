@@ -1,6 +1,6 @@
 # BuildBetter 0.6.0 submission candidate
 
-The package describes the completed source changes across feedback, imported
+The package describes the proposed prerelease source changes across feedback, imported
 support, native surveys, recordings, analytics, signals, documents, and
 Knowledge. It bundles maintained public skills; private organization skills
 remain permissioned at runtime. Metadata/skill changes require a new ZIP/version.
@@ -59,3 +59,13 @@ executed ChatGPT cases, real walkthrough URL, MCP scan and final submission
 receipt remain unverified. Follow [the checklist](submission-checklist.md) and
 [review account requirements](review-account.md); keep credentials outside git
 and the ZIP.
+
+## Review correction status
+
+Review corrections are being applied to the backend stack. Earlier quick-compile
+and browser receipts describe older source revisions and do not verify the new
+candidate. Analytics error/count/trace corrections have focused HTTP coverage;
+UI and Events final-candidate verification remains pending. The additions audit
+is explicitly pending in the checklist. No new merge-readiness claim follows
+from the earlier evidence table. The reviewer runs all eight positive cases and
+three negatives, with a separate authorized operator producing a future event.

@@ -81,3 +81,36 @@ def test_invalid_package_is_rejected_without_replacing_existing_output(tmp_path,
     result = build(source, output)
     assert result.returncode != 0
     assert output.read_bytes() == b'previous artifact'
+
+
+@pytest.mark.parametrize('directory', ['skills/buildbetter-start/.private', 'assets/.cache'])
+def test_hidden_directory_descendants_never_enter_zip(tmp_path, directory):
+    source = tmp_path / 'source'
+    shutil.copytree(SOURCE, source)
+    private = source / directory
+    private.mkdir(parents=True)
+    (private / 'credentials.txt').write_text('private fixture')
+    output = tmp_path / 'buildbetter.zip'
+    result = build(source, output)
+    assert result.returncode == 0, result.stderr
+    with zipfile.ZipFile(output) as archive:
+        assert not any(n.endswith('credentials.txt') for n in archive.namelist())
+
+
+def test_mislabeled_screenshot_is_rejected(tmp_path):
+    source = tmp_path / 'source'
+    shutil.copytree(SOURCE, source)
+    manifest = json.loads((source / '.codex-plugin/plugin.json').read_text())
+    screenshot = source / manifest['interface']['screenshots'][0].removeprefix('./')
+    screenshot.write_bytes(b'not an image')
+    result = build(source, tmp_path / 'buildbetter.zip')
+    assert result.returncode != 0
+
+
+def test_portable_root_manifest_builds_without_workspace_extensions(tmp_path):
+    source = tmp_path / 'source'
+    shutil.copytree(SOURCE, source)
+    manifest = source / '.codex-plugin/plugin.json'
+    manifest.rename(source / 'plugin.json')
+    result = build(source, tmp_path / 'buildbetter.zip')
+    assert result.returncode == 0, result.stderr

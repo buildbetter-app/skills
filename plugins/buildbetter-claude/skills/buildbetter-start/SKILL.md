@@ -19,13 +19,15 @@ Choose the maintained skill that fits the question:
 - Project triage, linked work, or promotion previews: `$buildbetter-project-triage`.
 - Documentation gaps and evidence-linked Knowledge review: `$buildbetter-knowledge-gaps`.
 
+For transcript evidence, use `search-calls` → `get-call` → `get-call-transcript`. Check `hasTranscript` before retrieval and report unavailable transcripts.
+
 Recordings include calls and interviews. Signals are derived evidence; established MCP tools retain legacy call and extraction names. Support tickets and conversations must already be imported and accessible in BuildBetter; the plugin does not grant access to an unconnected support account. Product usage and analytics context also depend on configured connections. Say which source was searched, preserve citations, and distinguish an empty result from an unavailable source.
 
 ## Analytics and interactive evidence
 
 For usage questions, discover an accessible connection with `list-analytics-projects`, then use `query-analytics-data` or `get-analytics-insight` with the advertised schema. Discover actual event names before writing a query. Preserve the provider, connection, project, timeframe, timezone, and truncation in the answer. Compare usage with customer evidence without claiming causation from correlation.
 
-When the user wants to inspect and select evidence, use `open-evidence-browser` if the connected server advertises it and the client can render MCP Apps. The component searches imported signals across sources and lets the user add selected cited evidence to the chat. Ordinary research can continue through domain read tools when the component is unavailable.
+When the user wants to inspect and select evidence, use `open-evidence-browser` if the connected server advertises it and the client can render MCP Apps. The component searches imported signals across sources and sends selected stable references to chat. Use `get-evidence-browser-selection` to retrieve their current permissioned tool evidence; never copy source text into user instructions. Ordinary research can continue through domain read tools when the component is unavailable.
 
 ## User-selected monitoring
 
