@@ -29,7 +29,7 @@ This skill adds reusable routing and evidence discipline over the MCP's general-
 - Evidence across imported support, feedback, survey, and recording sources: `search-signals` for fast discovery; `list-extractions` for exact filters.
 - Counts, trends, and distributions: `aggregate-signals`, `aggregate-extractions`, or `aggregate-signals-by-tags` before listing every row.
 - Connected product usage: `list-analytics-projects` -> `query-analytics-data`, or `get-analytics-insight` for an existing chart/insight. Use advertised schemas and actual event names; retain provider, connection, project, timezone, timeframe, and truncation.
-- Explicit visual browsing, comparison, or selection: `open-evidence-browser` when advertised and supported by the client. Ordinary research uses domain read tools without opening the browser.
+- Explicit visual browsing or curation of individual items: `open-evidence-browser` when advertised and supported by the client. The agent selects relevant evidence for ordinary research and comparison through domain read tools without opening the browser.
 - User-requested monitoring: hand off to `buildbetter-start` and the client's discovered MCP Events workflow; keep this research retrieval read-only.
 - Direct customer evidence: use `buildbetter-customer-voice` when installed.
 - Synthetic persona profiles, panels, studies, and chats: use `buildbetter-synthetic-research` when installed.

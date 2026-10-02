@@ -5,6 +5,8 @@ description: Inspect and route BuildBetter Projects Hub, triage items, and Linea
 
 # BuildBetter Project Triage
 
+Follow [buildbetter-start’s interaction guidance](../buildbetter-start/SKILL.md#interaction): complete supported work through chat; use optional UI only when it reduces effort or clarifies a decision.
+
 ## Safety Contract
 
 Search organization skills with list-skills and get-skill first. Reading Projects Hub, triage, and connected ticket evidence is observational. promote-triage-item and promote-linear-tickets create project state and require explicit approval for the exact source items and target type.

@@ -5,6 +5,8 @@ description: Design, draft, test, launch, and analyze BuildBetter native surveys
 
 # BuildBetter Survey Research
 
+Follow [buildbetter-start’s interaction guidance](../buildbetter-start/SKILL.md#interaction): complete supported work through chat; use optional UI only when it reduces effort or clarifies a decision.
+
 ## Safety Contract
 
 Search organization skills with list-skills and get-skill first. Treat survey creation, audience changes, activation, scheduling, invitations, respondent links, intercept configuration, settings, View connections, and deletion as mutations. Never activate, schedule, send, resend, or attach an audience without explicit approval and a readback of survey, recipients, channel, and timing.

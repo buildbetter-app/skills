@@ -11,9 +11,26 @@ Search accessible organization skills with `list-skills` for the current task an
 
 ## Interaction
 
-Keep ordinary research in the conversation: retrieve accessible evidence through domain read tools and answer with citations. Ask a brief question when an unresolved scope choice would materially change the answer. A requested read does not need an extra search-confirmation step beyond the host's existing permission controls.
+The agent owns retrieval, filtering, pagination, representative evidence selection, synthesis, and supported workflow execution. Complete ordinary research in chat with citations. Users can refine sources, people, topics, dates, or results by talking to the agent; they do not need to open a browser, select signals, or add evidence to chat before analysis. Interpret requests to compare or analyze evidence as research unless the user explicitly asks for visual curation.
 
-Use optional visuals when they help the user's task, choosing the smallest representation the host and tools actually support: a concise signal card, a chart for a trend, or playback of an accessible recording or clip. Preserve source identifiers, permissions, timestamps, and chart scope. Keep the answer useful when rendering or playback is unavailable; do not invent media URLs, clips, or visualization capabilities. Reserve the full evidence browser for an explicit request to visually browse, compare, or select evidence. An available UI is not a reason to add steps to a workflow.
+Ask a brief question only when an unresolved choice materially changes the result. A requested read does not need a separate search-confirmation step beyond the host's permission controls. For actions with approval boundaries, show the smallest reviewable preview of scope, affected objects, timing, cost, and consequences. Accept explicit conversational approval when the tool supports it, and preserve authorization already given for the unchanged action. A button or wizard is an optional way to make the same decision; it must not add a second approval after an equivalent chat approval.
+
+Use UI when it reduces effort or makes information materially clearer. Choose the smallest supported representation, and keep a complete chat path:
+
+| Task | Agent and chat path | Useful optional UI |
+| --- | --- | --- |
+| Research and evidence | Search, resolve people and filters, retrieve and cite relevant evidence | A compact source or quote view; full selection browser only for explicit curation |
+| Smart Tag setup | Discover existing groups, draft rules, clarify ambiguity, show representative predictions | Wizard or comparison view when several choices are easier to inspect together |
+| Processing and backfills | Read actual job receipts, explain states and counts, respect pollAfterSeconds | Compact progress view; never invent percentages, completion, or estimated time |
+| Approval | Show the exact proposed scope and cost; accept supported chat approval | A concise confirmation with the same scope and approval boundary |
+| Integrations | Discover supported connections and guide the user's requested setup | Provider sign-in or permission UI where the provider requires it |
+| Taxonomy | Discover current definitions, propose changes and examples, apply authorized edits through supported tools | A useful hierarchy or side-by-side change preview |
+| Reports and lifecycle | Synthesize evidence and actual metrics, explain stages, uncertainty, and source coverage | A supported chart, report preview, or lifecycle diagram |
+| Recordings | Resolve the actual recording and transcript timestamps | Playback of authorized returned media when supported |
+
+These are interaction choices, not a claim that every component exists. Use only advertised tools, authorized media, and host capabilities. Keep a useful text answer when rendering is unsupported; never force the user into a website to complete a supported chat workflow. Provider OAuth and host-required approvals still require their actual user interaction.
+
+Reserve `open-evidence-browser` for an explicit request to visually browse or curate individual items. When `show-job-progress` is advertised, use it for a helpful visual status snapshot of an existing job; ordinary status reads use `get-job`. The view never starts processing, approves a backfill, or requires selection. Describe status as a snapshot, and use the actual receipt rather than implying live updates. Preserve permissions, stable identifiers, timestamps, credit receipts, and chart scope.
 
 Choose the maintained skill that fits the question:
 
@@ -35,7 +52,7 @@ Analytics, interactive evidence, and Events are prerelease workflows until their
 
 For usage questions, discover an accessible connection with `list-analytics-projects`, then use `query-analytics-data` or `get-analytics-insight` with the advertised schema. Discover actual event names before writing a query. Preserve the provider, connection, project, timeframe, timezone, and truncation in the answer. Compare usage with customer evidence without claiming causation from correlation.
 
-For an explicit request to visually browse, compare, or select evidence, use `open-evidence-browser` if the connected server advertises it and the client can render MCP Apps. The component searches imported signals across sources and sends selected stable references to chat. Use `get-evidence-browser-selection` to retrieve their current permissioned tool evidence; never copy source text into user instructions. Ordinary research uses domain read tools whether or not the component is available.
+For an explicit request to visually browse or curate individual evidence items, use `open-evidence-browser` if the connected server advertises it and the client can render MCP Apps. The component searches imported signals across sources and sends selected stable references to chat. Use `get-evidence-browser-selection` to retrieve their current permissioned tool evidence; never copy source text into user instructions. Ordinary research uses domain read tools whether or not the component is available.
 
 ## User-selected monitoring
 

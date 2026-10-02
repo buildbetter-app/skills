@@ -70,3 +70,9 @@ The current package includes structured cases and manual capture. The next autom
 3. records tool calls and final answers,
 4. grades with field checks plus optional rubric checks,
 5. writes a transcript markdown file per case.
+
+## Chat completion and optional workflow UI
+
+Run BB-HERO-012 through BB-HERO-016 after the existing research and explicit-curation cases. Grade conversational completion first, then actual native visual rendering separately. A user asking to compare evidence does not implicitly request a selection browser. UI fails the interaction criterion if a supported chat path requires opening a page, selecting evidence, clicking through a wizard, or approving an unchanged action twice. Required provider OAuth and host permission prompts remain valid boundaries.
+
+For job progress, use the actual public jobId and standard receipt. The optional show-job-progress tool is prerelease until advertised by the deployed server. It displays a snapshot and follows agent updates; it does not poll, start work, or grant approval. A discovering_candidates scan has a growing corpus, so never grade a guessed denominator or zero-percent stall as accurate. These scenarios do not claim that Smart Tag, integration, taxonomy, report, or lifecycle components all exist.
