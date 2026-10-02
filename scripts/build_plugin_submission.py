@@ -8,6 +8,7 @@ from pathlib import Path, PurePosixPath
 import tempfile
 from urllib.parse import urlsplit
 import zipfile
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCAL_SERVER_FIELDS = {'title', 'description', 'url', 'oauth_resource',
@@ -33,11 +34,36 @@ def package_path(value):
     return path.as_posix()
 
 
+def validate_image(name, content):
+    suffix = PurePosixPath(name).suffix.lower()
+    if suffix == '.svg':
+        try:
+            root = ET.fromstring(content)
+        except ET.ParseError as error:
+            raise ValueError(f'Invalid SVG asset: {name}') from error
+        if root.tag not in ('svg', '{http://www.w3.org/2000/svg}svg'):
+            raise ValueError(f'Invalid SVG asset: {name}')
+    elif suffix == '.png':
+        if not content.startswith(b'\x89PNG\r\n\x1a\n') or content[12:16] != b'IHDR':
+            raise ValueError(f'Invalid PNG asset: {name}')
+    elif suffix in ('.jpg', '.jpeg'):
+        if not content.startswith(b'\xff\xd8\xff') or not content.endswith(b'\xff\xd9'):
+            raise ValueError(f'Invalid JPEG asset: {name}')
+    elif suffix == '.webp':
+        if content[:4] != b'RIFF' or content[8:12] != b'WEBP':
+            raise ValueError(f'Invalid WebP asset: {name}')
+    else:
+        raise ValueError(f'Unsupported image asset: {name}')
+
+
 def payloads(source):
     source = source.resolve()
     if any(p.is_symlink() for p in source.rglob('*')):
         raise ValueError('Symlinks are not allowed in the public package source')
-    manifest = json.loads((source / '.codex-plugin' / 'plugin.json').read_text())
+    manifest_path = source / 'plugin.json'
+    if not manifest_path.is_file():
+        manifest_path = source / '.codex-plugin' / 'plugin.json'
+    manifest = json.loads(manifest_path.read_text())
     if any(k in manifest for k in ('apps', 'hooks')) or (source / '.app.json').exists():
         raise ValueError('Public submission does not support app references or lifecycle hooks')
     if (source / 'hooks').exists():
@@ -73,14 +99,17 @@ def payloads(source):
         if not isinstance(server, dict) or set(server) - LOCAL_SERVER_FIELDS:
             raise ValueError('Remote MCP config contains unsupported or private fields')
         normalized[name] = {'url': public_url(server['url'])}
+    manifest_bytes = (json.dumps(manifest, indent=2) + '\n').encode()
     files = {
-        '.codex-plugin/plugin.json': (json.dumps(manifest, indent=2) + '\n').encode(),
+        'plugin.json': manifest_bytes,
+        '.codex-plugin/plugin.json': manifest_bytes,
         '.mcp.json': (json.dumps({'mcpServers': normalized}, indent=2) + '\n').encode(),
     }
     for directory in ('skills', 'assets'):
         for path in sorted((source / directory).rglob('*')):
             if path.is_file():
-                if path.name.startswith('.') or '__pycache__' in path.parts:
+                if any(part.startswith('.') or part == '__pycache__'
+                       for part in path.relative_to(source).parts):
                     continue
                 files[path.relative_to(source).as_posix()] = path.read_bytes()
     refs = [interface['composerIcon'], interface['logo'], ext['onboardingSkill'],
@@ -88,6 +117,8 @@ def payloads(source):
     for ref in refs:
         if package_path(ref) not in files:
             raise ValueError(f'Missing referenced package asset: {ref}')
+    for ref in [interface['composerIcon'], interface['logo'], *interface['screenshots']]:
+        validate_image(package_path(ref), files[package_path(ref)])
     if not any(name.endswith('/SKILL.md') for name in files):
         raise ValueError('Submission needs bundled skills')
     return files

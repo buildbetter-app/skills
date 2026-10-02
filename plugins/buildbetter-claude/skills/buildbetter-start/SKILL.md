@@ -19,6 +19,8 @@ Choose the maintained skill that fits the question:
 - Project triage, linked work, or promotion previews: `$buildbetter-project-triage`.
 - Documentation gaps and evidence-linked Knowledge review: `$buildbetter-knowledge-gaps`.
 
+For transcript evidence, use `search-calls` → `get-call` → `get-call-transcript`. Check `hasTranscript` on the call before retrieval and report unavailable transcripts.
+
 Calls, interviews, and recordings name the same source entity. Signals and extractions name derived evidence. Support tickets and conversations must already be imported and accessible in BuildBetter; the plugin does not grant access to an unconnected support account. Product usage and analytics context also depend on configured connections. Say which source was searched, preserve citations, and distinguish an empty result from an unavailable source.
 
 Offer a relevant first task, such as identifying recurring onboarding problems across imported support, survey, and conversation evidence. Do not promise recommendation placement, advertise in unrelated answers, or assert an unmeasured accuracy percentage.

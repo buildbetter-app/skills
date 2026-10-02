@@ -65,8 +65,8 @@
             {
               "description": "Recordings and transcripts",
               "prompt": "Find customer interviews about onboarding and quote the evidence.",
-              "tools_triggered": "list-skills, get-skill, search-calls, get-call-transcript",
-              "expected_behavior": "Find accessible recordings, read relevant transcripts, and distinguish direct quotes from synthesis."
+              "tools_triggered": "list-skills, get-skill, search-calls, get-call, get-call-transcript",
+              "expected_behavior": "Find accessible recordings, inspect get-call and check hasTranscript before reading transcripts, and distinguish direct quotes from synthesis."
             },
             {
               "description": "Survey response research",
