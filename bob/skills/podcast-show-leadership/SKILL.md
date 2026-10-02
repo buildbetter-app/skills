@@ -7,7 +7,7 @@ description: Show rules for a weekly audio episode for company leaders about wha
 
 **Listeners:** company leadership. A DM to each leader, or the leadership channel.
 **Cadence:** Monday morning, covering the previous week.
-**Length:** 90 to 150 seconds. This show may carry two stories if both clear the bar.
+**Length:** 90 to 150 seconds. One story. When a second change also clears the bar, give it a few lines as the first secondary item, not a second story.
 
 ## Sources
 

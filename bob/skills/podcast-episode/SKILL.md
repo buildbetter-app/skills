@@ -14,8 +14,8 @@ The show skill you were given says who listens, where the facts come from, and h
 1. **Gather.** Use the show's sources. Collect facts with their source ids: the ticket, call, signal, card, or brief block each fact came from. Keep exact names, numbers, and quotes. Note the time of each event.
 2. **Pick one story.** Apply the show's rule. One story gets most of the episode. At most two other items get a line or two each. Everything else goes in the thread, not the audio. If nothing clears the show's bar, do not make an episode; say so in one line.
 3. **Write the source packet.** One short paragraph per item: what happened, who, when, the exact quote, and why it matters to this audience. Put the chosen story first and mark it.
-4. **Call `producePodcastEpisode`** with the show, the source packet, the listener's date and time zone, and the recipients. The tool writes the script with these rules, checks it, voices it, and posts it. Do not write the script yourself in chat.
-5. **Report back** in one line: the story you picked and where it was posted. If the tool refused (no story, a check failed, Slack not connected), say what happened and stop.
+4. **Call `producePodcastEpisode`** with the show, the source packet, and the recipients. The tool only queues the episode. The script is written with these rules, checked, voiced, and sent after the call returns. Do not write the script yourself in chat.
+5. **Report back** in one line: the story you picked, and that the episode is on its way to the DM, the channel, or the app. Do not say it was posted; it has not been yet. Whether it arrived or failed (a check failed twice, the voice drifted, there is no Slack DM) shows on the episode's page and player. If the tool refused (a bad packet, a show you cannot read, a channel you may not use), say what happened and stop.
 
 ## The hosts
 
