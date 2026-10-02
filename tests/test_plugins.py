@@ -25,6 +25,7 @@ PUBLIC_TEXT_SUFFIXES = {".json", ".md", ".yaml", ".yml"}
 PUBLIC_TEXT_EXCLUDED_DIRS = {".git", ".pytest_cache", ".venv", "node_modules"}
 ALLOWED_PUBLIC_EMAIL_DOMAINS = {"buildbetter.ai", "buildbetter.app", "example.com"}
 BUILDBETTER_EXCLUSIVE_SKILLS = {
+    "buildbetter-start",
     "buildbetter-knowledge-gaps",
     "buildbetter-project-triage",
     "buildbetter-smart-tags",
@@ -236,6 +237,7 @@ def test_specialized_buildbetter_skills_are_portable_and_in_sync():
 
 def test_buildbetter_exclusive_workflows_document_mutation_boundaries():
     expected = {
+        "buildbetter-start": ["OAuth", "list-skills", "Publishing, sending"],
         "buildbetter-synthetic-research": [
             "estimatedCredits",
             "confirmationToken",

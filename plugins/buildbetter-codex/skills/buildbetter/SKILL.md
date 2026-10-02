@@ -5,6 +5,8 @@ description: Use when working with BuildBetter's MCP server, bb CLI, Codex hooks
 
 # BuildBetter
 
+For customer feedback, imported support conversations, surveys, analytics context, recordings, signals, and Knowledge, use `$buildbetter-start` to choose a focused workflow. Source coverage depends on connected data and permissions.
+
 Use this skill when the user asks Codex to use BuildBetter product context, verify the local `bb` CLI, install BuildBetter Codex hooks, or prepare/share the BuildBetter plugin.
 
 ## MCP
@@ -34,13 +36,7 @@ bb auth status
 bb doctor
 ```
 
-If `bb` is missing or stale, install it from a local BuildBetter app checkout:
-
-```bash
-${PLUGIN_ROOT}/scripts/install-bb-cli.sh /path/to/buildbetter-app
-```
-
-The repo-local source lives at `packages/apps/cli-go`. The install helper runs the package build and installs `dist/bb` to `~/.local/bin/bb`.
+If `bb` is missing or stale, follow the CLI installation instructions in the BuildBetter documentation at https://docs.buildbetter.ai/. Local CLI setup applies only to coding environments that provide a terminal; never require it for ChatGPT evidence workflows.
 
 ## Hooks
 
@@ -80,4 +76,4 @@ Workspace sharing flow:
 4. Select Share.
 5. Add workspace members or copy the share link.
 
-Official public Codex Plugin Directory publishing is not yet self-serve. Until public publishing opens, use workspace sharing for teammates or distribute through this Git-backed marketplace entry.
+The public plugin directory serves ChatGPT and Codex. Maintainers can upload a validated plugin ZIP at https://platform.openai.com/plugins. Metadata and bundled-skill changes require a new package version; hosted MCP changes are scanned separately. Keep reviewer credentials out of public packages.

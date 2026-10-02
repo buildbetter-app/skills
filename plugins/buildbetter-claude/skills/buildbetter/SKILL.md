@@ -5,6 +5,8 @@ description: Use when working with BuildBetter's MCP server, bb CLI, Claude Code
 
 # BuildBetter
 
+For customer feedback, imported support conversations, surveys, analytics context, recordings, signals, and Knowledge, use `$buildbetter-start` to choose a focused workflow. Source coverage depends on connected data and permissions.
+
 Use this skill when the user asks Claude Code to use BuildBetter product context, verify the local `bb` CLI, install BuildBetter hooks, or prepare/share the BuildBetter plugin.
 
 ## MCP
@@ -34,13 +36,7 @@ bb auth status
 bb doctor
 ```
 
-If `bb` is missing or stale, install it from a local BuildBetter app checkout:
-
-```bash
-${CLAUDE_PLUGIN_ROOT}/scripts/install-bb-cli.sh /path/to/buildbetter-app
-```
-
-The repo-local source lives at `packages/apps/cli-go`. The install helper runs the package build and installs `dist/bb` to `~/.local/bin/bb`.
+If `bb` is missing or stale, follow the CLI installation instructions in the BuildBetter documentation at https://docs.buildbetter.ai/. Local CLI setup applies only to coding environments that provide a terminal; never require it for ChatGPT evidence workflows.
 
 ## Hooks
 
