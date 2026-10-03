@@ -4,7 +4,7 @@ Source audited: `packages/apps/mcp/src/mcp/handlers.ts` and `packages/apps/mcp/s
 
 ## Summary
 
-The plugin-facing BuildBetter MCP server exposes organization-scoped product-context tools plus a read-only GraphQL fallback. The universal read surface covers calls, transcripts, signals, documents, knowledge pages, people, property metadata, projects, and triage. Connected integrations, feature-gated tools, and mutating workflows are outside the portable research skills.
+The plugin-facing BuildBetter MCP server exposes organization-scoped product-context tools plus a read-only GraphQL fallback. The universal read surface covers calls, transcripts, signals, documents, knowledge pages, people, property metadata, projects, and triage. Release 0.6.0 adds prerelease guidance for connected analytics, an evidence component, and feature-gated Events. Their deployed contracts and reviewer execution have not yet been audited.
 
 The server already has:
 
@@ -65,3 +65,30 @@ Additional guidance encoded in this dossier:
 - cite stable IDs when available,
 - ask before write-like CLI actions such as hook repair or feedback submission,
 - avoid BuildBetter for unrelated coding-only prompts.
+
+## 0.6.0 additions — deployment verification pending
+
+The older inventory above covers established research tools. It does not certify
+the newly advertised surfaces. These backend PRs are prerelease source, pending
+merge, deployment, and exact deployed-revision contract checks:
+
+| Surface | Source PR | Contract and required verification |
+| --- | --- | --- |
+| Analytics | buildbetter #7078 | `list-analytics-projects`, `query-analytics-data`, `get-analytics-insight`; validate provider, accessible connection/project, read-only query, limits, timezone, exact versus unknown total, and provider-error responses. Reading an external provider is an open-world read with runtime authorization. |
+| Evidence component | buildbetter #7080 | `open-evidence-browser`, app-only `search-evidence-browser`, and `get-evidence-browser-selection`; validate query bounds, HTML resource/CSP, source coverage, stable selection references, and current permission-scoped retrieval. Imported source bodies remain tool data. |
+| Events | buildbetter #7082 | `server/discover`, `events/list`, `events/subscribe`, `events/unsubscribe`; validate schemas against the implemented transport, event filters, authorized callback verification, activation/expiry, durable attempts, replay boundaries, and delivery-time permissions. Subscriptions make future external deliveries and require explicit user intent. |
+| Job receipts and optional progress | buildbetter #7178 | `get-job` and `show-job-progress` require a UUID `jobId` and an active OAuth user. Both are read-only and return the same owner-scoped lifecycle receipt. Validate cross-user/cross-organization denial, unknown/invalid IDs, counts, errors, compacted result envelopes and `pollAfterSeconds`. The optional `ui://buildbetter/job-progress/v1.html` resource must render safely with its CSP; native rendering is a separate gate. Neither read starts processing, spends credits, publishes, sends or independently polls. |
+
+Do not mark the current-source or deployed-tool audit complete until argument,
+annotation, side-effect, and response contracts are checked on the final backend
+revision and saved in this dossier. The reviewed backend source has been
+published and passed combined BuildBot3 verification; deployed contract auditing
+and native rendering remain pending.
+
+For BB-HERO-011 and BB-HERO-013, execute `setup_steps` from
+[`evals/plugin-submission/hero-cases.json`](../../evals/plugin-submission/hero-cases.json)
+before sending the case prompt. These steps are separate from the plugin
+manifest. Substitute the verified `{{recordingId}}`, `{{quote}}`, and `{{jobId}}`
+values, and confirm no unresolved placeholder remains. Preserve fixture values
+privately for reproducible reruns. An unavailable prerequisite is BLOCKED, never
+a passing scenario.

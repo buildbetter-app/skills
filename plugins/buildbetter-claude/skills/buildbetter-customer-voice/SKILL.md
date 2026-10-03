@@ -5,6 +5,8 @@ description: Retrieve defensible customer-voice evidence from BuildBetter MCP. U
 
 # BuildBetter Customer Voice
 
+Follow [buildbetter-start’s interaction guidance](../buildbetter-start/SKILL.md#interaction): complete supported work through chat; use optional UI only when it reduces effort or clarifies a decision.
+
 Use BuildBetter as an evidence layer. Separate direct customer statements from internal interpretations, and preserve enough scope and identifiers for another researcher to reproduce the result.
 
 This skill composes the general-purpose read tools shipped on the current MCP surface. It does not replace MCP behavior, encode a tenant's taxonomy, or depend on feature-gated domains and mutation workflows.

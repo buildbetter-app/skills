@@ -1,6 +1,6 @@
 ---
 name: buildbetter-mcp-research
-description: Research BuildBetter data accurately through BuildBetter MCP. Use for open-ended questions about customer evidence, signals, calls, transcripts, people, companies, documents, knowledge pages, Projects Hub, or triage, and whenever an agent must choose reliable BuildBetter MCP read tools and return traceable evidence.
+description: Research BuildBetter data accurately through BuildBetter MCP. Use for open-ended questions about customer evidence, signals, support tickets, recordings, transcripts, survey responses, product analytics, people, companies, documents, knowledge pages, Projects Hub, or triage, and whenever an agent must choose reliable BuildBetter MCP read tools and return traceable evidence.
 ---
 
 # BuildBetter MCP Research
@@ -8,6 +8,8 @@ description: Research BuildBetter data accurately through BuildBetter MCP. Use f
 Use BuildBetter domain tools before GraphQL helpers. Use `run-query` only when discovery confirms that no domain tool expresses the request.
 
 Read `references/mcp-tool-map.md` when exact tool names, arguments, pagination rules, or multi-source examples are needed.
+
+Follow [buildbetter-start's interaction guidance](../buildbetter-start/SKILL.md#interaction) when choosing conversation, clarification, or optional visual output.
 
 This skill adds reusable routing and evidence discipline over the MCP's general-purpose read tools. It does not replace MCP behavior or encode a tenant's taxonomy. Feature-scoped and mutating workflows route to dedicated skills when those skills and their tools are available.
 
@@ -23,9 +25,12 @@ This skill adds reusable routing and evidence discipline over the MCP's general-
 
 ## Routing
 
-- Calls and meetings: `search-calls` -> `get-call` -> `get-call-transcript`.
-- Cross-call evidence: `search-signals` for fast discovery; `list-extractions` for exact filters.
+- Recordings, including calls and interviews: `search-calls` -> `get-call` -> `get-call-transcript`. These established tool names are compatibility names; a meeting and its recording remain distinct.
+- Evidence across imported support, feedback, survey, and recording sources: `search-signals` for fast discovery; `list-extractions` for exact filters.
 - Counts, trends, and distributions: `aggregate-signals`, `aggregate-extractions`, or `aggregate-signals-by-tags` before listing every row.
+- Connected product usage: `list-analytics-projects` -> `query-analytics-data`, or `get-analytics-insight` for an existing chart/insight. Use advertised schemas and actual event names; retain provider, connection, project, timezone, timeframe, and truncation.
+- Explicit visual browsing or curation of individual items: `open-evidence-browser` when advertised and supported by the client. The agent selects relevant evidence for ordinary research and comparison through domain read tools without opening the browser.
+- User-requested monitoring: hand off to `buildbetter-start` and the client's discovered MCP Events workflow; keep this research retrieval read-only.
 - Direct customer evidence: use `buildbetter-customer-voice` when installed.
 - Synthetic persona profiles, panels, studies, and chats: use `buildbetter-synthetic-research` when installed.
 - Native survey authoring, delivery, intercepts, and responses: use `buildbetter-survey-research` when installed.

@@ -2,6 +2,12 @@
 
 The eval cases live in `evals/plugin-submission/hero-cases.json`. They are intentionally tool-path oriented so they can be run manually in Codex today and automated later with a transcript runner.
 
+## Interaction acceptance
+
+The default research experience is question → domain read tools → concise answer with citations. Test this separately from the optional evidence browser. A routine search should not open a full search interface or add confirmation beyond the host's existing permissions. Ask for clarification only when an unresolved scope choice materially affects the answer.
+
+Use the interaction rules in `plugins/buildbetter-codex/skills/buildbetter-start/SKILL.md` for optional presentation. Test explicit visual browsing only in an actual MCP Apps host; a rendered screenshot proves rendering, not selection or add-to-chat. Charts, compact signal views, and media playback are useful when supported and relevant, but this package does not establish that a chart widget or clip player exists. Verify the actual returned data, accessible media, and host capability before grading those experiences. Record unsupported rendering separately from successful retrieval; do not replace host QA with a standalone website.
+
 ## Case Fields
 
 Each case includes:
@@ -52,6 +58,8 @@ Fail a run if:
 - Codex omits required stable IDs when the tool response contains them.
 - Codex uses `run-query` before a domain tool can express the request.
 - Codex returns broad raw records instead of a concise synthesis.
+- A routine research request opens the evidence browser or adds an unnecessary search-confirmation step beyond the host's permission controls.
+- A visual or playback output invents data, inaccessible media URLs, clips, or unsupported rendering capabilities.
 
 ## Automation Backlog
 
@@ -63,3 +71,8 @@ The current package includes structured cases and manual capture. The next autom
 4. grades with field checks plus optional rubric checks,
 5. writes a transcript markdown file per case.
 
+## Chat completion and optional workflow UI
+
+Run BB-HERO-012 through BB-HERO-016 after the existing research and explicit-curation cases. Grade conversational completion first, then actual native visual rendering separately. A user asking to compare evidence does not implicitly request a selection browser. UI fails the interaction criterion if a supported chat path requires opening a page, selecting evidence, clicking through a wizard, or approving an unchanged action twice. Required provider OAuth and host permission prompts remain valid boundaries.
+
+For job progress, use the actual public jobId and standard receipt. The optional show-job-progress tool is prerelease until advertised by the deployed server. It displays a snapshot and follows agent updates; it does not poll, start work, or grant approval. A discovering_candidates scan has a growing corpus, so never grade a guessed denominator or zero-percent stall as accurate. These scenarios do not claim that Smart Tag, integration, taxonomy, report, or lifecycle components all exist.
