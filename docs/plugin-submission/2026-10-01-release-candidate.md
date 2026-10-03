@@ -71,6 +71,10 @@ from the earlier evidence table. The reviewer runs all eight positive cases and
 three negatives, with a separate authorized operator producing a future event.
 
 Current local package: `artifacts/buildbetter-0.6.0.zip`, 25 entries. SHA256:
-`6a5f41d38a600360a886df835076928b10bed468376962c53e2cc787b74cbceb`.
+`61e17ce570de047d8f1e4a813954aec79c31481c642c335c5b0caa875f680faa`.
 All 108 Python tests passed for this packaging correction. The artifact stays
 local and is not an OpenAI submission receipt.
+
+### Reproducible QA setup correction (2026-10-02)
+
+BB-HERO-011 and BB-HERO-013 now define setup steps and explicit fixture substitutions. Capture accessible recording/job identities and their original receipts privately; blocked setup must not trigger invented IDs, processing or credit spending. The additions audit now includes both progress tools and their optional native component. Rebuilt archive SHA256: `61e17ce570de047d8f1e4a813954aec79c31481c642c335c5b0caa875f680faa`. Archive identity is separate from deployed/native acceptance and submission.

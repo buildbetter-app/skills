@@ -30,7 +30,7 @@
 ## External Submission Gates
 
 - [ ] Sign in with the developer identity that owns the existing BuildBetter plugin; select the verified organization/project and existing listing.
-- [ ] Obtain separate authorization to merge and deploy the backend stack, complete applicable gates, and read back the deployed endpoint revision.
+- [ ] Obtain separate authorization to merge and deploy the backend stack, complete applicable gates, and read back the deployed endpoint revision. Audit every additions surface in [tool-audit.md](tool-audit.md), including `get-job`, `show-job-progress` and the optional progress component.
 - [ ] Provide a dedicated sample-data reviewer account privately. It must work without MFA approvals, one-time codes, magic links, or private-network access.
 - [ ] Grant Events to the review workspace only after the MCP and both workers are deployed with the migration.
 - [ ] Execute all eight positive and three negative manifest cases in ChatGPT, including analytics, interactive evidence, and the operator-triggered future Events fixture. Save sanitized transcripts under `docs/plugin-submission/transcripts/`.

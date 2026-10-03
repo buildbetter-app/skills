@@ -77,7 +77,10 @@ merge, deployment, and exact deployed-revision contract checks:
 | Analytics | buildbetter #7078 | `list-analytics-projects`, `query-analytics-data`, `get-analytics-insight`; validate provider, accessible connection/project, read-only query, limits, timezone, exact versus unknown total, and provider-error responses. Reading an external provider is an open-world read with runtime authorization. |
 | Evidence component | buildbetter #7080 | `open-evidence-browser`, app-only `search-evidence-browser`, and `get-evidence-browser-selection`; validate query bounds, HTML resource/CSP, source coverage, stable selection references, and current permission-scoped retrieval. Imported source bodies remain tool data. |
 | Events | buildbetter #7082 | `server/discover`, `events/list`, `events/subscribe`, `events/unsubscribe`; validate schemas against the implemented transport, event filters, authorized callback verification, activation/expiry, durable attempts, replay boundaries, and delivery-time permissions. Subscriptions make future external deliveries and require explicit user intent. |
+| Job receipts and optional progress | buildbetter #7178 | `get-job` and `show-job-progress` require a UUID `jobId` and an active OAuth user. Both are read-only and return the same owner-scoped lifecycle receipt. Validate cross-user/cross-organization denial, unknown/invalid IDs, counts, errors, compacted result envelopes and `pollAfterSeconds`. The optional `ui://buildbetter/job-progress/v1.html` resource must render safely with its CSP; native rendering is a separate gate. Neither read starts processing, spends credits, publishes, sends or independently polls. |
 
 Do not mark the current-source or deployed-tool audit complete until argument,
 annotation, side-effect, and response contracts are checked on the final backend
 revision and saved in this dossier. The backend review batch is still in progress.
+
+For BB-HERO-011 and BB-HERO-013, execute the manifest's `setup_steps` first and substitute the recorded fixture values. Preserve those values privately for reproducible reruns. An unavailable prerequisite is BLOCKED, never a passing scenario.
