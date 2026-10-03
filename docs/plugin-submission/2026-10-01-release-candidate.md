@@ -21,12 +21,18 @@ or unmeasured accuracy percentage.
 The backend merge order is #7078, #7080, #7081, #7082, #7178. Each successor
 depends on its predecessor; #7178 includes the Events layer from #7082. After
 merging a parent, retarget its successor to `main` before merging that successor.
-Combined candidate `d6375d68e7da1180d865c32bbf044ff4849ed848` passed all 2,530
-verification tasks on BuildBot3 against pinned main
+Combined candidate `418a144d869e2e2cdce0a9f4e1d9f840b504ebfd` passed all 2,530
+verification tasks on BuildBot3 (1,208 executed, 1,322 restored from cache) against pinned main
 `3bcc3992d1fe6409992eccec7b2afba0b62c017d` on October 3. All five individual
 heads also passed compile/typecheck. Hosted backend verification remains
 paused/skipped; deployed behavior and native rendering remain unverified. The backend PRs and this package require
 separate merge/deployment authorization before public submission.
+
+The final analytics correction preserves supported bulk PostHog identity pages
+with a bounded 16 MiB default response budget. MCP queries retain their explicit
+1 MiB response budget and 500-row cap. The real HTTP regression for a synthetic
+10,000-row identity page and the MCP integration suite executed successfully in
+the combined run.
 
 ## Candidate behavior
 
