@@ -16,19 +16,26 @@ or unmeasured accuracy percentage.
 | Interactive evidence browser | [#7080](https://github.com/buildbetter-app/buildbetter/pull/7080) | Four browser interaction cases, guarded resource/catalog HTTP case and quick compile passed |
 | Stateless MCP 2.0 transport | [#7081](https://github.com/buildbetter-app/buildbetter/pull/7081) | Six authenticated HTTP cases, runtime build and quick compile passed |
 | Durable Events | [#7082](https://github.com/buildbetter-app/buildbetter/pull/7082) | Eight Postgres/TLS delivery cases, seven modern/Events HTTP cases, four workflow cases, both worker composition checks and quick compile passed |
+| Chat-first interactions and optional progress | [#7178](https://github.com/buildbetter-app/buildbetter/pull/7178) | Owner-scoped `get-job` and optional `show-job-progress`; combined source verification passed, native rendering remains a separate QA gate |
 
-The backend merge order is #7078, #7080, #7081, #7082. Events head
-`1112014fc2cc73256ceed3a935e798de1d1572b9` quick-compiled 247 projects/694 tasks
-in 1.7 minutes. Hosted backend verification is paused/skipped; no full-CI pass
-or deployed capability is claimed. The backend PRs and this package require
+The backend merge order is #7078, #7080, #7081, #7082, #7178. Each successor
+depends on its predecessor; #7178 includes the Events layer from #7082. After
+merging a parent, retarget its successor to `main` before merging that successor.
+Combined candidate `d6375d68e7da1180d865c32bbf044ff4849ed848` passed all 2,530
+verification tasks on BuildBot3 against pinned main
+`3bcc3992d1fe6409992eccec7b2afba0b62c017d` on October 3. All five individual
+heads also passed compile/typecheck. Hosted backend verification remains
+paused/skipped; deployed behavior and native rendering remain unverified. The backend PRs and this package require
 separate merge/deployment authorization before public submission.
 
 ## Candidate behavior
 
 - Discover configured PostHog/Amplitude projects, execute bounded read-only
   queries, and read existing insights with source/project/timezone/truncation context.
-- Open the independent evidence component, search imported signals, inspect
-  source context and add selected cited evidence to the chat.
+- Answer routine evidence questions in chat. Open the optional evidence
+  component when visual browsing and curation are explicitly requested.
+- Read an existing job receipt in chat, with an optional compact progress card.
+  Neither receipt tool starts processing or spends credits.
 - In an Events-capable client and enabled workspace, monitor `signal.created`,
   `recording.completed`, or one survey's `survey.response.submitted` updates.
   Subscription grants expire; delivery rechecks permissions and supports unsubscribe.
@@ -62,13 +69,14 @@ and the ZIP.
 
 ## Review correction status
 
-Review corrections are being applied to the backend stack. Earlier quick-compile
-and browser receipts describe older source revisions and do not verify the new
-candidate. Analytics error/count/trace corrections have focused HTTP coverage;
-UI and Events final-candidate verification remains pending. The additions audit
-is explicitly pending in the checklist. No new merge-readiness claim follows
-from the earlier evidence table. The reviewer runs all eight positive cases and
-three negatives, with a separate authorized operator producing a future event.
+The backend correction batch is published, and its review threads were resolved
+at readback. The current BuildBot3 receipt above verifies the combined candidate;
+earlier browser screenshots still describe their own source and host. Deployed
+contract checks and actual ChatGPT/Codex rendering remain separate acceptance
+gates. The reviewer runs all eight positive manifest cases and three negatives,
+with a separate authorized operator producing a future event. The sixteen Codex
+hero cases in `evals/plugin-submission/hero-cases.json` are a separate suite; run
+their fixture setup and substitute verified values before sending their prompts.
 
 Current local package: `artifacts/buildbetter-0.6.0.zip`, 25 entries. SHA256:
 `61e17ce570de047d8f1e4a813954aec79c31481c642c335c5b0caa875f680faa`.

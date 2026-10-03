@@ -27,6 +27,21 @@ Seed enough data for the hero cases:
 - At least 3 documents and 3 knowledge pages relevant to onboarding/admin workflows.
 - At least 2 custom property definitions and property values for signals or people.
 
+The Codex hero suite also needs the following case-specific fixtures. A sandbox
+operator prepares them before the reviewer starts and records actual IDs,
+permissions, date bounds, and expected results privately. Missing fixtures mean
+BLOCKED setup; they must not be invented or created implicitly by a read case.
+
+| Case | Required fixture and permissions |
+| --- | --- |
+| BB-HERO-010 | An accessible analytics connection/project with a real signup event and timestamped synthetic events covering each of the last seven days. Record the event's actual name, project timezone, daily expected counts, and read permissions. Refresh the rolling fixture before a later rerun. |
+| BB-HERO-011 | An accessible recording/transcript with an exact quote, its verified timestamp, and known media availability. Execute the hero JSON's setup steps and record the actual recording ID before substituting the prompt. |
+| BB-HERO-012 | A uniquely identifiable synthetic person named James, with company/persona context and accessible onboarding or preparation signals linked to that person inside the last 90 days. Record expected signal IDs and pagination bounds; refresh rolling dates for later reruns. |
+| BB-HERO-013 | An existing job receipt owned by the connected OAuth user and organization. Obtain it from previously authorized sandbox work or an explicitly authorized disposable fixture; verify it with `get-job` and substitute its actual UUID. A completed receipt covers only completed-state rendering. |
+| BB-HERO-014 | An accessible existing Smart Tag group and sample tags. Permit creating a draft in that sandbox group for this requested case; evaluation, publication, backfill, and credit spending remain excluded. Record the group ID and remove the owned draft after QA. |
+| BB-HERO-015 | A supported provider test account, privately supplied provider access, and permission for the reviewer to add a sandbox integration. Complete actual provider consent in the supported sign-in flow; never paste credentials into chat. Discover advertised setup tools or record the exact supported handoff. Record resulting connection/project IDs and have the operator remove the owned test connection after QA. |
+| BB-HERO-016 | Accessible lifecycle property definitions, actual stage values, and sample evidence linked to those values, including onboarding and retention. Record property/stage IDs and expected evidence counts. Grant read access; this case must not modify the taxonomy. |
+
 ## Reviewer Instructions
 
 1. Install the selected review version through the ChatGPT review flow; Git-backed marketplace installation remains available for separate Codex checks.
@@ -35,6 +50,17 @@ Seed enough data for the hero cases:
 4. Run the manifest's positive and negative cases, including analytics, interactive selection, and an explicitly requested Events monitor.
 5. Compare the actual answer, selected sources, tool path, and refusal behavior with the manifest. Record unsupported client/workspace capabilities explicitly.
 6. Save sanitized ChatGPT transcripts and a real walkthrough. Keep the existing Codex hero cases as separate client evidence.
+
+For the separate Codex suite, load
+[`evals/plugin-submission/hero-cases.json`](../../evals/plugin-submission/hero-cases.json),
+complete the fixture checklist and each case's `setup_steps`, then substitute
+verified fixture values into its prompt. Confirm that `{{recordingId}}`,
+`{{quote}}`, `{{jobId}}`, and any other fixture placeholders are fully replaced
+before sending it. Save the setup receipt with the sanitized case transcript.
+Apply each case's stated permission boundary: only the requested sandbox draft
+and integration-connection cases permit their narrow writes. Read cases and the
+Events reviewer remain read-only; paid processing and external delivery need
+their own explicit authorization.
 
 ## Private review setup
 

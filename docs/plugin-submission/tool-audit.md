@@ -81,6 +81,14 @@ merge, deployment, and exact deployed-revision contract checks:
 
 Do not mark the current-source or deployed-tool audit complete until argument,
 annotation, side-effect, and response contracts are checked on the final backend
-revision and saved in this dossier. The backend review batch is still in progress.
+revision and saved in this dossier. The reviewed backend source has been
+published and passed combined BuildBot3 verification; deployed contract auditing
+and native rendering remain pending.
 
-For BB-HERO-011 and BB-HERO-013, execute the manifest's `setup_steps` first and substitute the recorded fixture values. Preserve those values privately for reproducible reruns. An unavailable prerequisite is BLOCKED, never a passing scenario.
+For BB-HERO-011 and BB-HERO-013, execute `setup_steps` from
+[`evals/plugin-submission/hero-cases.json`](../../evals/plugin-submission/hero-cases.json)
+before sending the case prompt. These steps are separate from the plugin
+manifest. Substitute the verified `{{recordingId}}`, `{{quote}}`, and `{{jobId}}`
+values, and confirm no unresolved placeholder remains. Preserve fixture values
+privately for reproducible reruns. An unavailable prerequisite is BLOCKED, never
+a passing scenario.
