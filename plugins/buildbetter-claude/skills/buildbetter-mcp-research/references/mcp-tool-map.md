@@ -132,6 +132,17 @@ Fetch full content only for selected candidates. An exact folder ID can reveal i
 Projects Hub and triage are separate coverage surfaces. Search each relevant surface and state any exclusion.
 Use a `typeSlug` only after discovering it with `list-project-types`; project taxonomies vary by organization.
 
+## Product Analytics And Interactive Evidence
+
+- `list-analytics-projects`: discover accessible connected providers and projects.
+- `query-analytics-data`: query the selected connection using its advertised read-only PostHog HogQL or Amplitude structured query schema. Discover actual event names first.
+- `get-analytics-insight`: read an existing PostHog insight or Amplitude chart from the selected connection.
+- `open-evidence-browser`: open the independent signal-selection component when the client supports MCP Apps. An optional `query` seeds the search.
+
+Discover argument schemas on the connected server rather than guessing provider IDs or query fields. Preserve provider, connection, project, timeframe, timezone and truncation. Missing analytics access is unknown coverage, not zero usage. Compare usage and qualitative evidence without claiming causation.
+
+The component's bounded search is for inspection and selection, not exhaustive counts. Keep ordinary paginated research on domain read tools. User-selected monitoring is a separate client/server Events workflow described in `buildbetter-start`; never create a monitor while executing a read-only research request.
+
 ## GraphQL Helpers
 
 - `list-types`: discover schema types.

@@ -5,6 +5,8 @@ description: Review and operate BuildBetter knowledge-gap recommendations, proje
 
 # BuildBetter Knowledge Gaps
 
+Follow [buildbetter-start’s interaction guidance](../buildbetter-start/SKILL.md#interaction): complete supported work through chat; use optional UI only when it reduces effort or clarifies a decision.
+
 ## Safety Contract
 
 Search organization skills with list-skills and get-skill first. list-knowledge-gaps is observational. Review state changes, project attachments, rechecks, source sync, and release analysis create or mutate durable records and require approval for the exact gaps, project, release, or source scope.

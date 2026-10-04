@@ -5,6 +5,8 @@ description: Run BuildBetter synthetic-persona research with bounded source prev
 
 # BuildBetter Synthetic Research
 
+Follow [buildbetter-start’s interaction guidance](../buildbetter-start/SKILL.md#interaction): complete supported work through chat; use optional UI only when it reduces effort or clarifies a decision.
+
 ## Safety Contract
 
 Synthetic research generates hypotheses; it does not prove real customer demand, prevalence, willingness to pay, or causal impact. Search organization skills with list-skills and get-skill first. Confirm every metered operation from its returned estimate, and obtain separate exact approval before non-disposable deletion.
