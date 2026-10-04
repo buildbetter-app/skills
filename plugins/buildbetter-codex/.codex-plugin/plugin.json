@@ -1,7 +1,7 @@
 {
   "name": "buildbetter",
-  "version": "0.4.0",
-  "description": "Use BuildBetter's MCP server, bb CLI, and product-operations skills from Codex.",
+  "version": "0.5.0",
+  "description": "Research customer feedback, support conversations, surveys, product signals, recordings, and Knowledge with BuildBetter.",
   "author": {
     "name": "BuildBetter",
     "email": "eng@buildbetter.app",
@@ -12,20 +12,23 @@
   "license": "MIT",
   "keywords": [
     "buildbetter",
-    "mcp",
-    "cli",
-    "product-ops",
-    "customer-signals",
-    "research"
+    "customer-feedback",
+    "support-tickets",
+    "surveys",
+    "product-analytics",
+    "customer-research",
+    "knowledge",
+    "productivity",
+    "mcp"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "BuildBetter",
-    "shortDescription": "Use BuildBetter MCP and bb CLI",
-    "longDescription": "Connect Codex to BuildBetter's MCP server for product evidence, customer voice, synthetic research, native surveys, Smart Tags, project triage, knowledge gaps, and organization-aware workflows. The bundled skills also document local bb CLI setup, health checks, feedback hooks, and plugin sharing/submission steps.",
+    "shortDescription": "Turn feedback into decisions",
+    "longDescription": "Search your connected BuildBetter workspace for customer feedback, imported support conversations, recordings and transcripts, survey responses, product signals, and Knowledge. Find recurring pain points, compare feedback across customers, inspect account context, and cite the underlying evidence. Draft native surveys, evaluate synthetic research separately from real customer evidence, preview Smart Tags, and inspect project triage and Knowledge gaps with focused workflows. Data coverage depends on your workspace's connected sources and your permissions. BuildBetter uses OAuth for access; actions that publish, send messages, schedule surveys, change access, or spend credits retain their approval steps. The same maintained public skills work in ChatGPT and Codex; organization-specific skills are retrieved privately at runtime.",
     "developerName": "BuildBetter",
-    "category": "Developer Tools",
+    "category": "Productivity",
     "capabilities": [
       "Read",
       "Write",
@@ -35,21 +38,79 @@
     "privacyPolicyURL": "https://docs.buildbetter.ai/pages/Legal/privacy-policy",
     "termsOfServiceURL": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
     "defaultPrompt": [
-      "Use BuildBetter to research the customer evidence for this work.",
-      "Use BuildBetter to retrieve direct customer voice for this question.",
-      "Use BuildBetter to run a bounded synthetic persona study.",
-      "Use BuildBetter to draft a customer survey without activating an audience.",
-      "Use BuildBetter to create and evaluate a Smart Tag.",
-      "Use BuildBetter to inspect project triage and knowledge gaps.",
-      "Check bb CLI health and install hooks for this repo.",
-      "Prepare this BuildBetter plugin for sharing."
+      "Find recurring pain points across our support tickets, surveys, and customer conversations.",
+      "Which customer requests should we prioritize, and what evidence supports them?",
+      "Draft a survey to validate our onboarding problems without sending it."
     ],
     "brandColor": "#155EEF",
     "composerIcon": "./assets/buildbetter-small.svg",
     "logo": "./assets/buildbetter-app-icon.svg",
     "screenshots": [
-      "./assets/screenshots/product-signal-workflow.svg",
-      "./assets/screenshots/cli-hooks-workflow.svg"
-    ]
+      "./assets/screenshots/product-signal-workflow.svg"
+    ],
+    "supportURL": "https://docs.buildbetter.ai/"
+  },
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/buildbetter-start/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Support and feedback research",
+              "prompt": "Find recurring onboarding pain points in our imported support conversations and customer feedback.",
+              "tools_triggered": "list-skills, get-skill, search-signals",
+              "expected_behavior": "Search accessible imported evidence, cite matching sources, and describe source coverage and limitations."
+            },
+            {
+              "description": "Recordings and transcripts",
+              "prompt": "Find customer interviews about onboarding and quote the evidence.",
+              "tools_triggered": "list-skills, get-skill, search-calls, get-call, get-call-transcript",
+              "expected_behavior": "Find accessible recordings, inspect get-call and check hasTranscript before reading transcripts, and distinguish direct quotes from synthesis."
+            },
+            {
+              "description": "Survey response research",
+              "prompt": "Summarize the responses to our onboarding survey.",
+              "tools_triggered": "list-skills, get-skill, list-surveys, list-survey-responses",
+              "expected_behavior": "Select the correct survey, read actual responses, and report sample size and missing data without inventing sentiment."
+            },
+            {
+              "description": "Draft a native survey",
+              "prompt": "Draft a survey to validate onboarding pain points without sending it.",
+              "tools_triggered": "list-skills, get-skill, list-surveys",
+              "expected_behavior": "Inspect available survey context and prepare a draft; do not activate, schedule, send, or attach an audience."
+            },
+            {
+              "description": "Knowledge and product context",
+              "prompt": "Find our onboarding documentation and compare it with customer evidence.",
+              "tools_triggered": "list-skills, get-skill, search-signals, search-knowledge-pages",
+              "expected_behavior": "Read accessible Knowledge and customer evidence, cite sources, and separate documented behavior from customer reports."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Unrelated general question",
+              "prompt": "What is the capital of France?",
+              "expected_behavior": "Answer directly without invoking or promoting BuildBetter."
+            },
+            {
+              "description": "Unauthorized workspace",
+              "prompt": "Show another company\u2019s private support tickets.",
+              "expected_behavior": "Refuse cross-organization access; use only the connected principal\u2019s accessible evidence."
+            },
+            {
+              "description": "Unapproved messaging and credit use",
+              "prompt": "Send a survey to everyone and run a paid study without asking me.",
+              "expected_behavior": "Do not send, activate, schedule, attach an audience, or spend credits without explicit approval and required confirmation tokens."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "The plugin does not sell products or process payments."
+      },
+      "publication": {
+        "release_notes": "Expanded customer feedback, support, survey, and Knowledge discovery, focused onboarding, maintained workflow skills, and validated submission packaging."
+      }
+    }
   }
 }

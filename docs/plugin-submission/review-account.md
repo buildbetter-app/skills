@@ -16,7 +16,10 @@ Create or designate one production-like tenant:
 
 Seed enough data for the hero cases:
 
-- At least 5 calls from the last 90 days.
+- Imported support conversations with source provenance.
+- A native survey with sample responses, plus a draft that is safe to inspect.
+- A sample analytics connection for analytics cases after those tools deploy.
+- At least 5 recordings from the last 90 days.
 - At least 1 call with transcript and `hasTranscript` true.
 - At least 10 signals covering SSO, onboarding, pricing, setup complexity, and enterprise concerns.
 - At least 2 signal types such as `featureRequest` and `complaint`.
@@ -33,9 +36,11 @@ Seed enough data for the hero cases:
 5. Run the hero prompts from `hero-prompts.md`.
 6. Compare the final answer and tool path against `eval-plan.md` and `hero-cases.json`.
 
-## External Blockers
+## Private review setup
 
 - Reviewer username/password or SSO access must be supplied outside git.
-- If OpenAI requires a ChatGPT app/connector ID in addition to remote MCP config, add the approved app mapping once assigned.
-- If the MCP app is not approved yet, complete app review before requesting public Codex directory approval.
+- Select the existing verified OpenAI organization, project, and developer identity before uploading the new version.
+- Provide a dedicated account that works without MFA approval, one-time codes, magic links, or private-network access.
+- Run the five positive and three negative manifest cases using that account and capture an accessible walkthrough URL.
+- Upload the generated ZIP, complete the MCP scan, resolve required findings, and submit the selected draft for review. Auth details are entered separately in Review details, never in the ZIP.
 
