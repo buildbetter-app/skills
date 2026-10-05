@@ -44,8 +44,8 @@ def test_submission_zip_is_installable_and_local_config_is_untouched(tmp_path):
         ext = manifest['extensions']['com.openai']
         assert ext['onboardingSkill'].removeprefix('./') in names
         cases = ext['review']['test_cases']
-        assert len(cases['positive']) >= 5
-        assert len(cases['negative']) >= 3
+        assert len(cases['positive']) == 5
+        assert len(cases['negative']) == 3
         assert len([n for n in names if n.endswith('/SKILL.md')]) >= 8
     second = tmp_path / 'second.zip'
     assert build(SOURCE, second).returncode == 0
@@ -114,3 +114,20 @@ def test_portable_root_manifest_builds_without_workspace_extensions(tmp_path):
     manifest.rename(source / 'plugin.json')
     result = build(source, tmp_path / 'buildbetter.zip')
     assert result.returncode == 0, result.stderr
+
+
+@pytest.mark.parametrize('kind,count', [('positive', 4), ('positive', 6), ('negative', 2), ('negative', 4)])
+def test_submission_rejects_wrong_review_case_count(tmp_path, kind, count):
+    source = tmp_path / 'source'
+    shutil.copytree(SOURCE, source)
+    path = source / '.codex-plugin/plugin.json'
+    manifest = json.loads(path.read_text())
+    cases = manifest['extensions']['com.openai']['review']['test_cases']
+    cases[kind] = [cases[kind][0]] * count
+    path.write_text(json.dumps(manifest))
+    output = tmp_path / 'previous.zip'
+    output.write_bytes(b'previous artifact')
+    result = build(source, output)
+    assert result.returncode != 0
+    assert 'exactly' in result.stderr
+    assert output.read_bytes() == b'previous artifact'

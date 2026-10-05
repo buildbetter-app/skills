@@ -8,6 +8,23 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'plugins' / 'buildbetter-grok'
 
 
+def test_regeneration_removes_obsolete_files_and_preserves_readme(tmp_path):
+    command = [sys.executable, str(ROOT / 'scripts' / 'build_grok_plugin.py'), '--output', str(tmp_path)]
+    subprocess.run(command, check=True)
+    obsolete = tmp_path / 'skills' / 'retired' / 'SKILL.md'
+    obsolete.parent.mkdir()
+    obsolete.write_text('retired workflow')
+    support = tmp_path / 'assets' / 'retired.txt'
+    support.write_text('retired support file')
+    readme = tmp_path / 'README.md'
+    readme.write_text('hand-authored documentation')
+    subprocess.run(command, check=True)
+    assert not obsolete.exists()
+    assert not support.exists()
+    assert readme.read_text() == 'hand-authored documentation'
+    subprocess.run(command + ['--check'], check=True)
+
+
 def test_grok_package_matches_maintained_workflows():
     result = subprocess.run(
         [sys.executable, str(ROOT / 'scripts' / 'build_grok_plugin.py'), '--check'],

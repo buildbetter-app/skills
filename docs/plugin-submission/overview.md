@@ -1,6 +1,6 @@
 # BuildBetter ChatGPT and Codex Plugin Submission Overview
 
-This dossier prepares the maintained BuildBetter package for ChatGPT and Codex review: useful product capabilities, portable public skills, realistic cases, and a clear reviewer path. The current candidate is 0.6.0; [its ledger](2026-10-01-release-candidate.md) separates shipped PRs and runtime proof from pending deployment and submission.
+This dossier prepares the maintained BuildBetter package for ChatGPT and Codex review: useful product capabilities, portable public skills, realistic cases, and a clear reviewer path. The current candidate is 0.6.1; [its update preparation](2026-10-05-update-preparation.md) separates shipped PRs and runtime proof from pending deployment and submission.
 
 ## Plugin Links
 
@@ -28,7 +28,7 @@ Example use cases:
 
 - Find recurring pain points across imported support, survey, feedback, and recording evidence.
 - Compare qualitative evidence with connected PostHog or Amplitude usage and saved insights.
-- Inspect and select cited signals in the interactive evidence browser.
+- Complete evidence research in chat; optionally inspect cited signals in the evidence browser when requested.
 - Monitor selected new signals, completed recordings, or submitted survey responses in an Events-capable client.
 - Search recordings, transcripts, documents, people, and Knowledge for product context.
 - Draft a product spec or implementation plan with cited BuildBetter evidence.
@@ -65,6 +65,6 @@ External prerequisites before public review include the owning publisher identit
 
 ## Public ZIP
 
-Run `python scripts/build_plugin_submission.py --output artifacts/buildbetter-0.6.0.zip`. The reproducible archive bundles the maintained public skills and normalizes only its MCP configuration. Do not upload the whole repository or include credentials, app references, or hooks.
+Run `python scripts/build_plugin_submission.py --output artifacts/buildbetter-0.6.1.zip`. The reproducible archive bundles the maintained public skills and normalizes only its MCP configuration. Do not upload the whole repository or include credentials, app references, or hooks.
 
 Metadata and skills updates require a new version/ZIP. Runtime organization skills remain private and are retrieved using permissioned MCP tools; submission-time skill imports are static snapshots. Review cases in the manifest are authored scenarios, not execution receipts. Supply a dedicated sample-data reviewer account and a real walkthrough URL in the dashboard before submitting.

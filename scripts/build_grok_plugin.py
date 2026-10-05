@@ -66,12 +66,18 @@ def main():
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
     expected = files()
+    if args.output.is_symlink():
+        parser.error('Generated output cannot be a symlink')
+    paths = list(args.output.rglob('*'))
+    if any(path.is_symlink() for path in paths):
+        parser.error('Generated output cannot contain symlinks')
+    actual = {p.relative_to(args.output).as_posix() for p in paths if p.is_file()}
+    obsolete = sorted(actual - expected.keys() - {'README.md'})
     if args.check:
         changed = [name for name, content in expected.items()
                    if not (args.output / name).is_file() or (args.output / name).read_bytes() != content]
         # README is hand-authored; every other file is generated.
-        actual = {p.relative_to(args.output).as_posix() for p in args.output.rglob('*') if p.is_file()}
-        changed += sorted(actual - expected.keys() - {'README.md'})
+        changed += obsolete
         if changed:
             parser.exit(1, 'Generated Grok package differs: ' + ', '.join(changed) + '\n')
         print('Grok package matches maintained public skills')
@@ -80,6 +86,8 @@ def main():
         path = args.output / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
+    for name in obsolete:
+        (args.output / name).unlink()
     print(f'Generated {len(expected)} public package files')
 
 

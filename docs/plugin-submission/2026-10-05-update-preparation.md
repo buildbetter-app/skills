@@ -26,3 +26,11 @@ Hosted MCP updates are evaluated separately through server scans. Rescan after d
 - Resolve package/skill/MCP scan findings; complete the applicable attestations and record the submission receipt.
 
 The package is prepared for this process; those checks are not marked passed by creating a ZIP. [OpenAI submission and update rules](https://developers.openai.com/plugins/deploy/submission).
+
+## Claude compatibility and distribution
+
+This update changes the maintained Claude Code manifest version to 0.6.1. Its MCP configuration, server identity and public skills are unchanged. The new Grok package is a separate distribution; it does not replace the Claude package or alter OAuth clients, tokens, scopes, SAML or workspace permissions.
+
+Existing remote connectors continue to use the same server. A version bump in this repository does not publish a Claude directory update. Anthropic states that existing directory skills, connectors and plugins need no changes for the new directory system. Do not submit a duplicate connector just for this update. If distributing new bundled skills or listing metadata through Claude's directory, use the owning publisher's existing listing and applicable portal review flow.
+
+Source: [Anthropic directory submission announcement](https://claude.com/blog/build-plugins-for-claude). Claude supports MCP Apps; support and actual rendering must still be verified in Claude. Do not infer Events support or Claude host acceptance from successful MCP calls in another host.

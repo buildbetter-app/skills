@@ -83,9 +83,9 @@ def payloads(source):
         public_url(interface[key])
     ext = manifest['extensions']['com.openai']
     cases = ext['review']['test_cases']
-    for kind, minimum in (('positive', 5), ('negative', 3)):
-        if not isinstance(cases.get(kind), list) or len(cases[kind]) < minimum:
-            raise ValueError(f'Review needs at least {minimum} {kind} cases')
+    for kind, required in (('positive', 5), ('negative', 3)):
+        if not isinstance(cases.get(kind), list) or len(cases[kind]) != required:
+            raise ValueError(f'Review needs exactly {required} {kind} cases')
         for case in cases[kind]:
             if not all(isinstance(case.get(k), str) and case[k].strip()
                        for k in ('description', 'prompt', 'expected_behavior')):

@@ -57,34 +57,16 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Support and feedback research",
-              "prompt": "Find recurring onboarding pain points in our imported support conversations and customer feedback.",
-              "tools_triggered": "list-skills, get-skill, search-signals",
-              "expected_behavior": "Search accessible imported evidence, cite matching sources, and describe source coverage and limitations."
+              "description": "Support, recordings and Knowledge research",
+              "prompt": "Find recurring onboarding pain points across imported support and recordings, verify transcript quotes, and compare our onboarding Knowledge.",
+              "tools_triggered": "list-skills, get-skill, search-signals, search-calls, get-call, get-call-transcript, search-knowledge-pages",
+              "expected_behavior": "Search accessible evidence without manual selection, verify original transcript quotes when available, cite sources, separate external customer voice from internal commentary, and distinguish documented guidance from customer reports."
             },
             {
-              "description": "Recordings and transcripts",
-              "prompt": "Find customer interviews about onboarding and quote the evidence.",
-              "tools_triggered": "list-skills, get-skill, search-calls, get-call, get-call-transcript",
-              "expected_behavior": "Find accessible recordings, inspect get-call and check hasTranscript before reading transcripts, and distinguish direct quotes from synthesis."
-            },
-            {
-              "description": "Survey response research",
-              "prompt": "Summarize the responses to our onboarding survey.",
+              "description": "Survey research and draft",
+              "prompt": "Summarize our onboarding survey responses and draft a follow-up survey without creating or sending it.",
               "tools_triggered": "list-skills, get-skill, list-surveys, list-survey-responses",
-              "expected_behavior": "Select the correct survey, read actual responses, and report sample size and missing data without inventing sentiment."
-            },
-            {
-              "description": "Draft a native survey",
-              "prompt": "Draft a survey to validate onboarding pain points without sending it.",
-              "tools_triggered": "list-skills, get-skill, list-surveys",
-              "expected_behavior": "Inspect available survey context and prepare a draft; do not activate, schedule, send, or attach an audience."
-            },
-            {
-              "description": "Knowledge and product context",
-              "prompt": "Find our onboarding documentation and compare it with customer evidence.",
-              "tools_triggered": "list-skills, get-skill, search-signals, search-knowledge-pages",
-              "expected_behavior": "Read accessible Knowledge and customer evidence, cite sources, and separate documented behavior from customer reports."
+              "expected_behavior": "Select the correct survey, read actual responses, report sample size and missing data, and draft a follow-up in chat without creating, activating, scheduling, sending, or attaching an audience."
             },
             {
               "description": "Analytics and qualitative evidence",
