@@ -4,8 +4,39 @@ from pathlib import Path
 import subprocess
 import sys
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'plugins' / 'buildbetter-grok'
+
+
+@pytest.mark.parametrize('marker', [None, 'not a BuildBetter generated directory'])
+def test_generator_refuses_unowned_output_without_mutating_files(tmp_path, marker):
+    unrelated = tmp_path / 'another-plugin' / 'private.txt'
+    unrelated.parent.mkdir()
+    unrelated.write_text('unpublished work')
+    if marker is not None:
+        (tmp_path / '.buildbetter-grok-generated').write_text(marker)
+    before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob('*') if p.is_file()}
+    result = subprocess.run(
+        [sys.executable, str(ROOT / 'scripts' / 'build_grok_plugin.py'), '--output', str(tmp_path)],
+        capture_output=True, text=True,
+    )
+    assert result.returncode != 0
+    assert 'empty or marked' in result.stderr
+    assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob('*') if p.is_file()}
+
+
+def test_generated_cursor_author_matches_closed_host_contract(tmp_path):
+    subprocess.run(
+        [sys.executable, str(ROOT / 'scripts' / 'build_grok_plugin.py'), '--output', str(tmp_path)],
+        check=True,
+    )
+    cursor = json.loads((tmp_path / '.cursor-plugin' / 'plugin.json').read_text())
+    portable = json.loads((tmp_path / 'plugin.json').read_text())
+    assert cursor['author'] == {'name': 'BuildBetter', 'email': 'eng@buildbetter.app'}
+    assert 'url' in portable['author']
+    assert cursor['homepage'] == portable['homepage']
 
 
 def test_regeneration_removes_obsolete_files_and_preserves_readme(tmp_path):

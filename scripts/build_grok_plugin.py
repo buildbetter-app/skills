@@ -8,6 +8,8 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'plugins' / 'buildbetter-codex'
 DEFAULT_OUTPUT = ROOT / 'plugins' / 'buildbetter-grok'
+OUTPUT_MARKER = '.buildbetter-grok-generated'
+OUTPUT_MARKER_CONTENT = b'buildbetter-grok generated output v1\n'
 
 FOUNDATION = '''---
 name: buildbetter
@@ -37,9 +39,12 @@ def files():
     manifest['$schema'] = 'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json'
     manifest['description'] = 'Research customer feedback, support, surveys and product usage in your connected BuildBetter workspace. Chat-first workflows with source citations.'
     cursor = {key: value for key, value in manifest.items() if key != '$schema'}
+    cursor['author'] = {key: value for key, value in manifest['author'].items()
+                        if key in ('name', 'email')}
     cursor.update({'logo': './assets/buildbetter-app-icon.svg', 'skills': './skills/', 'mcpServers': './mcp.cursor.json'})
     server = {'url': 'https://mcp.buildbetter.app'}
     result = {
+        OUTPUT_MARKER: OUTPUT_MARKER_CONTENT,
         'plugin.json': encoded(manifest),
         'mcp.json': encoded({'$schema': 'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json',
                             'mcpServers': {'buildbetter': {'type': 'streamable-http', **server}}}),
@@ -68,6 +73,15 @@ def main():
     expected = files()
     if args.output.is_symlink():
         parser.error('Generated output cannot be a symlink')
+    if args.output.exists():
+        if not args.output.is_dir():
+            parser.error('Generated output must be a directory')
+        marker = args.output / OUTPUT_MARKER
+        if any(args.output.iterdir()) and (
+            marker.is_symlink() or not marker.is_file()
+            or marker.read_bytes() != OUTPUT_MARKER_CONTENT
+        ):
+            parser.error('Generated output must be empty or marked by this generator; choose a dedicated directory')
     paths = list(args.output.rglob('*'))
     if any(path.is_symlink() for path in paths):
         parser.error('Generated output cannot contain symlinks')

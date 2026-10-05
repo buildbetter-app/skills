@@ -67,7 +67,7 @@ their own explicit authorization.
 - Reviewer username/password or SSO access must be supplied outside git.
 - Select the existing verified OpenAI organization, project, and developer identity before uploading the new version.
 - Provide a dedicated account that works without MFA approval, one-time codes, magic links, or private-network access.
-- Run all eight positive and three negative manifest cases using that account and capture an accessible walkthrough URL.
+- Run all five positive and three negative manifest cases using that account and capture an accessible walkthrough URL.
 - Upload the generated ZIP, complete the MCP scan, resolve required findings, and submit the selected draft for review. Auth details are entered separately in Review details, never in the ZIP.
 
 ## Deterministic future-event fixture

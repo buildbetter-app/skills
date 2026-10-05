@@ -8,6 +8,8 @@ This package includes nine maintained public workflows, a portable Agent Plugins
 
 Generated files come from the Codex workflow source. After editing the maintained source, run `python3 scripts/build_grok_plugin.py` at the repository root; use `--check` to detect drift. The foundation skill is a host-neutral wrapper. Do not edit the generated workflow copies.
 
+Custom `--output` destinations must be empty or contain this generator's `.buildbetter-grok-generated` marker. Use a dedicated package directory: regeneration removes obsolete generated files there while preserving the root `README.md`. Unmarked nonempty directories are rejected before any files are changed.
+
 ## Grok Bot
 
 After marketplace approval, open Marketplace, add BuildBetter, and complete the provider OAuth login. Use the connector in chat and reference installed skills through the host's skill picker. Before listing, use a private team marketplace imported from this repository, or the Bot's Remote HTTPS custom MCP option with `https://mcp.buildbetter.app`. Validate actual Bot installation and authentication; package tests do not establish host acceptance.
