@@ -2,6 +2,10 @@
 
 This directory contains platform-specific plugin packages for BuildBetter.
 
+## Grok Bot and Cursor
+
+The generated [BuildBetter Grok package](buildbetter-grok/README.md) bundles the nine maintained research workflows and the existing OAuth MCP endpoint. The root `.cursor-plugin/marketplace.json` identifies it for marketplace review. Run `python3 scripts/build_grok_plugin.py --check` to verify generated source. Marketplace listing and actual host QA remain separate gates.
+
 ## Codex
 
 The BuildBetter Skills workflow plugin lives at `plugins/skills/`.

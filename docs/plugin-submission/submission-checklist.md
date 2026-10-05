@@ -21,11 +21,11 @@
 
 ## Current Submission Candidate
 
-- [x] Package 0.6.0 uses Productivity and three focused starter prompts.
+- [x] Package 0.6.1 uses Productivity and three focused starter prompts.
 - [x] Maintained public skills cover support, feedback, surveys, recordings, analytics, interactive evidence, and user-selected monitoring.
 - [x] The reproducible ZIP excludes app references, lifecycle hooks, private organization skills, and credentials.
-- [x] The manifest contains eight authored positive cases and three authored negative cases. These are scenarios, not execution receipts.
-- [x] [The release candidate ledger](2026-10-01-release-candidate.md) names the backend stack and proof boundaries.
+- [x] The manifest contains five authored positive cases and three authored negative cases. These are scenarios, not execution receipts.
+- [x] [The current update preparation](2026-10-05-update-preparation.md) names the package and remaining submission gates; [the historical release candidate ledger](2026-10-01-release-candidate.md) retains the original backend proof boundaries.
 
 ## External Submission Gates
 
@@ -33,7 +33,7 @@
 - [ ] Obtain separate authorization to merge and deploy the backend stack, complete applicable gates, and read back the deployed endpoint revision. Audit every additions surface in [tool-audit.md](tool-audit.md), including `get-job`, `show-job-progress` and the optional progress component.
 - [ ] Provide a dedicated sample-data reviewer account privately. It must work without MFA approvals, one-time codes, magic links, or private-network access.
 - [ ] Grant Events to the review workspace only after the MCP and both workers are deployed with the migration.
-- [ ] Execute all eight positive and three negative manifest cases in ChatGPT, including analytics, interactive evidence, and the operator-triggered future Events fixture. Save sanitized transcripts under `docs/plugin-submission/transcripts/`.
+- [ ] Execute all five positive and three negative manifest cases in ChatGPT, including analytics, interactive evidence, and the operator-triggered future Events fixture. Save sanitized transcripts under `docs/plugin-submission/transcripts/`.
 - [ ] Capture an accessible walkthrough URL and actual ChatGPT screenshots.
 - [ ] Rebuild and inspect the final ZIP from the selected source revision; upload it and complete the MCP scan against the deployed endpoint.
 - [ ] Resolve required metadata, skills, authentication, and MCP findings; complete applicable human attestations.

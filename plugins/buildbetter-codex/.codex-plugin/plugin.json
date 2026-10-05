@@ -1,6 +1,6 @@
 {
   "name": "buildbetter",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Research customer feedback, support tickets, surveys, product analytics, signals, recordings, and Knowledge with BuildBetter.",
   "author": {
     "name": "BuildBetter",
@@ -26,7 +26,7 @@
   "interface": {
     "displayName": "BuildBetter",
     "shortDescription": "Turn feedback into decisions",
-    "longDescription": "Search your connected BuildBetter workspace for customer feedback, imported support conversations, recordings and transcripts, survey responses, product signals, and Knowledge. Compare qualitative evidence with connected PostHog or Amplitude usage, trends, and saved insights. Inspect and select cited signals in an interactive evidence browser. When supported by your ChatGPT client and enabled for your workspace, monitor selected new signals, completed recordings, or submitted survey responses. Draft native surveys, evaluate synthetic research separately from real customer evidence, preview Smart Tags, and inspect project triage and Knowledge gaps with focused workflows. Coverage depends on connected sources and your permissions. BuildBetter uses OAuth; publishing, messaging, survey delivery, access changes, and credit use retain their approval steps. Maintained public skills work in ChatGPT and Codex; organization-specific skills remain private and are retrieved at runtime.",
+    "longDescription": "Search your connected BuildBetter workspace for customer feedback, imported support conversations, recordings and transcripts, survey responses, product signals, and Knowledge. Compare qualitative evidence with connected PostHog or Amplitude usage, trends, and saved insights. The agent retrieves, filters, and cites evidence in chat. Optional visual evidence browsing and compact job-status cards help when requested and supported by your client. When supported by your ChatGPT client and enabled for your workspace, monitor selected new signals, completed recordings, or submitted survey responses. Draft native surveys, evaluate synthetic research separately from real customer evidence, preview Smart Tags, and inspect project triage and Knowledge gaps with focused workflows. Coverage depends on connected sources and your permissions. BuildBetter uses OAuth; publishing, messaging, survey delivery, access changes, and credit use retain their approval steps. Maintained public skills work in ChatGPT and Codex; organization-specific skills remain private and are retrieved at runtime.",
     "developerName": "BuildBetter",
     "category": "Productivity",
     "capabilities": [
@@ -57,34 +57,16 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Support and feedback research",
-              "prompt": "Find recurring onboarding pain points in our imported support conversations and customer feedback.",
-              "tools_triggered": "list-skills, get-skill, search-signals",
-              "expected_behavior": "Search accessible imported evidence, cite matching sources, and describe source coverage and limitations."
+              "description": "Support, recordings and Knowledge research",
+              "prompt": "Find recurring onboarding pain points across imported support and recordings, verify transcript quotes, and compare our onboarding Knowledge.",
+              "tools_triggered": "list-skills, get-skill, search-signals, search-calls, get-call, get-call-transcript, search-knowledge-pages",
+              "expected_behavior": "Search accessible evidence without manual selection, verify original transcript quotes when available, cite sources, separate external customer voice from internal commentary, and distinguish documented guidance from customer reports."
             },
             {
-              "description": "Recordings and transcripts",
-              "prompt": "Find customer interviews about onboarding and quote the evidence.",
-              "tools_triggered": "list-skills, get-skill, search-calls, get-call, get-call-transcript",
-              "expected_behavior": "Find accessible recordings, inspect get-call and check hasTranscript before reading transcripts, and distinguish direct quotes from synthesis."
-            },
-            {
-              "description": "Survey response research",
-              "prompt": "Summarize the responses to our onboarding survey.",
+              "description": "Survey research and draft",
+              "prompt": "Summarize our onboarding survey responses and draft a follow-up survey without creating or sending it.",
               "tools_triggered": "list-skills, get-skill, list-surveys, list-survey-responses",
-              "expected_behavior": "Select the correct survey, read actual responses, and report sample size and missing data without inventing sentiment."
-            },
-            {
-              "description": "Draft a native survey",
-              "prompt": "Draft a survey to validate onboarding pain points without sending it.",
-              "tools_triggered": "list-skills, get-skill, list-surveys",
-              "expected_behavior": "Inspect available survey context and prepare a draft; do not activate, schedule, send, or attach an audience."
-            },
-            {
-              "description": "Knowledge and product context",
-              "prompt": "Find our onboarding documentation and compare it with customer evidence.",
-              "tools_triggered": "list-skills, get-skill, search-signals, search-knowledge-pages",
-              "expected_behavior": "Read accessible Knowledge and customer evidence, cite sources, and separate documented behavior from customer reports."
+              "expected_behavior": "Select the correct survey, read actual responses, report sample size and missing data, and draft a follow-up in chat without creating, activating, scheduling, sending, or attaching an audience."
             },
             {
               "description": "Analytics and qualitative evidence",
@@ -127,7 +109,7 @@
         "commerce_description": "The plugin does not sell products or process payments."
       },
       "publication": {
-        "release_notes": "Added connected product analytics, interactive cited-evidence browsing, and user-selected monitoring for new signals, completed recordings, and submitted survey responses. Updated public workflow guidance across support, feedback, surveys, recordings, analytics, and Knowledge."
+        "release_notes": "Added chat-first public research workflows, connected PostHog and Amplitude analytics, and optional evidence browsing and job-status cards. User-requested signal, recording and survey-response monitoring depends on client support and workspace enablement. Ordinary research requires no manual evidence selection."
       }
     }
   }

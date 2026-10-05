@@ -1,0 +1,4 @@
+interface:
+  display_name: "Start with BuildBetter"
+  short_description: "Choose a workflow for your customer evidence"
+  default_prompt: "Use buildbetter-start to connect my workspace and choose a relevant evidence workflow."

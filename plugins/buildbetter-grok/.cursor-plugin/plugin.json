@@ -1,0 +1,26 @@
+{
+  "name": "buildbetter",
+  "version": "0.6.1",
+  "description": "Research customer feedback, support, surveys and product usage in your connected BuildBetter workspace. Chat-first workflows with source citations.",
+  "author": {
+    "name": "BuildBetter",
+    "email": "eng@buildbetter.app"
+  },
+  "homepage": "https://github.com/buildbetter-app/skills",
+  "repository": "https://github.com/buildbetter-app/skills",
+  "license": "MIT",
+  "keywords": [
+    "buildbetter",
+    "customer-feedback",
+    "support-tickets",
+    "surveys",
+    "product-analytics",
+    "customer-research",
+    "knowledge",
+    "productivity",
+    "mcp"
+  ],
+  "logo": "./assets/buildbetter-app-icon.svg",
+  "skills": "./skills/",
+  "mcpServers": "./mcp.cursor.json"
+}

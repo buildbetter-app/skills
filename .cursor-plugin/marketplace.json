@@ -1,0 +1,17 @@
+{
+  "name": "buildbetter",
+  "owner": {
+    "name": "BuildBetter",
+    "email": "eng@buildbetter.app"
+  },
+  "metadata": {
+    "description": "Customer evidence and product research for Grok Bot and Cursor."
+  },
+  "plugins": [
+    {
+      "name": "buildbetter",
+      "source": "./plugins/buildbetter-grok",
+      "description": "Research feedback, support, surveys and usage with source citations."
+    }
+  ]
+}

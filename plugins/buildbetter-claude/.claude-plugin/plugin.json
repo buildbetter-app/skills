@@ -1,7 +1,7 @@
 {
   "name": "buildbetter",
   "displayName": "BuildBetter",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Use BuildBetter's MCP server, bb CLI, and product-operations skills from Claude Code.",
   "author": {
     "name": "BuildBetter",
