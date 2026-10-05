@@ -10,6 +10,7 @@ SOURCE = ROOT / 'plugins' / 'buildbetter-codex'
 DEFAULT_OUTPUT = ROOT / 'plugins' / 'buildbetter-grok'
 OUTPUT_MARKER = '.buildbetter-grok-generated'
 OUTPUT_MARKER_CONTENT = b'buildbetter-grok generated output v1\n'
+TEXT_RESOURCE_SUFFIXES = {'.md', '.mdx', '.txt', '.yaml', '.yml', '.json', '.toml', '.rst'}
 
 FOUNDATION = '''---
 name: buildbetter
@@ -54,14 +55,15 @@ def files():
         'skills/buildbetter/SKILL.md': FOUNDATION.encode(),
     }
     for path in sorted((SOURCE / 'skills').rglob('*')):
-        if not path.is_file() or path.relative_to(SOURCE / 'skills').parts[0] == 'buildbetter':
-            continue
         if path.is_symlink():
             raise ValueError('Public skills cannot contain symlinks')
-        content = path.read_text()
-        # Workflow references are names, not Codex-specific dollar invocations.
-        content = re.sub(r'\$(buildbetter[\w-]*)', r'\1', content)
-        result[path.relative_to(SOURCE).as_posix()] = content.encode()
+        if not path.is_file() or path.relative_to(SOURCE / 'skills').parts[0] == 'buildbetter':
+            continue
+        content = path.read_bytes()
+        if path.suffix.lower() in TEXT_RESOURCE_SUFFIXES:
+            # Workflow references are names, not Codex-specific dollar invocations.
+            content = re.sub(r'\$(buildbetter[\w-]*)', r'\1', content.decode('utf-8')).encode('utf-8')
+        result[path.relative_to(SOURCE).as_posix()] = content
     return result
 
 
@@ -96,12 +98,17 @@ def main():
             parser.exit(1, 'Generated Grok package differs: ' + ', '.join(changed) + '\n')
         print('Grok package matches maintained public skills')
         return
+    for name in obsolete:
+        (args.output / name).unlink()
+    expected_directories = {parent for name in expected
+                            for parent in Path(name).parents if parent != Path('.')}
+    for path in sorted((p for p in paths if p.is_dir()), key=lambda p: len(p.parts), reverse=True):
+        if path.relative_to(args.output) not in expected_directories:
+            path.rmdir()
     for name, content in expected.items():
         path = args.output / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
-    for name in obsolete:
-        (args.output / name).unlink()
     print(f'Generated {len(expected)} public package files')
 
 

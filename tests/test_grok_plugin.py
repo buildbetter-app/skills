@@ -1,6 +1,8 @@
 """Validate the generated distribution boundary, including stale skill detection."""
 import json
+import importlib.util
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
@@ -8,6 +10,59 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'plugins' / 'buildbetter-grok'
+
+
+def load_generator():
+    spec = importlib.util.spec_from_file_location('grok_generator', ROOT / 'scripts' / 'build_grok_plugin.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_regeneration_handles_file_directory_replacements(tmp_path):
+    command = [sys.executable, str(ROOT / 'scripts' / 'build_grok_plugin.py'), '--output', str(tmp_path)]
+    subprocess.run(command, check=True)
+    workflow = tmp_path / 'skills' / 'buildbetter-start'
+    shutil.rmtree(workflow)
+    workflow.write_bytes(b'former file')
+    config = tmp_path / 'mcp.cursor.json'
+    config.unlink()
+    config.mkdir()
+    (config / 'retired.txt').write_bytes(b'former directory')
+    subprocess.run(command, check=True)
+    assert (workflow / 'SKILL.md').is_file()
+    assert json.loads(config.read_text())['mcpServers']['buildbetter']['url'] == 'https://mcp.buildbetter.app'
+    subprocess.run(command + ['--check'], check=True)
+
+
+@pytest.mark.parametrize('broken', [False, True])
+def test_source_directory_and_broken_symlinks_are_rejected(tmp_path, broken):
+    generator = load_generator()
+    source = tmp_path / 'source'
+    shutil.copytree(generator.SOURCE, source)
+    target = tmp_path / 'target'
+    if not broken:
+        target.mkdir()
+        (target / 'SKILL.md').write_text('linked workflow')
+    (source / 'skills' / 'linked-workflow').symlink_to(target, target_is_directory=True)
+    generator.SOURCE = source
+    with pytest.raises(ValueError, match='symlinks'):
+        generator.files()
+
+
+def test_binary_skill_assets_are_preserved_and_markdown_is_rewritten(tmp_path):
+    generator = load_generator()
+    source = tmp_path / 'source'
+    shutil.copytree(generator.SOURCE, source)
+    resources = source / 'skills' / 'buildbetter-start' / 'references'
+    resources.mkdir(exist_ok=True)
+    payload = b'\x89PNG\r\n\x1a\n\xff$buildbetter-start'
+    (resources / 'fixture.png').write_bytes(payload)
+    (resources / 'guide.md').write_text('Use $buildbetter-start')
+    generator.SOURCE = source
+    generated = generator.files()
+    assert generated['skills/buildbetter-start/references/fixture.png'] == payload
+    assert generated['skills/buildbetter-start/references/guide.md'] == b'Use buildbetter-start'
 
 
 @pytest.mark.parametrize('marker', [None, 'not a BuildBetter generated directory'])
