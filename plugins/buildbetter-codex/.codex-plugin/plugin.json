@@ -1,6 +1,6 @@
 {
   "name": "buildbetter",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Research customer feedback, support tickets, surveys, product analytics, signals, recordings, and Knowledge with BuildBetter.",
   "author": {
     "name": "BuildBetter",
@@ -26,7 +26,7 @@
   "interface": {
     "displayName": "BuildBetter",
     "shortDescription": "Turn feedback into decisions",
-    "longDescription": "Search your connected BuildBetter workspace for customer feedback, imported support conversations, recordings and transcripts, survey responses, product signals, and Knowledge. Compare qualitative evidence with connected PostHog or Amplitude usage, trends, and saved insights. Inspect and select cited signals in an interactive evidence browser. When supported by your ChatGPT client and enabled for your workspace, monitor selected new signals, completed recordings, or submitted survey responses. Draft native surveys, evaluate synthetic research separately from real customer evidence, preview Smart Tags, and inspect project triage and Knowledge gaps with focused workflows. Coverage depends on connected sources and your permissions. BuildBetter uses OAuth; publishing, messaging, survey delivery, access changes, and credit use retain their approval steps. Maintained public skills work in ChatGPT and Codex; organization-specific skills remain private and are retrieved at runtime.",
+    "longDescription": "Search your connected BuildBetter workspace for customer feedback, imported support conversations, recordings and transcripts, survey responses, product signals, and Knowledge. Compare qualitative evidence with connected PostHog or Amplitude usage, trends, and saved insights. The agent retrieves, filters, and cites evidence in chat. Optional visual evidence browsing and compact job-status cards help when requested and supported by your client. When supported by your ChatGPT client and enabled for your workspace, monitor selected new signals, completed recordings, or submitted survey responses. Draft native surveys, evaluate synthetic research separately from real customer evidence, preview Smart Tags, and inspect project triage and Knowledge gaps with focused workflows. Coverage depends on connected sources and your permissions. BuildBetter uses OAuth; publishing, messaging, survey delivery, access changes, and credit use retain their approval steps. Maintained public skills work in ChatGPT and Codex; organization-specific skills remain private and are retrieved at runtime.",
     "developerName": "BuildBetter",
     "category": "Productivity",
     "capabilities": [
@@ -127,7 +127,7 @@
         "commerce_description": "The plugin does not sell products or process payments."
       },
       "publication": {
-        "release_notes": "Added connected product analytics, interactive cited-evidence browsing, and user-selected monitoring for new signals, completed recordings, and submitted survey responses. Updated public workflow guidance across support, feedback, surveys, recordings, analytics, and Knowledge."
+        "release_notes": "Added chat-first public research workflows, connected PostHog and Amplitude analytics, and optional evidence browsing and job-status cards. User-requested signal, recording and survey-response monitoring depends on client support and workspace enablement. Ordinary research requires no manual evidence selection."
       }
     }
   }
