@@ -13,9 +13,9 @@ BUILDER = ROOT / 'scripts' / 'build_plugin_submission.py'
 SOURCE = ROOT / 'plugins' / 'buildbetter-codex'
 
 
-def build(source, output):
+def build(source, output, *extra):
     return subprocess.run([sys.executable, str(BUILDER), '--source', str(source),
-                           '--output', str(output)], capture_output=True, text=True)
+                           '--output', str(output), *extra], capture_output=True, text=True)
 
 
 def test_submission_zip_is_installable_and_local_config_is_untouched(tmp_path):
@@ -130,4 +130,37 @@ def test_submission_rejects_wrong_review_case_count(tmp_path, kind, count):
     result = build(source, output)
     assert result.returncode != 0
     assert 'exactly' in result.stderr
+    assert output.read_bytes() == b'previous artifact'
+
+
+def test_submission_version_override_is_reproducible_without_changing_install_source(tmp_path):
+    manifest_path = SOURCE / '.codex-plugin' / 'plugin.json'
+    before = manifest_path.read_bytes()
+    source_manifest = json.loads(before)
+    output = tmp_path / 'buildbetter-2.0.0.zip'
+    result = build(SOURCE, output, '--submission-version', '2.0.0')
+    assert result.returncode == 0, result.stderr
+    assert manifest_path.read_bytes() == before
+    with zipfile.ZipFile(output) as archive:
+        root = json.loads(archive.read('plugin.json'))
+        compatibility = json.loads(archive.read('.codex-plugin/plugin.json'))
+        assert root == compatibility
+        assert root['version'] == '2.0.0'
+        assert root['name'] == source_manifest['name']
+        assert root['interface'] == source_manifest['interface']
+    second = tmp_path / 'second.zip'
+    assert build(SOURCE, second, '--submission-version', '2.0.0').returncode == 0
+    assert output.read_bytes() == second.read_bytes()
+    default = tmp_path / 'default.zip'
+    assert build(SOURCE, default).returncode == 0
+    with zipfile.ZipFile(default) as archive:
+        assert json.loads(archive.read('plugin.json'))['version'] == source_manifest['version']
+
+
+@pytest.mark.parametrize('version', ['2.0', '02.0.0'])
+def test_invalid_submission_version_preserves_previous_artifact(tmp_path, version):
+    output = tmp_path / 'previous.zip'
+    output.write_bytes(b'previous artifact')
+    result = build(SOURCE, output, '--submission-version', version)
+    assert result.returncode != 0
     assert output.read_bytes() == b'previous artifact'

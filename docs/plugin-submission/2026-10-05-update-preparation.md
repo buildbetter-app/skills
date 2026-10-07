@@ -4,15 +4,15 @@ Prepared package source, not a submission or approval receipt.
 
 ## Listing
 
-Display name: BuildBetter. Category: Productivity. Subtitle: Turn feedback into decisions.
+Display name: BuildBetter. Category: Productivity. Subtitle: Research customer feedback.
 
-The listing now states that the agent retrieves, filters and cites evidence in chat. Evidence browsing and compact job-progress views are optional. Support conversations, surveys, recordings, signals and Knowledge are accessible only through the connected workspace's permissions; analytics requires connected PostHog or Amplitude accounts.
+The listing highlights recurring pain points, feature requests, onboarding friction, churn concerns and evidence-backed prioritization. The agent retrieves, filters, selects representative evidence and synthesizes in chat. Evidence browsing and compact job-progress views are optional. Support conversations, surveys, recordings, signals and Knowledge are accessible only through the connected workspace's permissions; analytics requires connected PostHog or Amplitude accounts.
 
 The maintained manifest contains the complete listing, public links, icons, three starter prompts and positive/negative reviewer cases. Version 0.6.1 includes the chat-first guidance and optional progress description. No broad accuracy or guaranteed recommendation claim is made.
 
 ## Reproducible upload
 
-Run `python3 scripts/build_plugin_submission.py --output artifacts/buildbetter-0.6.1-openai.zip`, inspect the ZIP, and preserve its hash. Upload to the existing BuildBetter plugin identity at https://platform.openai.com/plugins; do not create a duplicate listing or change its server URL. Package changes require their own checks and review outcome.
+For the existing OpenAI 2.0.0 draft, run `python3 scripts/build_plugin_submission.py --submission-version 2.0.0 --output artifacts/buildbetter-2.0.0-openai.zip`, inspect both manifest versions in the ZIP, and preserve its hash. The explicit override changes only the artifact version; the maintained Codex install source stays 0.6.1. Omitting the override produces a 0.6.1 ZIP. Upload to the existing BuildBetter plugin identity at https://platform.openai.com/plugins; do not create a duplicate listing or change its server URL. Package changes require their own checks and review outcome.
 
 Hosted MCP updates are evaluated separately through server scans. Rescan after deploying the production backend; staging availability does not establish production tool approval. Preserve existing approved schemas until new definitions are available. Normal server updates should not require reconnecting unchanged OAuth clients, but host acceptance must be verified rather than assumed.
 
