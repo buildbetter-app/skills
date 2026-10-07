@@ -19,7 +19,15 @@
     "customer-research",
     "knowledge",
     "productivity",
-    "mcp"
+    "mcp",
+    "voice-of-customer",
+    "feature-requests",
+    "customer-pain-points",
+    "onboarding-friction",
+    "churn-risk",
+    "product-prioritization",
+    "survey-analysis",
+    "support-analysis"
   ],
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 }

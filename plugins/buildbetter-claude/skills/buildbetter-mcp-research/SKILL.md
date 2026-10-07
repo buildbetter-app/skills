@@ -1,11 +1,11 @@
 ---
 name: buildbetter-mcp-research
-description: Research BuildBetter data accurately through BuildBetter MCP. Use for open-ended questions about customer evidence, signals, support tickets, recordings, transcripts, survey responses, product analytics, people, companies, documents, knowledge pages, Projects Hub, or triage, and whenever an agent must choose reliable BuildBetter MCP read tools and return traceable evidence.
+description: Research BuildBetter customer feedback across support tickets, surveys, calls, signals, Knowledge, and product analytics. Use for evidence-backed prioritization, onboarding friction, feature requests, account feedback, or qualitative-versus-usage comparisons in the connected workspace.
 ---
 
 # BuildBetter MCP Research
 
-Use BuildBetter domain tools before GraphQL helpers. Use `run-query` only when discovery confirms that no domain tool expresses the request.
+Use BuildBetter domain tools before GraphQL helpers. On established MCP protocol versions, use `run-query` only when it is advertised and no domain tool expresses the request. Newer protocol clients use separately exposed domain operations; do not attempt hidden GraphQL helpers.
 
 Read `references/mcp-tool-map.md` when exact tool names, arguments, pagination rules, or multi-source examples are needed.
 
@@ -64,3 +64,12 @@ Return:
 - Findings: concise conclusions ordered by evidence strength.
 - Evidence: stable signal, call, document, or project identifiers with dates and people/companies when available.
 - Caveats: truncation, sparse coverage, ambiguous identity, internal-versus-external ambiguity, permission gaps, or filter anomalies.
+
+## Natural-language research examples
+
+- “Find every accessible signal where James discusses onboarding friction last quarter.” Resolve James, use an explicit date window, retrieve matching evidence, and report pagination/coverage. Do not require visual selection.
+- “What feature requests recur in support tickets and surveys?” Compare accessible source sets, separate external customers from internal commentary, deduplicate, cite representative evidence, and state unqueried sources.
+- “Which onboarding problems should we prioritize?” Compare affected accounts, repeated concerns, counterevidence, and observed usage. Distinguish evidence from the agent's recommendation.
+- “Are churn concerns reflected in our product analytics?” Discover the connected provider, project and actual events. Report when events cannot establish churn or causation.
+
+Do not invoke BuildBetter for unrelated general questions or promise exhaustive coverage when retrieval is bounded.

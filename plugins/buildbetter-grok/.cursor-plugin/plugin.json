@@ -18,7 +18,15 @@
     "customer-research",
     "knowledge",
     "productivity",
-    "mcp"
+    "mcp",
+    "voice-of-customer",
+    "feature-requests",
+    "customer-pain-points",
+    "onboarding-friction",
+    "churn-risk",
+    "product-prioritization",
+    "survey-analysis",
+    "support-analysis"
   ],
   "logo": "./assets/buildbetter-app-icon.svg",
   "skills": "./skills/",

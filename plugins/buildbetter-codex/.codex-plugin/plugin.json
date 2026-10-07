@@ -1,7 +1,7 @@
 {
   "name": "buildbetter",
   "version": "0.6.1",
-  "description": "Research customer feedback, support tickets, surveys, product analytics, signals, recordings, and Knowledge with BuildBetter.",
+  "description": "Find customer pain points, feature requests, onboarding friction, and churn risks across support tickets, surveys, calls, feedback, and product analytics in your BuildBetter workspace.",
   "author": {
     "name": "BuildBetter",
     "email": "eng@buildbetter.app",
@@ -19,14 +19,22 @@
     "customer-research",
     "knowledge",
     "productivity",
-    "mcp"
+    "mcp",
+    "voice-of-customer",
+    "feature-requests",
+    "customer-pain-points",
+    "onboarding-friction",
+    "churn-risk",
+    "product-prioritization",
+    "survey-analysis",
+    "support-analysis"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "BuildBetter",
-    "shortDescription": "Turn feedback into decisions",
-    "longDescription": "Search your connected BuildBetter workspace for customer feedback, imported support conversations, recordings and transcripts, survey responses, product signals, and Knowledge. Compare qualitative evidence with connected PostHog or Amplitude usage, trends, and saved insights. The agent retrieves, filters, and cites evidence in chat. Optional visual evidence browsing and compact job-status cards help when requested and supported by your client. When supported by your ChatGPT client and enabled for your workspace, monitor selected new signals, completed recordings, or submitted survey responses. Draft native surveys, evaluate synthetic research separately from real customer evidence, preview Smart Tags, and inspect project triage and Knowledge gaps with focused workflows. Coverage depends on connected sources and your permissions. BuildBetter uses OAuth; publishing, messaging, survey delivery, access changes, and credit use retain their approval steps. Maintained public skills work in ChatGPT and Codex; organization-specific skills remain private and are retrieved at runtime.",
+    "shortDescription": "Research customer feedback",
+    "longDescription": "Research customer feedback across support tickets, survey responses, calls, interviews, recordings, product signals, and Knowledge in your connected BuildBetter workspace. Find recurring pain points, feature requests, onboarding friction, and renewal or churn concerns. Compare what customers say with connected PostHog or Amplitude events, usage trends, and saved insights. Get an evidence-backed answer with source citations, account context, a clear timeframe, and coverage limits. The agent searches, filters, selects representative evidence, and synthesizes in chat; manual evidence selection is optional. Draft follow-up surveys, refine Smart Tags and taxonomy, inspect project triage, and identify Knowledge gaps. Keep synthetic persona research separate from real customer evidence. Optional evidence browsing, progress cards, and supported signal, recording, or survey-response monitoring improve specific workflows when the client supports them. Coverage depends on your sources and permissions. OAuth connects your account. Sending, publishing, access changes, and credit-consuming actions keep their existing approval gates. Public skills provide portable workflows; private workspace skills are retrieved at runtime.",
     "developerName": "BuildBetter",
     "category": "Productivity",
     "capabilities": [
@@ -38,9 +46,9 @@
     "privacyPolicyURL": "https://docs.buildbetter.ai/pages/Legal/privacy-policy",
     "termsOfServiceURL": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
     "defaultPrompt": [
-      "Find recurring pain points across our support tickets, surveys, and customer conversations.",
-      "Compare onboarding feedback with product usage and show me the underlying evidence.",
-      "Draft a survey to validate our onboarding problems without sending it."
+      "Find recurring customer pain points and feature requests across our support tickets, surveys, and calls.",
+      "Compare onboarding friction with product usage and cite the evidence.",
+      "Summarize customer feedback for prioritization, including counterevidence and affected accounts."
     ],
     "brandColor": "#155EEF",
     "composerIcon": "./assets/buildbetter-small.svg",

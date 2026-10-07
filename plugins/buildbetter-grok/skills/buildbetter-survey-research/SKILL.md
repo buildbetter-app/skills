@@ -1,6 +1,6 @@
 ---
 name: buildbetter-survey-research
-description: Design, draft, test, launch, and analyze BuildBetter native surveys with evidence-backed questions, audience controls, delivery safeguards, and response synthesis. Use when the user asks to create a survey, add recipients, schedule or activate delivery, configure an in-app intercept, inspect responses, or connect survey results to a BuildBetter View.
+description: Analyze BuildBetter survey responses, identify themes and sample limitations, and draft follow-up customer research surveys. Use for survey feedback synthesis, question design, and explicitly requested survey setup or delivery with existing approval gates.
 ---
 
 # BuildBetter Survey Research
