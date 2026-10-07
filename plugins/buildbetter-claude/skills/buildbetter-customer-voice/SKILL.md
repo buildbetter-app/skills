@@ -1,6 +1,6 @@
 ---
 name: buildbetter-customer-voice
-description: Retrieve defensible customer-voice evidence from BuildBetter MCP. Use when researching customer complaints, objections, praise, feature requests, needs, themes, exact quotes, account feedback, or changes over time, especially when direct external statements must be separated from internal commentary and supported with traceable signal or call evidence.
+description: Find customer pain points, feature requests, onboarding friction, and renewal or churn concerns in BuildBetter support tickets, calls, interviews, survey evidence, and signals. Use for voice-of-customer synthesis and evidence-backed product prioritization; verify speaker identity, dates, and source coverage.
 ---
 
 # BuildBetter Customer Voice

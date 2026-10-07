@@ -1,6 +1,6 @@
 # BuildBetter ChatGPT and Codex Plugin Submission Overview
 
-This dossier prepares the maintained BuildBetter package for ChatGPT and Codex review: useful product capabilities, portable public skills, realistic cases, and a clear reviewer path. The current candidate is 0.6.1; [its update preparation](2026-10-05-update-preparation.md) separates shipped PRs and runtime proof from pending deployment and submission.
+This dossier prepares the maintained BuildBetter package for ChatGPT and Codex review: useful product capabilities, portable public skills, realistic cases, and a clear reviewer path. The maintained install candidate is 0.6.1; the existing OpenAI draft uses an explicit 2.0.0 artifact version. [The update preparation](2026-10-05-update-preparation.md) separates shipped PRs and runtime proof from pending deployment and submission.
 
 ## Plugin Links
 
@@ -22,18 +22,17 @@ This dossier prepares the maintained BuildBetter package for ChatGPT and Codex r
 
 Plugin name: BuildBetter
 
-Plugin description: Research customer feedback, imported support conversations, survey responses, recordings, product signals, analytics, and Knowledge with cited evidence and focused workflows. Inspect selected signals interactively and monitor updates the user chooses when the client and workspace support Events. The directory package serves ChatGPT and Codex; local CLI setup remains available in Codex.
+Subtitle: Research customer feedback
 
-Example use cases:
+Plugin description: Research customer feedback across support tickets, survey responses, calls, interviews, recordings, product signals, and Knowledge in your connected BuildBetter workspace. Find recurring pain points, feature requests, onboarding friction, and renewal or churn concerns. Compare what customers say with connected PostHog or Amplitude events, usage trends, and saved insights. Get an evidence-backed answer with source citations, account context, a clear timeframe, and coverage limits. The agent searches, filters, selects representative evidence, and synthesizes in chat; manual evidence selection is optional. Draft follow-up surveys, refine Smart Tags and taxonomy, inspect project triage, and identify Knowledge gaps. Keep synthetic persona research separate from real customer evidence. Optional evidence browsing, progress cards, and supported signal, recording, or survey-response monitoring improve specific workflows when the client supports them. Coverage depends on your sources and permissions. OAuth connects your account. Sending, publishing, access changes, and credit-consuming actions keep their existing approval gates. Public skills provide portable workflows; private workspace skills are retrieved at runtime.
 
-- Find recurring pain points across imported support, survey, feedback, and recording evidence.
-- Compare qualitative evidence with connected PostHog or Amplitude usage and saved insights.
-- Complete evidence research in chat; optionally inspect cited signals in the evidence browser when requested.
-- Monitor selected new signals, completed recordings, or submitted survey responses in an Events-capable client.
-- Search recordings, transcripts, documents, people, and Knowledge for product context.
-- Draft a product spec or implementation plan with cited BuildBetter evidence.
-- Check local `bb` CLI health, install BuildBetter Codex hooks, and inspect feedback payloads before sending.
-- Prepare a repository for BuildBetter-assisted agent workflows.
+Example prompts (matching the maintained manifest):
+
+- Find recurring customer pain points and feature requests across our support tickets, surveys, and calls.
+- Compare onboarding friction with product usage and cite the evidence.
+- Summarize customer feedback for prioritization, including counterevidence and affected accounts.
+
+The maintained manifest is the source of truth for upload fields; synchronize this dossier when those fields change.
 
 ## Install Paths
 
@@ -65,6 +64,6 @@ External prerequisites before public review include the owning publisher identit
 
 ## Public ZIP
 
-Run `python scripts/build_plugin_submission.py --output artifacts/buildbetter-0.6.1.zip`. The reproducible archive bundles the maintained public skills and normalizes only its MCP configuration. Do not upload the whole repository or include credentials, app references, or hooks.
+For the existing OpenAI draft, run `python3 scripts/build_plugin_submission.py --submission-version 2.0.0 --output artifacts/buildbetter-2.0.0-openai.zip`. The override changes both artifact manifests to 2.0.0 without changing the maintained 0.6.1 install source. Omitting it preserves the source version. The reproducible archive bundles the maintained public skills, normalizes the remote MCP configuration, and applies the requested artifact-version override. Do not upload the whole repository or include credentials, app references, or hooks.
 
 Metadata and skills updates require a new version/ZIP. Runtime organization skills remain private and are retrieved using permissioned MCP tools; submission-time skill imports are static snapshots. Review cases in the manifest are authored scenarios, not execution receipts. Supply a dedicated sample-data reviewer account and a real walkthrough URL in the dashboard before submitting.

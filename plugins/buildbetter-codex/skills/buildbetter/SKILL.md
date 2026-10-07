@@ -1,6 +1,6 @@
 ---
 name: buildbetter
-description: Use when working with BuildBetter's MCP server, bb CLI, Codex hooks, product-signal context, or preparing the BuildBetter Codex plugin for local sharing or submission.
+description: Use BuildBetter to research customer feedback, support tickets, surveys, calls, product signals, and product analytics, or configure its MCP connection and coding tools when requested.
 ---
 
 # BuildBetter

@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path, PurePosixPath
 import tempfile
 from urllib.parse import urlsplit
@@ -56,7 +57,10 @@ def validate_image(name, content):
         raise ValueError(f'Unsupported image asset: {name}')
 
 
-def payloads(source):
+def payloads(source, submission_version=None):
+    if submission_version is not None and not re.fullmatch(
+            r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', submission_version):
+        raise ValueError('Submission version must use MAJOR.MINOR.PATCH without leading zeros')
     source = source.resolve()
     if any(p.is_symlink() for p in source.rglob('*')):
         raise ValueError('Symlinks are not allowed in the public package source')
@@ -70,6 +74,8 @@ def payloads(source):
         raise ValueError('Public submission does not support lifecycle hooks')
     if manifest.get('mcpServers') != './.mcp.json' or manifest.get('skills') != './skills/':
         raise ValueError('Expected the maintained skills directory and MCP configuration')
+    if submission_version is not None:
+        manifest['version'] = submission_version
     interface = manifest['interface']
     for key, maximum in (('shortDescription', 30), ('longDescription', 4000)):
         if not isinstance(interface.get(key), str) or not 0 < len(interface[key]) <= maximum:
@@ -128,9 +134,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, default=ROOT / 'plugins' / 'buildbetter-codex')
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--submission-version',
+                        help='Set the ZIP version (MAJOR.MINOR.PATCH) without changing the install source')
     args = parser.parse_args()
     try:
-        files = payloads(args.source)
+        files = payloads(args.source, args.submission_version)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         with tempfile.NamedTemporaryFile(dir=args.output.parent, suffix='.zip', delete=False) as tmp:
             temporary = Path(tmp.name)
