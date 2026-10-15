@@ -25,3 +25,7 @@ claude plugin install buildbetter@buildbetter
 After installation, run `/reload-plugins` or start a new Claude Code session. The plugin installs disabled by default because it connects to an authenticated external service; enable it from the plugin UI when you want BuildBetter tools active.
 
 If the MCP server shows as unauthenticated, run `/mcp` in Claude Code and complete the OAuth flow.
+
+## Directory metadata
+
+Version 0.6.2 includes the BuildBetter privacy-policy URL and a 1024-pixel square PNG icon for Claude directory validation. The PNG is a raster copy of the existing BuildBetter logo. Anthropic may retain the existing listing icon after its first submission; changing the packaged icon does not guarantee a listing-icon update.
