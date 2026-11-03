@@ -1,0 +1,14 @@
+{
+  "name": "BuildBetter",
+  "description": "Research customer feedback, calls, support, surveys and product usage with source citations.",
+  "details": "Connect your BuildBetter workspace to find customer requests, investigate onboarding friction, summarize interviews and support conversations, analyze surveys, and compare feedback with connected product analytics. Answers cite accessible source evidence and explain coverage limits. Available tools depend on your account, workspace permissions and connected data sources. A BuildBetter account is required; this listing does not provide free access to paid BuildBetter features.",
+  "website": "https://buildbetter.ai",
+  "repository": "https://github.com/buildbetter-app/skills",
+  "privacy_policy_url": "https://docs.buildbetter.ai/pages/Legal/privacy-policy",
+  "terms_of_service_url": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
+  "support_url": "https://github.com/buildbetter-app/skills/issues",
+  "contact_email": "eng@buildbetter.app",
+  "mcp_endpoint": "https://mcp.buildbetter.app",
+  "authentication": "Per-user OAuth through the host client",
+  "keywords": ["customer feedback", "customer research", "voice of customer", "feature requests", "support analysis", "survey analysis", "product analytics", "onboarding friction", "product prioritization"]
+}

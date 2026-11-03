@@ -1,0 +1,18 @@
+{
+  "display_name": "BuildBetter",
+  "description": "Research customer feedback, support conversations, surveys and product usage in your BuildBetter workspace, with citations to source evidence.",
+  "capabilities": [
+    "Find recurring customer requests and onboarding problems",
+    "Summarize interviews and support conversations with source citations",
+    "Analyze survey responses and compare feedback with connected product usage"
+  ],
+  "example_prompts": [
+    "@BuildBetter summarize recurring onboarding complaints and cite the original evidence.",
+    "@BuildBetter compare survey responses about our latest release and explain the coverage.",
+    "Find customer evidence in BuildBetter for our highest-priority feature requests."
+  ],
+  "website_url": "https://buildbetter.ai",
+  "privacy_policy_url": "https://docs.buildbetter.ai/pages/Legal/privacy-policy",
+  "terms_of_service_url": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
+  "mcp_endpoint": "https://mcp.buildbetter.app"
+}
