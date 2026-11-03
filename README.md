@@ -58,6 +58,15 @@ claude plugin marketplace add buildbetter-app/skills --sparse .claude-plugin plu
 claude plugin install buildbetter@buildbetter
 ```
 
+### Option E: Grok, Cursor and MCP marketplaces
+
+The existing [Grok/Cursor plugin](plugins/buildbetter-grok/) uses BuildBetter's
+production MCP and nine public research workflows. For the MCP Registry, Google
+Connected Apps, Meta, Microsoft 365, Salesforce and AWS preparation, see the
+[distribution guide](distribution/README.md). Build a reproducible kit with
+`python3 scripts/build_mcp_distribution.py`. Provider registration, native-host
+QA and marketplace approval are separate from building the package.
+
 ### 3. Use them
 
 Skills are installed into your AI coding agent. On platforms with slash commands (Claude Code, Codex, Gemini):

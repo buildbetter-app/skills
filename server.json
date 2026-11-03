@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.buildbetter-app/buildbetter",
+  "title": "BuildBetter",
+  "description": "Research customer feedback, calls, support, surveys and product usage with source citations.",
+  "repository": {
+    "url": "https://github.com/buildbetter-app/skills",
+    "source": "github"
+  },
+  "websiteUrl": "https://buildbetter.ai",
+  "version": "0.1.0",
+  "remotes": [{"type": "streamable-http", "url": "https://mcp.buildbetter.app"}]
+}

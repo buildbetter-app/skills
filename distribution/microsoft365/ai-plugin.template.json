@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "BuildBetter",
+  "namespace": "BuildBetter",
+  "description_for_human": "Research customer feedback, calls, support, surveys and usage with source citations.",
+  "description_for_model": "Search and analyze customer evidence in the authenticated user's accessible BuildBetter workspace. Useful for feature requests, onboarding friction, support and survey research, and connected product analytics. Available tools and data depend on workspace permissions and entitlements.",
+  "contact_email": "eng@buildbetter.app",
+  "legal_info_url": "https://docs.buildbetter.ai/pages/Legal/terms-of-service",
+  "privacy_policy_url": "https://docs.buildbetter.ai/pages/Legal/privacy-policy",
+  "functions": [],
+  "runtimes": [{
+    "type": "RemoteMCPServer",
+    "auth": {"type": "OAuthPluginVault", "reference_id": "REQUIRES_OAUTH_VAULT_REGISTRATION"},
+    "run_for_functions": ["*"],
+    "spec": {"url": "https://mcp.buildbetter.app"}
+  }]
+}
