@@ -7,8 +7,8 @@
     "Analyze survey responses and compare feedback with connected product usage"
   ],
   "example_prompts": [
-    "BuildBetter, summarize recurring onboarding complaints and cite the original evidence.",
-    "BuildBetter, compare survey responses about our latest release and explain the coverage.",
+    "@BuildBetter summarize recurring onboarding complaints and cite the original evidence.",
+    "@BuildBetter compare survey responses about our latest release and explain the coverage.",
     "Find customer evidence in BuildBetter for our highest-priority feature requests."
   ],
   "website_url": "https://buildbetter.ai",

@@ -46,6 +46,7 @@ def test_kit_is_reproducible_and_uses_only_public_packages(tmp_path):
     with zipfile.ZipFile(outputs[0]) as archive:
         names = archive.namelist()
         assert 'server.json' in names
+        assert 'distribution/APPLICATIONS.md' in names
         assert '.cursor-plugin/marketplace.json' in names
         assert 'plugins/buildbetter-grok/plugin.json' in names
         assert 'distribution/microsoft365/ai-plugin.template.json' in names
@@ -58,6 +59,17 @@ def test_kit_is_reproducible_and_uses_only_public_packages(tmp_path):
         config = json.loads(archive.read('plugins/buildbetter-grok/mcp.json'))
         assert config['mcpServers']['buildbetter'] == {
             'type': 'streamable-http', 'url': 'https://mcp.buildbetter.app'}
+
+
+def test_google_console_copy_meets_published_field_requirements():
+    listing = json.loads((ROOT / 'distribution/google/listing.json').read_text())
+    assert len(listing['description'].split()) < 30
+    assert len(listing['capabilities']) >= 3
+    prompts = listing['example_prompts']
+    assert len(prompts) >= 3
+    assert sum(prompt.startswith('@BuildBetter') for prompt in prompts) >= 2
+    assert any('BuildBetter' in prompt and not prompt.startswith('@BuildBetter')
+               for prompt in prompts)
 
 
 def test_copilot_zip_has_registered_oauth_and_working_cross_file_references(tmp_path):

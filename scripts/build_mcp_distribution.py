@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_ENDPOINT = 'https://mcp.buildbetter.app'
 PUBLIC_FILES = (
     'LICENSE', 'server.json', '.cursor-plugin/marketplace.json', 'distribution/README.md',
+    'distribution/APPLICATIONS.md',
     'distribution/listing.json', 'distribution/google/listing.json',
     'distribution/microsoft365/declarativeAgent.json',
     'distribution/microsoft365/ai-plugin.template.json',

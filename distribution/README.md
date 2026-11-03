@@ -6,6 +6,9 @@ plugin already exists from [skills #14](https://github.com/buildbetter-app/skill
 All channels reuse `https://mcp.buildbetter.app` with per-user OAuth. A BuildBetter
 account and access to an authorized workspace are required.
 
+Use the [application packet](APPLICATIONS.md) for submission fields, public OAuth
+details, reviewer requirements and the remaining account-specific inputs.
+
 ## Build and install
 
 From the repository root:
@@ -28,7 +31,6 @@ not create a public catalog listing or install packaged skills. For **Grok
 Build**, load the existing plugin directory with the official client's
 `--plugin-dir` option. For **Grok Bot/Cursor**, follow
 [the package installation and QA guide](../plugins/buildbetter-grok/README.md).
-The laptop's third-party `@vibe-kit/grok-cli` is not the official native client.
 
 ## Publication routes and remaining gates
 
@@ -38,7 +40,7 @@ The laptop's third-party `@vibe-kit/grok-cli` is not the official native client.
 | Grok | Existing portable plugin and custom MCP setup | Native-host sign-in/tool-call QA; confirm xAI catalog submission route. Custom connections and public catalog distribution are separate | [Connectors](https://docs.x.ai/grok/connectors), [plugins](https://docs.x.ai/build/features/skills-plugins-marketplaces) |
 | Cursor Marketplace | `.cursor-plugin/marketplace.json`, `plugins/buildbetter-grok` | Native installation QA, submit public repo and plugin path at [Publish](https://cursor.com/marketplace/publish), await review | [Submission requirements](https://cursor.com/docs/reference/plugins) |
 | Google Connected Apps | `google/listing.json`, shared endpoint | Preview admission at [Connected Console](https://connected.google.com), owner-accepted terms, domain verification, 512px icon, authenticated compatibility and seeded review access | [Prerequisites](https://developers.google.com/connected-apps/gpc/prerequisites), [registration](https://developers.google.com/connected-apps/gpc/perform-the-steps) |
-| Meta Muse / Meta AI | Shared listing copy and permissioned MCP | Confirm product-specific admission and connector contract through the official early-access route; do not assume the Meta AI preview is Muse catalog admission | [Meta developer connector announcement and signup](https://developers.meta.com/blog/meta-connect-recap-ai-glasses/) |
+| Meta Muse / Meta AI | Shared listing copy and permissioned MCP | Confirm product-specific admission and connector contract through the official early-access route; do not assume the Meta AI preview is Muse catalog admission | [Meta AI Connectors](https://dev.meta.ai/products/connectors), [developer FAQ](https://developers.meta.com/wearables/faq/) |
 | Microsoft 365 Agent Store | Declarative agent, OAuth MCP wrapper and app ZIP builder | Registered app/vault IDs, publisher icons, tenant sideload QA, publisher verification, Partner Center review | [Dynamic MCP discovery](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/plugin-dynamic-tool-discovery), [Agent Store](https://learn.microsoft.com/en-us/microsoft-365/copilot/copilot-agent-store) |
 | Salesforce AgentExchange | Shared listing and MCP setup/QA cases | Partner enrollment, supported solution registration and external-MCP auth, Agentforce QA, applicable security review and publication | [Listing guide](https://developer.salesforce.com/docs/platform/isvforce/guide/appexchange-publish-listings.html), [security review](https://developer.salesforce.com/docs/platform/isvforce/guide/security-review-how-it-works.html) |
 | AWS Marketplace AI Agents & Tools | Shared listing and usage instructions | Seller account, commercial choice, buyer registration/fulfillment integration and cancellation handling, seller validation/review | [API-based MCP products](https://docs.aws.amazon.com/marketplace/latest/userguide/integrating-api-ai-agents-tools.html) |

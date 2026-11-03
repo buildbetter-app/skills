@@ -3,8 +3,7 @@
 ## Purpose / Big Picture
 
 Deliver the [distribution spec](2026-11-02-marketplace-spec.md) as one reviewed
-source change in the public skills repo. The original developer checkout remains
-untouched; work uses an isolated persistent worktree.
+source change in the public skills repo.
 
 ### Work Plan
 
@@ -24,15 +23,14 @@ real archives and schema boundaries, then open the PR. No store submission occur
 - [x] (2026-11-02) Implement manifests, shared metadata, guide and builder.
 - [x] (2026-11-02) Validate schemas, archives, existing tests and generation drift.
 - [x] (2026-11-02) Prepare PR source and record remaining external gates.
+- [x] (2026-11-02) Complete independent public-package and provider reviews;
+  prepare the application packet and correct Google's example prompts.
 
 ## Surprises & Discoveries
 
 The Grok/Cursor package already exists. Google requires preview admission and a
 reviewed schema snapshot. Microsoft supports dynamic per-user MCP discovery.
 AWS requires seller/subscription integration even for marketplace preparation.
-The installed `grok` CLI is a third-party package with ERR_MODULE_NOT_FOUND, so it
-cannot establish official native-host acceptance. An interruption removed the
-first temporary checkout; the candidate was restored in a persistent worktree.
 The official Microsoft app schema caught an overlength short description. A
 regression assertion reproduced it before the description was shortened.
 
@@ -48,11 +46,14 @@ without a reproduced client compatibility failure.
 Implemented a reproducible public kit, remote-only Registry entry, shared/Google
 listing copy and a complete Microsoft 365 app builder. Reused the existing nine
 Grok/Cursor workflows. The public archive also carries the repository license.
-All 136 repository tests passed; the generated Grok package matched its maintained
+All 137 repository tests passed; the generated Grok package matched its maintained
 sources. Official JSON schemas passed for the Registry entry, Microsoft v2.4
 plugin, v1.6 agent and v1.22 application manifest. Microsoft validation used
 synthetic IDs and icons, establishing packaging only. Privacy and terms URLs
 returned HTTP 200 at their configured URLs.
+Two independent reviews found no material security or provider-contract issue.
+`distribution/APPLICATIONS.md` supplies copy-ready values, public OAuth discovery,
+application routes and specific missing inputs without storing review credentials.
 
 This source change is for PR review. No provider submission, agreement,
 installed-host acceptance, merge, deployment or public listing is claimed.
