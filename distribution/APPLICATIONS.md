@@ -5,6 +5,17 @@ receipts. Use the reviewed, merged revision when applying. The existing
 Grok/Cursor package is already on `main`; the new Registry/Microsoft materials
 must land before citing their default-branch URLs in an application.
 
+Build the prepared folders with:
+
+```sh
+python3 scripts/build_mcp_distribution.py --submissions --output artifacts/buildbetter-submissions.zip
+```
+
+Each platform folder contains a copy-ready `FORM.json` and applicable attachments.
+These drafts are not provider upload schemas. Required unknown fields remain
+null, with a concrete `missing_inputs` list. The archive has shared reviewer
+instructions and `SHA256SUMS`; no test IDs or credentials are substituted.
+
 ## Shared form values
 
 | Field | Value |
@@ -96,10 +107,10 @@ by Meta or by any new target platform.
 
 The existing public logo is
 [`buildbetter-app-icon.svg`](../plugins/buildbetter-grok/assets/buildbetter-app-icon.svg).
-It is not a substitute for required raster assets. Obtain the Google 512px icon
-and Microsoft 192px color/32px outline icons from approved brand artwork; verify
-their dimensions, visual appearance and background before upload. Test fixture
-icons and identifiers are never publisher assets.
+The bundle also includes the production app's [512px and 192px raster icons](assets/README.md)
+for Google and Microsoft's color icon. Supply Microsoft's 32px white outline PNG
+with transparent background separately, and verify all artwork before upload.
+Test fixture icons and identifiers are never publisher assets.
 
 Supply reviewer credentials privately through each platform's approved review
 channel. Designate a stable sample workspace with synthetic evidence, working

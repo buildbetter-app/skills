@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build public distribution or a registered Microsoft 365 app without network access."""
 import argparse
+import hashlib
 import importlib.util
 import json
 import os
@@ -17,6 +18,9 @@ PUBLIC_ENDPOINT = 'https://mcp.buildbetter.app'
 PUBLIC_FILES = (
     'LICENSE', 'server.json', '.cursor-plugin/marketplace.json', 'distribution/README.md',
     'distribution/APPLICATIONS.md',
+    'distribution/submissions.json', 'distribution/REVIEWER-INSTRUCTIONS.md',
+    'distribution/assets/README.md',
+    'distribution/assets/buildbetter-512.png', 'distribution/assets/buildbetter-192.png',
     'distribution/listing.json', 'distribution/google/listing.json',
     'distribution/microsoft365/declarativeAgent.json',
     'distribution/microsoft365/ai-plugin.template.json',
@@ -115,6 +119,62 @@ def copilot_files(args):
     }
 
 
+def submission_files():
+    public = distribution_files()
+    listing = json.loads(public['distribution/listing.json'])
+    applications = json.loads(public['distribution/submissions.json'])
+    index = '# BuildBetter prepared applications\n\n'
+    index += ('Each folder has a copy-ready FORM.json draft and its available attachments.\n'
+              'Forms are not provider upload schemas, submitted listings or approvals.\n'
+              'Complete every missing_inputs item before submitting. Null fields require\n'
+              'real publisher details; native-host QA and agreements remain separate.\n\n')
+    index += '\n'.join(f'- [{name}](platforms/{name}/FORM.json)' for name in applications)
+    index += ('\n\nRead REVIEWER-INSTRUCTIONS.md and ASSET-SOURCES.md.\n'
+              'Verify file integrity with: shasum -a 256 -c SHA256SUMS\n'
+              'Source: https://github.com/buildbetter-app/skills\n'
+              'Application guide: distribution/APPLICATIONS.md at the submitted revision.\n')
+    result = {
+        'README.md': index.encode('utf-8'),
+        'REVIEWER-INSTRUCTIONS.md': public['distribution/REVIEWER-INSTRUCTIONS.md'],
+        'ASSET-SOURCES.md': public['distribution/assets/README.md'],
+        'LICENSE': public['LICENSE'],
+    }
+    for platform, application in applications.items():
+        if not re.fullmatch(r'[a-z0-9-]+', platform):
+            raise ValueError('Invalid platform folder name')
+        prefix = f'platforms/{platform}/'
+        result[prefix + 'FORM.json'] = encoded({
+            'purpose': 'Application preparation; not a submitted or approved listing',
+            'application_url': application['application_url'],
+            'shared_fields': listing,
+            'platform_fields': application['fields'],
+            'missing_inputs': application['missing_inputs'],
+            'reviewer_instructions': '../../REVIEWER-INSTRUCTIONS.md',
+        })
+        if platform == 'mcp-registry':
+            result[prefix + 'server.json'] = public['server.json']
+        elif platform in ('cursor', 'grok'):
+            plugin_prefix = 'plugins/buildbetter-grok/'
+            for name, content in public.items():
+                if name.startswith(plugin_prefix):
+                    result[prefix + 'plugin/' + name[len(plugin_prefix):]] = content
+            result[prefix + 'plugin/LICENSE'] = public['LICENSE']
+            if platform == 'cursor':
+                result[prefix + 'marketplace.json'] = public['.cursor-plugin/marketplace.json']
+        elif platform == 'google':
+            result[prefix + 'LISTING.json'] = public['distribution/google/listing.json']
+            result[prefix + 'icon-512.png'] = png_icon(ROOT / 'distribution/assets/buildbetter-512.png', 512)
+        elif platform == 'microsoft365':
+            result[prefix + 'color-192.png'] = png_icon(ROOT / 'distribution/assets/buildbetter-192.png', 192)
+            for name in ('declarativeAgent.json', 'ai-plugin.template.json'):
+                result[prefix + name] = public['distribution/microsoft365/' + name]
+    result['SHA256SUMS'] = ''.join(
+        f'{hashlib.sha256(content).hexdigest()}  {name}\n'
+        for name, content in sorted(result.items())
+    ).encode('utf-8')
+    return result
+
+
 def write_archive(output, files):
     if any(part.is_symlink() for part in (output, *output.parents)):
         raise ValueError('Output cannot be a symlink or pass through one')
@@ -140,7 +200,9 @@ def write_archive(output, files):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'artifacts/mcp-distribution.zip')
-    parser.add_argument('--copilot', action='store_true', help='Build only the registered Microsoft app ZIP')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--copilot', action='store_true', help='Build only the registered Microsoft app ZIP')
+    mode.add_argument('--submissions', action='store_true', help='Prepare eight separate application folders')
     parser.add_argument('--copilot-app-id')
     parser.add_argument('--copilot-oauth-reference-id', help='Non-secret Developer Portal vault configuration ID')
     parser.add_argument('--copilot-color-icon', type=Path)
@@ -150,7 +212,8 @@ def main():
                                  args.copilot_color_icon, args.copilot_outline_icon)):
         parser.error('Copilot registration options require --copilot')
     try:
-        files = copilot_files(args) if args.copilot else distribution_files()
+        files = (copilot_files(args) if args.copilot else
+                 submission_files() if args.submissions else distribution_files())
         write_archive(args.output, files)
     except (ValueError, OSError, KeyError) as error:
         parser.error(str(error))

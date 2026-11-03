@@ -16,6 +16,7 @@ From the repository root:
 ```sh
 python3 scripts/build_grok_plugin.py --check
 python3 scripts/build_mcp_distribution.py --output artifacts/mcp-distribution.zip
+python3 scripts/build_mcp_distribution.py --submissions --output artifacts/buildbetter-submissions.zip
 python3 -m pytest tests/test_mcp_distribution.py tests/test_grok_plugin.py -q
 ```
 
@@ -24,6 +25,13 @@ entry, Registry manifest, shared listing copy, Google form copy and Microsoft
 templates. It excludes the private/CLI packages, hooks, tokens and local host
 settings. The Google JSON is copy for console fields, not a Google upload schema.
 The Microsoft template is deliberately unconfigured; it is not an installable app.
+
+The `--submissions` archive groups copy-ready `FORM.json` drafts and actual
+attachments into eight platform folders, with reviewer instructions and file
+checksums. These forms are preparation records, not provider upload schemas.
+Unknown owner/registration fields stay null and each draft lists missing inputs.
+It includes the production app's 512px and 192px PNG icons; see their
+[source and hashes](assets/README.md). Microsoft still needs a 32px white outline.
 
 For **grok.com**, open [Connectors](https://grok.com/connectors), choose New
 Connector → Custom, enter the production MCP URL and complete OAuth. This does
