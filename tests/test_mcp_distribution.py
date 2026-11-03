@@ -1,5 +1,6 @@
 """Exercise real archives, cross-file references and publisher-input failures."""
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import struct
@@ -70,6 +71,46 @@ def test_google_console_copy_meets_published_field_requirements():
     assert sum(prompt.startswith('@BuildBetter') for prompt in prompts) >= 2
     assert any('BuildBetter' in prompt and not prompt.startswith('@BuildBetter')
                for prompt in prompts)
+
+
+def test_submission_bundle_has_eight_separate_drafts_and_verified_file_hashes(tmp_path):
+    outputs = [tmp_path / 'submissions.zip', tmp_path / 'again.zip']
+    for output in outputs:
+        result = run('--submissions', '--output', output)
+        assert result.returncode == 0, result.stderr
+    assert outputs[0].read_bytes() == outputs[1].read_bytes()
+    expected = {'mcp-registry', 'cursor', 'grok', 'google', 'meta',
+                'microsoft365', 'salesforce', 'aws'}
+    with zipfile.ZipFile(outputs[0]) as archive:
+        forms = {name.split('/')[1]: json.loads(archive.read(name))
+                 for name in archive.namelist() if name.endswith('/FORM.json')}
+        assert set(forms) == expected
+        for form in forms.values():
+            assert form['purpose'] == 'Application preparation; not a submitted or approved listing'
+            assert form['missing_inputs']
+            assert form['shared_fields']['mcp_endpoint'] == 'https://mcp.buildbetter.app'
+        assert forms['meta']['platform_fields']['team_size'] is None
+        assert forms['microsoft365']['platform_fields']['app_id'] is None
+        assert 'platforms/mcp-registry/server.json' in archive.namelist()
+        assert 'platforms/cursor/plugin/.cursor-plugin/plugin.json' in archive.namelist()
+        assert 'platforms/grok/plugin/mcp.json' in archive.namelist()
+        google_icon = archive.read('platforms/google/icon-512.png')
+        microsoft_icon = archive.read('platforms/microsoft365/color-192.png')
+        assert struct.unpack('>II', google_icon[16:24]) == (512, 512)
+        assert len(google_icon) < 1_000_000
+        assert struct.unpack('>II', microsoft_icon[16:24]) == (192, 192)
+        assert not any(name.endswith('/manifest.json') for name in archive.namelist())
+        for line in archive.read('SHA256SUMS').decode().splitlines():
+            digest, name = line.split('  ', 1)
+            assert digest == hashlib.sha256(archive.read(name)).hexdigest()
+        assert len(archive.read('SHA256SUMS').decode().splitlines()) == len(archive.namelist()) - 1
+
+
+def test_submission_and_installable_copilot_modes_cannot_be_combined(tmp_path):
+    output = tmp_path / 'no.zip'
+    result = run('--submissions', '--copilot', '--output', output)
+    assert result.returncode != 0
+    assert not output.exists()
 
 
 def test_copilot_zip_has_registered_oauth_and_working_cross_file_references(tmp_path):

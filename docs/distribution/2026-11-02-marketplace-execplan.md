@@ -25,6 +25,8 @@ real archives and schema boundaries, then open the PR. No store submission occur
 - [x] (2026-11-02) Prepare PR source and record remaining external gates.
 - [x] (2026-11-02) Complete independent public-package and provider reviews;
   prepare the application packet and correct Google's example prompts.
+- [x] (2026-11-02) Build separate application folders for all eight providers,
+  add reviewer instructions, verified public PNG artwork and file checksums.
 
 ## Surprises & Discoveries
 
@@ -46,7 +48,7 @@ without a reproduced client compatibility failure.
 Implemented a reproducible public kit, remote-only Registry entry, shared/Google
 listing copy and a complete Microsoft 365 app builder. Reused the existing nine
 Grok/Cursor workflows. The public archive also carries the repository license.
-All 137 repository tests passed; the generated Grok package matched its maintained
+All 139 repository tests passed; the generated Grok package matched its maintained
 sources. Official JSON schemas passed for the Registry entry, Microsoft v2.4
 plugin, v1.6 agent and v1.22 application manifest. Microsoft validation used
 synthetic IDs and icons, establishing packaging only. Privacy and terms URLs
@@ -54,6 +56,10 @@ returned HTTP 200 at their configured URLs.
 Two independent reviews found no material security or provider-contract issue.
 `distribution/APPLICATIONS.md` supplies copy-ready values, public OAuth discovery,
 application routes and specific missing inputs without storing review credentials.
+The `--submissions` ZIP contains eight copy-ready form drafts and applicable
+attachments. Its 70 files include public 512px/192px app icons, maintained
+Grok/Cursor packages, reviewer instructions and checksums. Null fields identify
+real publisher/registration inputs; the Microsoft outline icon remains required.
 
 This source change is for PR review. No provider submission, agreement,
 installed-host acceptance, merge, deployment or public listing is claimed.

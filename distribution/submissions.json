@@ -1,0 +1,123 @@
+{
+  "mcp-registry": {
+    "application_url": "https://modelcontextprotocol.io/registry/authentication",
+    "fields": {
+      "server_name": "io.github.buildbetter-app/buildbetter",
+      "entry_version": "0.1.0",
+      "publication_file": "server.json",
+      "authentication_method": "GitHub organization namespace authorization"
+    },
+    "missing_inputs": ["Merged source revision", "Publisher device OAuth authorization", "Exact-name/version availability check and publication authorization"]
+  },
+  "cursor": {
+    "application_url": "https://cursor.com/marketplace/publish",
+    "fields": {
+      "repository_url": "https://github.com/buildbetter-app/skills",
+      "plugin_path": "plugins/buildbetter-grok",
+      "marketplace_manifest_path": ".cursor-plugin/marketplace.json",
+      "plugin_name": "buildbetter",
+      "category_suggestion": "Productivity / customer research",
+      "publisher_account": null,
+      "walkthrough_url": null
+    },
+    "missing_inputs": ["Publisher sign-in", "Native Cursor install, OAuth and evidence-backed tool-call QA", "Sanitized screenshots/walkthrough requested by the form"]
+  },
+  "grok": {
+    "application_url": "https://grok.com/connectors",
+    "fields": {
+      "connector_type": "Custom remote MCP",
+      "mcp_url": "https://mcp.buildbetter.app",
+      "authentication": "Per-user OAuth",
+      "catalog_interest": "We would like to apply to list BuildBetter's customer-research MCP connector. Please confirm the public-catalog admission and review process.",
+      "public_catalog_application_url": null
+    },
+    "missing_inputs": ["Official Grok native connection/tool-call QA", "Team administrator provisioning if using Business/Enterprise", "Confirmed public-catalog application route; custom connection is not a public submission"]
+  },
+  "google": {
+    "application_url": "https://connected.google.com",
+    "fields": {
+      "connection_type": "MCP server",
+      "listing_copy_file": "LISTING.json",
+      "authorization_model": "User-delegated authorization code",
+      "registration_preference": "Dynamic client registration, after native verification",
+      "icon_file": "icon-512.png",
+      "additional_location_context": "None requested",
+      "category": null,
+      "verification_tokens": null,
+      "countries_and_languages": null,
+      "reviewer_access": null
+    },
+    "missing_inputs": ["Connected Console access and owner-accepted agreement", "Intentional immutable category and availability choices", "Domain challenge and verified redirect registration", "Private reviewer account and authenticated tool sync/Gemini QA"]
+  },
+  "meta": {
+    "application_url": "https://dev.meta.ai/products/connectors",
+    "fields": {
+      "first_name": null,
+      "last_name": null,
+      "work_email": null,
+      "company_name": "BuildBetter",
+      "company_website": "https://buildbetter.ai",
+      "role": null,
+      "team_size": null,
+      "industry_suggestion": "SaaS & Cloud Services",
+      "live_rest_api_status": null,
+      "protocol": "Other: MCP over Streamable HTTP",
+      "api_documentation": "https://github.com/buildbetter-app/skills/tree/main/plugins/buildbetter-grok",
+      "product_description": "BuildBetter helps teams research customer feedback, support conversations, recordings, surveys and connected product analytics, with source citations and permissioned workspace access.",
+      "interest": ["Reaching new users through Meta AI", "Increasing engagement or retention with existing customers"],
+      "target_surfaces_suggestion": ["Meta AI app and web"],
+      "additional_goals": "We already operate a hosted MCP endpoint with per-user OAuth and maintain a public integration package. We want to validate connector compatibility and apply for the supported catalog route. Native Meta acceptance has not yet been tested.",
+      "product_link": "https://buildbetter.ai",
+      "start_timeframe": null,
+      "optional_marketing_consent": false
+    },
+    "missing_inputs": ["Applicant name, work email and role", "Current team-size range and API-status answer", "Owner-selected start timeframe and target surfaces", "Form review and submission authorization"]
+  },
+  "microsoft365": {
+    "application_url": "https://partner.microsoft.com/dashboard",
+    "fields": {
+      "name": "BuildBetter",
+      "short_description": "Research customer feedback, surveys and product usage with source citations.",
+      "app_id": null,
+      "oauth_vault_reference_id": null,
+      "oauth_authorization_endpoint": "https://mcp.buildbetter.app/authorize",
+      "oauth_token_endpoint": "https://mcp.buildbetter.app/token",
+      "oauth_resource": "https://mcp.buildbetter.app",
+      "oauth_scopes": null,
+      "color_icon_file": "color-192.png",
+      "supported_experiences": null,
+      "offer_type": null,
+      "package_note": "Templates only. Generate the installable ZIP with --copilot after real registration and publisher icons are supplied."
+    },
+    "missing_inputs": ["Publisher enrollment and supported offer type", "Actual app UUID, OAuth vault reference, verified scopes and callback", "32px white transparent outline brand icon", "Tenant sideload/OAuth/tool-call QA, screenshots and private reviewer access"]
+  },
+  "salesforce": {
+    "application_url": "https://partners.salesforce.com",
+    "fields": {
+      "listing_title": "BuildBetter Customer Research",
+      "solution_type": null,
+      "value_proposition": "Investigate customer requests, support themes, survey feedback and connected product usage using permissioned source evidence from BuildBetter.",
+      "integration_interface": "Hosted remote MCP with per-user OAuth",
+      "existing_slack_listing_equivalence": "Not assumed",
+      "reviewer_access": null,
+      "walkthrough_url": null
+    },
+    "missing_inputs": ["Partner Console access and supported solution registration", "External-MCP/Agentforce auth and execution QA", "Required listing assets, applicable security review and private reviewer access"]
+  },
+  "aws": {
+    "application_url": "https://aws.amazon.com/marketplace/management/",
+    "fields": {
+      "product_title": "BuildBetter MCP",
+      "product_type": "Remote MCP server",
+      "category_suggestion": "AI Agents & Tools",
+      "commercial_model": null,
+      "pricing": null,
+      "fulfillment_method": null,
+      "customer_requirements": "A BuildBetter account, authorized workspace and the applicable product entitlements are required.",
+      "usage_instructions": "Configure a remote Streamable HTTP MCP connection to https://mcp.buildbetter.app, complete per-user OAuth, discover tools and use the schemas returned for your workspace. On 401 reconnect through OAuth; on 403 verify access; on 429 honor backoff. Do not configure shared service-account tokens or API keys in URLs.",
+      "subscription_integration_status": "Not established by this source package",
+      "reviewer_access": null
+    },
+    "missing_inputs": ["Seller access and owner-selected commercial model", "Buyer registration/fulfillment and subscription/cancellation handling", "Any selected QuickLaunch credential-delivery integration", "Seller validation, listing assets and private reviewer access"]
+  }
+}
