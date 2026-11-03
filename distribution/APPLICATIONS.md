@@ -140,6 +140,13 @@ Do not attach reviewer credentials to general-interest or support requests.
 
 ## Submission order and receipts
 
+The official Registry's interactive GitHub login currently cannot verify
+organization ownership. For `io.github.buildbetter-app/buildbetter`, use the
+manual **Publish MCP Registry** GitHub Actions workflow on `main`. It uses the
+Registry's recommended GitHub OIDC authentication, a version-pinned publisher
+with a fixed SHA-256 check, and no personal access token. Run it only when the
+entry version is ready to publish, then save the Registry API readback.
+
 After source review/merge and publication authorization, publish the Registry
 entry and complete Cursor/Grok native QA first. Prepare the Google, Meta and
 Microsoft applications in their owner accounts. Resolve AWS/Salesforce partner

@@ -1,0 +1,53 @@
+name: Publish MCP Registry
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-mcp-registry
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Download verified publisher
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          curl --fail --location --silent --show-error \
+            --output mcp-publisher.tar.gz \
+            https://github.com/modelcontextprotocol/registry/releases/download/v1.8.7/mcp-publisher_linux_amd64.tar.gz
+          printf '%s  %s\n' \
+            00b21004149a4ce66f0782508ae4a2bce67d1bea395a8da0bd8028159fb59579 \
+            mcp-publisher.tar.gz | sha256sum --check --strict
+          tar xzf mcp-publisher.tar.gz mcp-publisher
+
+      - name: Validate and publish reviewed catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir "$RUNNER_TEMP/registry-auth"
+          cd "$RUNNER_TEMP/registry-auth"
+          "$RUNNER_TEMP/mcp-publisher" validate "$GITHUB_WORKSPACE/server.json"
+          "$RUNNER_TEMP/mcp-publisher" login github-oidc
+          "$RUNNER_TEMP/mcp-publisher" publish "$GITHUB_WORKSPACE/server.json"
+
+      - name: Remove publisher authentication
+        if: always()
+        shell: bash
+        run: rm -rf -- "$RUNNER_TEMP/registry-auth"
