@@ -1,0 +1,4 @@
+interface:
+  display_name: "BuildBetter Customer Issue Triage"
+  short_description: "Triage CUS issues with evidence-first follow-through"
+  default_prompt: "Use $buildbetter-customer-issue-triage to investigate CUS-1234, gather evidence, resolve or route it, and publish the customer-safe handoff."

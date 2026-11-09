@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "slug": "buildbetter-quality-testing",
+  "name": "Quality & Testing",
+  "description": "Map application behavior, generate reusable browser tests, and verify implemented experiences.",
+  "skills": [
+    "skills/testing/app-navigator",
+    "skills/testing/generate-tests",
+    "skills/testing/trust-but-verify"
+  ]
+}

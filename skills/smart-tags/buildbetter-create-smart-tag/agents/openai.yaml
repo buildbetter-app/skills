@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create BuildBetter Smart Tag"
+  short_description: "Create a grouped, evaluated Smart Tag"
+  default_prompt: "Use $buildbetter-create-smart-tag to select a group and create and test a Smart Tag from my criteria."

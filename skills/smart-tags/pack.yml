@@ -1,0 +1,10 @@
+name: smart-tags
+display_name: "Smart Tags"
+description: "Create, evaluate, backfill, and improve BuildBetter Smart Tags through the BuildBetter MCP server"
+version: "1.0.0"
+skills:
+  - buildbetter-create-smart-tag
+  - buildbetter-backfill-smart-tag
+  - buildbetter-review-improve-smart-tag
+dependencies:
+  - core

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "slug": "buildbetter-product-engineering",
+  "name": "Product & Engineering",
+  "description": "Plan, specify, analyze, implement, and review product and engineering work.",
+  "skills": [
+    "skills/spec-workflow/bb-specify",
+    "skills/spec-workflow/bb-clarify",
+    "skills/spec-workflow/bb-constitution",
+    "skills/spec-workflow/bb-plan",
+    "skills/spec-workflow/bb-tasks",
+    "skills/spec-workflow/bb-analyze",
+    "skills/spec-workflow/bb-checklist",
+    "skills/spec-workflow/bb-implement",
+    "skills/spec-workflow/bb-review"
+  ]
+}

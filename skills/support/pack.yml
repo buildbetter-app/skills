@@ -1,0 +1,8 @@
+name: support
+display_name: "Customer Support"
+description: "Triage, investigate, and resolve customer issues with evidence and customer-safe handoffs"
+version: "1.0.0"
+skills:
+  - buildbetter-customer-issue-triage
+dependencies:
+  - core

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "slug": "buildbetter-workspace-operations",
+  "name": "BuildBetter Workspace Operations",
+  "description": "Navigate BuildBetter, govern Smart Tags, and triage product work with explicit safety boundaries.",
+  "skills": [
+    "plugins/buildbetter-codex/skills/buildbetter",
+    "plugins/buildbetter-codex/skills/buildbetter-smart-tags",
+    "plugins/buildbetter-codex/skills/buildbetter-project-triage",
+    "skills/smart-tags/buildbetter-create-smart-tag",
+    "skills/smart-tags/buildbetter-backfill-smart-tag",
+    "skills/smart-tags/buildbetter-review-improve-smart-tag"
+  ]
+}

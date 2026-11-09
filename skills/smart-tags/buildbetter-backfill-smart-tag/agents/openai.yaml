@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backfill BuildBetter Smart Tag"
+  short_description: "Preview credits and backfill a Smart Tag"
+  default_prompt: "Use $buildbetter-backfill-smart-tag to preview and safely backfill this Smart Tag."

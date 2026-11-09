@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "slug": "buildbetter-bob-podcasts",
+  "name": "BOB Podcasts",
+  "description": "Turn what BOB found into short two-host audio episodes, with one show for each audience.",
+  "featureFlag": "scout",
+  "skills": [
+    {
+      "path": "bob/skills/podcast-episode",
+      "name": "Make a podcast episode"
+    },
+    {
+      "path": "bob/skills/podcast-show-personal-brief",
+      "name": "Podcast show: My morning brief"
+    },
+    {
+      "path": "bob/skills/podcast-show-product-engineering",
+      "name": "Podcast show: Product and engineering"
+    },
+    {
+      "path": "bob/skills/podcast-show-customer-success",
+      "name": "Podcast show: Customer success"
+    },
+    {
+      "path": "bob/skills/podcast-show-leadership",
+      "name": "Podcast show: Leadership weekly"
+    },
+    {
+      "path": "bob/skills/podcast-show-sales",
+      "name": "Podcast show: Sales"
+    }
+  ]
+}

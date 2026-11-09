@@ -108,6 +108,8 @@ bb-skills install trust-but-verify
 | `core` | bb-skills-update | Update checker (auto-included) |
 | `spec-workflow` | bb-specify, bb-plan, bb-review, bb-tasks, bb-clarify, bb-analyze, bb-checklist, bb-constitution, bb-implement | BuildBetter-enriched spec-driven development |
 | `testing` | app-navigator, trust-but-verify, generate-tests | Browser-based verification and Playwright test generation |
+| `smart-tags` | buildbetter-create-smart-tag, buildbetter-backfill-smart-tag, buildbetter-review-improve-smart-tag | Create, evaluate, backfill, and improve BuildBetter Smart Tags |
+| `support` | buildbetter-customer-issue-triage | Evidence-backed customer issue triage and handoff |
 
 ## Platform support
 
@@ -150,6 +152,25 @@ bb-skills install trust-but-verify
 | [app-navigator](skills/testing/app-navigator/) | Map application routes, pages, and components for UI/UX audit |
 | [trust-but-verify](skills/testing/trust-but-verify/) | Verify UI/UX and functionality match the original plan |
 | [generate-tests](skills/testing/generate-tests/) | Generate reusable Playwright test files from the app map |
+
+### smart-tags
+
+| Skill | Description |
+|-------|-------------|
+| [buildbetter-create-smart-tag](skills/smart-tags/buildbetter-create-smart-tag/) | Create or configure a Smart Tag and run a bounded evaluation |
+| [buildbetter-backfill-smart-tag](skills/smart-tags/buildbetter-backfill-smart-tag/) | Preview and run a bounded Smart Tag backfill |
+| [buildbetter-review-improve-smart-tag](skills/smart-tags/buildbetter-review-improve-smart-tag/) | Review evaluation cases and run a prompt-improvement regression |
+
+### support
+
+| Skill | Description |
+|-------|-------------|
+| [buildbetter-customer-issue-triage](skills/support/buildbetter-customer-issue-triage/) | Triage, investigate, resolve, and communicate customer issues |
+
+## BuildBetter workspaces
+
+Every BuildBetter workspace mirrors the Skill Sets defined in [`skillsets/`](skillsets/README.md).
+A merge to `main` updates them everywhere, so skill changes here need PR review.
 
 ## BuildBetter integration
 
