@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review BuildBetter Smart Tag"
+  short_description: "Review evals and improve tag accuracy"
+  default_prompt: "Use $buildbetter-review-improve-smart-tag to review these Smart Tag predictions and improve the prompt."
