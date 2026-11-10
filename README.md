@@ -169,8 +169,12 @@ bb-skills install trust-but-verify
 
 ## BuildBetter workspaces
 
-Every BuildBetter workspace mirrors the Skill Sets defined in [`skillsets/`](skillsets/README.md).
-A merge to `main` updates them everywhere, so skill changes here need PR review.
+Every BuildBetter workspace gets this repository as a GitHub Skill Set source
+(Mirror mode): one "BuildBetter Skills" Skill Set whose folders follow this
+repository. `plugins/buildbetter-claude`, `plugins/buildbetter-grok`,
+`plugins/skills`, `skills/core` and `skills/support` are left out, and
+`bob/skills` reaches only workspaces with BOB. A merge to `main` updates every
+workspace, so skill changes here need PR review.
 
 ## BuildBetter integration
 
