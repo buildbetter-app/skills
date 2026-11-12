@@ -169,6 +169,8 @@ bb-skills install trust-but-verify
 
 ## BuildBetter workspaces
 
+Synced into BuildBetter workspaces as "BuildBetter Skills".
+
 Every BuildBetter workspace gets this repository as a GitHub Skill Set source
 (Mirror mode): one "BuildBetter Skills" Skill Set whose folders follow this
 repository. `plugins/buildbetter-claude`, `plugins/buildbetter-grok`,
