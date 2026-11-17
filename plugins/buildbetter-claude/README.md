@@ -28,4 +28,4 @@ If the MCP server shows as unauthenticated, run `/mcp` in Claude Code and comple
 
 ## Directory metadata
 
-Version 0.6.2 includes the BuildBetter privacy-policy URL and a 1024-pixel square PNG icon for Claude directory validation. The PNG is a raster copy of the existing BuildBetter logo. Anthropic may retain the existing listing icon after its first submission; changing the packaged icon does not guarantee a listing-icon update.
+Version 0.6.3 removes the local installer script so the package stays within Anthropic directory file-policy limits. It retains the BuildBetter privacy-policy URL and 1024-pixel square PNG icon for Claude directory validation. The PNG is a raster copy of the existing BuildBetter logo. Anthropic may retain the existing listing icon after its first submission; changing the packaged icon does not guarantee a listing-icon update.
