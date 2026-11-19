@@ -199,3 +199,31 @@ def test_api_first_falls_back_to_mcp_when_api_has_no_success(monkeypatch):
     assert payload["metadata"]["sources_used"] == ["api", "mcp"]
     assert payload["evidence"]
     assert any(item["evidence_id"] == "BB-EXTRACTION-303" for item in payload["evidence"])
+
+
+def test_parse_kv_config_returns_empty_dict_for_missing_path(tmp_path):
+    module = _load_script_module()
+
+    assert module.parse_kv_config(tmp_path / "missing.env") == {}
+
+
+def test_parse_kv_config_skips_invalid_lines_and_normalizes_values(tmp_path):
+    module = _load_script_module()
+    config_path = tmp_path / "config.env"
+    config_path.write_text(
+        "\n"
+        " # comment with = ignored\n"
+        "not-a-setting\n"
+        "=missing-key\n"
+        " spaced_key =  quoted value  \n"
+        "double_quoted = \"value=with=equals\"\n"
+        "single_quoted = ' value ' \n"
+        "spaced_key=last value\n",
+        encoding="utf-8",
+    )
+
+    assert module.parse_kv_config(config_path) == {
+        "spaced_key": "last value",
+        "double_quoted": "value=with=equals",
+        "single_quoted": " value ",
+    }
